@@ -147,15 +147,15 @@
 }
 
 /* =========================================================
-   SELECT
+   INPUT
 ========================================================= */
 
-/* 下拉框 */
-.filter-group select {
+/* 输入框 */
+.filter-group input {
 
   width: 220px; /* 固定宽度 */
 
-  min-height: 52px; /* 防止裁切 */
+  min-height: 52px; /* 输入框高度 */
 
   padding: 0 16px; /* 左右内边距 */
 
@@ -163,11 +163,11 @@
 
   border: 1px solid rgba(255,255,255,.12); /* 半透明边框 */
 
-  outline: none; /* 去蓝框 */
+  outline: none; /* 去掉默认蓝色外框 */
 
   background: rgba(20,20,32,.95); /* 深色背景 */
 
-  color: white; /* 白字 */
+  color: white; /* 输入文字颜色 */
 
   font-size: 15px; /* 字体大小 */
 
@@ -185,13 +185,20 @@
   transition: .25s ease; /* 动画 */
 }
 
-/* focus */
-.filter-group select:focus {
+/* 输入框提示文字 */
+.filter-group input::placeholder {
 
-  border-color: #a855f7; /* 紫色边框 */
+  color: rgba(255,255,255,.45); /* placeholder 颜色 */
+}
+
+/* 输入框聚焦 */
+.filter-group input:focus {
+
+  border-color: #a855f7; /* 聚焦时紫色边框 */
 
   box-shadow:
-    0 0 0 4px rgba(168,85,247,.16); /* 发光 */
+    0 0 0 4px rgba(168,85,247,.16),
+    inset 0 0 0 1px rgba(255,255,255,.05); /* 聚焦发光 */
 }
 
 /* =========================================================
@@ -258,8 +265,10 @@
   display: grid; /* grid布局 */
 
   grid-template-columns:
-    repeat(auto-fit,minmax(240px,1fr)); /* 自适应 */
+    repeat(auto-fit,minmax(240px,280px)); /* 自适应 */
 
+  justify-content: center;
+  
   gap: 26px; /* 卡片间距 */
 }
 

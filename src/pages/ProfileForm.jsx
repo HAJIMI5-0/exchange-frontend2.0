@@ -9,39 +9,28 @@ function ProfileForm({
 }) {
   return (
     <div className="profile-form">
+
       <input
         type="file"
         accept="image/*"
         onChange={onAvatarUpload}
       />
 
-      <input
-        name="username"
-        placeholder={text.username}
-        value={profile.username}
-        onChange={onChange}
-      />
+      <div className="profile-form-row-group">
+        <input
+          name="username"
+          placeholder={text.username || '用户名'}
+          value={profile.username}
+          onChange={onChange}
+        />
 
-      <input
-        name="phone"
-        placeholder={text.phone}
-        value={profile.phone}
-        onChange={onChange}
-      />
-
-      <input
-        name="email"
-        placeholder={text.email}
-        value={profile.email}
-        onChange={onChange}
-      />
-
-      <input
-        name="address"
-        placeholder={text.address}
-        value={profile.address}
-        onChange={onChange}
-      />
+        <input
+          name="age"
+          placeholder={text.age || '年龄'}
+          value={profile.age}
+          onChange={onChange}
+        />
+      </div>
 
       <select
         name="gender"
@@ -54,10 +43,33 @@ function ProfileForm({
         <option value="other">{text.other || '其他'}</option>
       </select>
 
+      <div className="profile-form-row-group">
+        <input
+          name="phone"
+          placeholder={text.phone || '电话'}
+          value={profile.phone}
+          onChange={onChange}
+        />
+
+        <input
+          name="nationality"
+          placeholder={text.nationality || '国籍'}
+          value={profile.nationality || ''}
+          onChange={onChange}
+        />
+      </div>
+
       <input
-        name="age"
-        placeholder={text.age || '年龄'}
-        value={profile.age}
+        name="email"
+        placeholder={text.email || '邮箱'}
+        value={profile.email}
+        onChange={onChange}
+      />
+
+      <input
+        name="address"
+        placeholder={text.address || '地址'}
+        value={profile.address}
         onChange={onChange}
       />
 
@@ -76,7 +88,7 @@ function ProfileForm({
       />
 
       <div className="profile-actions">
-        <button onClick={onSave} disabled={uploading}>
+        <button type="button" onClick={onSave} disabled={uploading}>
           {uploading ? (text.uploading || '上传中...') : (text.save || '保存')}
         </button>
 

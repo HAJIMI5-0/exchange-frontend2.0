@@ -145,7 +145,16 @@ const [lang, setLang] = useState(() => {
         <Route path="/board" element={<Board />} />             {/* 告示板 */}
         <Route path="/login" element={<Login text={text} setUser={setUser} />} />  {/* 登录 */}
         <Route path="/register" element={<Register text={text} />} />  {/* 注册 */}
-        <Route path="/profile"element={<Profile text={text} user={user} setUser={setUser}  lang={lang}/>} />  {/* 个人页面 */}
+        <Route
+          path="/profile"
+          element={
+          <Profile key={`${user?.username || 'guest'}-${lang}`}
+          text={text}
+          user={user}
+          setUser={setUser}
+          lang={lang}
+        />
+      }/>  {/* 个人页面 */}
       </Routes>
     </div>
   )

@@ -40,6 +40,7 @@ const messages = {
     female: '女',
     other: '其他',
     age: '年龄',
+    nationality: '国籍',
     teachSkill: '擅长的技能',
     learnSkill: '想学习的技能',
 
@@ -97,6 +98,7 @@ const messages = {
     female: 'Female',
     other: 'Other',
     age: 'Age',
+    nationality: 'Nationality',
     teachSkill: 'Skills you can teach',
     learnSkill: 'Skills you want to learn',
 
@@ -154,6 +156,7 @@ const messages = {
     female: '여자',
     other: '기타',
     age: '나이',
+    nationality: '국적',
     teachSkill: '가르칠 수 있는 기술',
     learnSkill: '배우고 싶은 기술',
 

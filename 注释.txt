@@ -28,7 +28,10 @@ Chat.jsx —— 聊天页面 | Chat page
 Login.jsx —— 登录页面 | Login page
 Register.jsx —— 注册页面 | Register page
 Profile.jsx —— 个人页面 | Profile page
+ProfileForm.jsx —— 编辑个人信息 | Edit personal information
+ProfileInfo.jsx —— 显示个人信息 | Display personal information
 Board.jsx —— 告示板页面 | Board page
+
 
 styles —— 样式目录 | Styles
 App.css —— 主样式 | Main layout styles

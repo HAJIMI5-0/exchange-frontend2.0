@@ -47,6 +47,10 @@ function Chat({ text }) {
 
   const [newMessage, setNewMessage] = useState("")
 
+  const [isAiLoading, setIsAiLoading] = useState(false)
+
+  const [aiSuggestion, setAiSuggestion] = useState("")
+
   /* ===== 메시지 전송 ===== */
 
   const handleSendMessage = () => {
@@ -84,7 +88,44 @@ function Chat({ text }) {
     setSelectedChat(updatedSelectedChat)
 
     setNewMessage("")
+
+    setAiSuggestion("")
   }
+
+  /* ===== AI 메시지 추천 ===== */
+
+const handleAiSuggest = async () => {
+
+  setIsAiLoading(true)
+
+  try {
+
+    const res = await fetch('http://10.30.4.139:8080/api/chat/ai-suggest', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: newMessage,
+        partner: selectedChat.user
+      })
+    })
+
+    const data = await res.json()
+
+    if (data.success) {
+      setAiSuggestion(data.suggestion)
+    } else {
+      setAiSuggestion('AI 추천 생성에 실패했습니다.')
+    }
+
+  } catch (err) {
+    console.log('AI 추천 실패', err)
+    setAiSuggestion('AI 서버 연결에 실패했습니다.')
+  } finally {
+    setIsAiLoading(false)
+  }
+}
 
   return (
     <div className="chat-page">
@@ -118,7 +159,10 @@ function Chat({ text }) {
                   ? 'active-chat'
                   : ''
               }`}
-              onClick={() => setSelectedChat(chat)}
+              onClick={() => {
+                setSelectedChat(chat)
+                setAiSuggestion("")
+              }}
             >
 
               <div className="chat-avatar">
@@ -185,6 +229,27 @@ function Chat({ text }) {
 
           ))}
 
+          {/* ===== AI Suggestion ===== */}
+
+          {aiSuggestion && (
+
+            <div
+              className="ai-suggestion-box"
+              onClick={() => setNewMessage(aiSuggestion)}
+            >
+
+              <p className="ai-label">
+                ✨ AI Suggestion
+              </p>
+
+              <p>
+                {aiSuggestion}
+              </p>
+
+            </div>
+
+          )}
+
         </div>
 
         {/* ===== Input Area ===== */}
@@ -208,6 +273,16 @@ function Chat({ text }) {
               }
             }}
           />
+
+          {/* ===== AI Button ===== */}
+
+          <button
+            className="ai-btn"
+            onClick={handleAiSuggest}
+            disabled={isAiLoading}
+          >
+            {isAiLoading ? 'AI...' : '✨ AI'}
+          </button>
 
           <button
             className="send-btn"

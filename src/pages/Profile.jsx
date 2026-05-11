@@ -22,7 +22,8 @@ function Profile({ text, user, setUser, lang = 'zh' }) {
 
   const [translatedInfo, setTranslatedInfo] = useState({
     teachSkill: '',
-    learnSkill: ''
+    learnSkill: '',
+    nationality: ''
   })
 
   const [profile, setProfile] = useState({
@@ -34,6 +35,7 @@ function Profile({ text, user, setUser, lang = 'zh' }) {
     avatar: '',
     gender: '',
     age: '',
+    nationality: '',
     teachSkill: '',
     learnSkill: ''
   })
@@ -57,6 +59,7 @@ function Profile({ text, user, setUser, lang = 'zh' }) {
           avatar: data.avatar || user.avatar || '',
           gender: data.gender || '',
           age: data.age || '',
+          nationality: data.nationality || '',
           teachSkill: data.teachSkill || '',
           learnSkill: data.learnSkill || ''
         }
@@ -87,10 +90,12 @@ function Profile({ text, user, setUser, lang = 'zh' }) {
     const translateProfileInfo = async () => {
       const translatedTeachSkill = await translateText(profile.teachSkill, lang)
       const translatedLearnSkill = await translateText(profile.learnSkill, lang)
+      const translatedNationality = await translateText(profile.nationality, lang)
 
       setTranslatedInfo({
         teachSkill: translatedTeachSkill,
-        learnSkill: translatedLearnSkill
+        learnSkill: translatedLearnSkill,
+        nationality: translatedNationality
       })
     }
 
@@ -154,6 +159,7 @@ function Profile({ text, user, setUser, lang = 'zh' }) {
         avatar: data.avatar || profile.avatar,
         gender: data.gender || profile.gender,
         age: data.age || profile.age,
+        nationality: data.nationality || profile.nationality,
         teachSkill: data.teachSkill || profile.teachSkill,
         learnSkill: data.learnSkill || profile.learnSkill
       }
@@ -204,8 +210,8 @@ function Profile({ text, user, setUser, lang = 'zh' }) {
         <div className="profile-top">
           <img
             src={profile.avatar && profile.avatar.trim() ? profile.avatar : defaultAvatar}
-            alt="avatar"
-            className="profile-avatar"
+            alt={'avatar'}
+            className={'profile-avatar'}
             onError={(e) => {
               e.target.src = defaultAvatar
             }}

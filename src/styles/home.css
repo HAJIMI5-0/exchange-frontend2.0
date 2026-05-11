@@ -1,12 +1,38 @@
 /* =========================================================
    HOME PAGE
    2026 AI Startup Glass UI
+   首页样式（AI创业风格玻璃拟态）
 ========================================================= */
 
-/* ===== 首页主区域 ===== */
+
+/* =========================================================
+   全局样式
+========================================================= */
+
+body {
+
+  margin: 0; /* 去掉默认外边距 */
+
+  padding: 0; /* 去掉默认内边距 */
+
+  background: #050816; /* 整体深色背景 */
+
+  font-family:
+    Inter,
+    Pretendard,
+    sans-serif; /* 字体优先级 */
+
+  overflow-x: hidden; /* 禁止横向滚动 */
+}
+
+
+/* =========================================================
+   HERO 首屏区域
+========================================================= */
+
 .hero {
 
-  display: flex; /* flex布局 */
+  display: flex; /* 弹性布局 */
 
   flex-direction: column; /* 垂直排列 */
 
@@ -14,223 +40,339 @@
 
   align-items: center; /* 水平居中 */
 
-  min-height: calc(100vh - 120px); /* 页面高度 */
+  min-height: calc(100vh - 120px); /* 占满屏幕高度 */
 
   padding: 80px 20px; /* 内边距 */
 
-  position: relative; /* 相对定位 */
+  position: relative; /* 用于光效定位 */
 
-  overflow: hidden; /* 超出隐藏 */
+  overflow: hidden; /* 隐藏溢出光效 */
 
   text-align: center; /* 文字居中 */
 
-  box-sizing: border-box; /* 防止padding撑大 */
+  box-sizing: border-box;
 
+  /* 背景：渐变 + 光效 */
   background:
-    radial-gradient(
-      circle at top left,
-      rgba(168,85,247,.22),
-      transparent 32%
-    ),
-    radial-gradient(
-      circle at bottom right,
-      rgba(59,130,246,.18),
-      transparent 30%
-    ),
-    linear-gradient(
-      135deg,
-      #0b0b12 0%,
-      #151522 45%,
-      #09090f 100%
-    ); /* AI Startup渐变背景 */
+    radial-gradient(circle at top left, rgba(168,85,247,.22), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(59,130,246,.18), transparent 30%),
+    linear-gradient(135deg, #0b0b12 0%, #151522 45%, #09090f 100%);
 
-  color: white; /* 默认白字 */
+  color: white; /* 字体颜色 */
 }
 
-/* ===== 左上紫色光晕 ===== */
+
+/* 左上光效 */
 .hero::before {
 
-  content: ""; /* 伪元素 */
+  content: "";
 
-  position: absolute; /* 绝对定位 */
+  position: absolute;
 
-  top: -140px; /* 顶部偏移 */
+  top: -140px;
 
-  left: -120px; /* 左侧偏移 */
+  left: -120px;
 
-  width: 340px; /* 光晕宽度 */
+  width: 340px;
 
-  height: 340px; /* 光晕高度 */
+  height: 340px;
 
-  background:
-    radial-gradient(
-      circle,
-      rgba(168,85,247,.28),
-      transparent 70%
-    ); /* 紫色光效 */
+  background: radial-gradient(circle, rgba(168,85,247,.28), transparent 70%);
 
   pointer-events: none; /* 不影响点击 */
 }
 
-/* ===== 右下蓝色光晕 ===== */
+
+/* 右下光效 */
 .hero::after {
 
-  content: ""; /* 伪元素 */
+  content: "";
 
-  position: absolute; /* 绝对定位 */
+  position: absolute;
 
-  bottom: -160px; /* 底部偏移 */
+  bottom: -160px;
 
-  right: -120px; /* 右侧偏移 */
+  right: -120px;
 
-  width: 360px; /* 光晕宽度 */
+  width: 360px;
 
-  height: 360px; /* 光晕高度 */
+  height: 360px;
 
-  background:
-    radial-gradient(
-      circle,
-      rgba(59,130,246,.22),
-      transparent 70%
-    ); /* 蓝色光效 */
+  background: radial-gradient(circle, rgba(59,130,246,.22), transparent 70%);
 
-  pointer-events: none; /* 不影响点击 */
+  pointer-events: none;
 }
 
+
 /* =========================================================
-   标题
+   HERO 标题
 ========================================================= */
 
 .hero h1 {
 
-  position: relative; /* 防止被遮挡 */
+  position: relative;
 
-  z-index: 2; /* 层级 */
+  z-index: 2; /* 让标题在光效上层 */
 
-  margin-bottom: 18px; /* 下间距 */
+  margin-bottom: 18px;
 
-  font-size: 64px; /* 大标题 */
+  font-size: 72px; /* 大标题 */
 
-  font-weight: 900; /* 超粗 */
+  font-weight: 900;
 
-  line-height: 1.15; /* 行高 */
+  line-height: 1.15;
 
-  letter-spacing: 1px; /* 字间距 */
+  letter-spacing: 1px;
 
-  background:
-    linear-gradient(
-      90deg,
-      #ffffff,
-      #c084fc,
-      #60a5fa
-    ); /* 渐变文字 */
+  /* 渐变文字效果 */
+  background: linear-gradient(90deg, #ffffff, #c084fc, #60a5fa);
 
-  -webkit-background-clip: text; /* 背景裁剪 */
+  -webkit-background-clip: text;
 
-  -webkit-text-fill-color: transparent; /* 透明文字 */
+  -webkit-text-fill-color: transparent;
 
-  animation: fadeUp .6s ease; /* 入场动画 */
+  animation: fadeUp .6s ease; /* 进入动画 */
 }
 
+
+/* emoji 动画 */
+.hero span {
+
+  display: inline-block;
+
+  margin-left: 8px;
+
+  animation: floatEmoji 2.5s ease-in-out infinite;
+}
+
+
 /* =========================================================
-   描述文字
+   HERO 描述文字
 ========================================================= */
 
 .hero p {
 
-  position: relative; /* 防止被遮挡 */
+  position: relative;
 
-  z-index: 2; /* 层级 */
+  z-index: 2;
 
-  max-width: 760px; /* 最大宽度 */
+  max-width: 760px; /* 限制宽度 */
 
-  margin: 0 auto; /* 居中 */
+  margin: 0 auto;
 
-  font-size: 20px; /* 字体大小 */
+  font-size: 20px;
 
-  line-height: 1.9; /* 行高 */
+  line-height: 1.9;
 
-  color: #d1d5db; /* 浅灰文字 */
+  color: #d1d5db;
 
-  animation: fadeUp .8s ease; /* 入场动画 */
+  animation: fadeUp .8s ease;
 }
 
-/* =========================================================
-   Emoji
-========================================================= */
-
-.hero span {
-
-  display: inline-block; /* 行内块 */
-
-  margin-left: 8px; /* 左边距 */
-
-  animation: floatEmoji 2.5s ease-in-out infinite; /* 浮动动画 */
-}
 
 /* =========================================================
-   Glass Button（可选）
+   HERO 按钮
 ========================================================= */
 
 .hero-btn {
 
-  position: relative; /* 层级 */
+  position: relative;
 
-  z-index: 2; /* 显示在上层 */
+  z-index: 2;
 
-  margin-top: 38px; /* 顶部间距 */
+  margin-top: 38px;
 
-  min-width: 220px; /* 最小宽度 */
+  min-width: 220px;
 
-  height: 56px; /* 按钮高度 */
+  height: 56px;
 
-  padding: 0 26px; /* 内边距 */
+  padding: 0 26px;
 
-  border: none; /* 去边框 */
+  border: none;
 
-  border-radius: 999px; /* 胶囊按钮 */
+  border-radius: 999px; /* 圆角按钮 */
 
-  background:
-    linear-gradient(
-      135deg,
-      #a855f7,
-      #6366f1,
-      #2563eb
-    ); /* 紫蓝渐变 */
+  /* 渐变背景 */
+  background: linear-gradient(135deg, #a855f7, #6366f1, #2563eb);
 
-  color: white; /* 白字 */
+  color: white;
 
-  font-size: 16px; /* 字体大小 */
+  font-size: 16px;
 
-  font-weight: 800; /* 加粗 */
+  font-weight: 800;
 
-  cursor: pointer; /* 小手 */
+  cursor: pointer;
 
-  box-shadow:
-    0 16px 40px rgba(99,102,241,.35); /* 发光 */
+  /* 阴影 */
+  box-shadow: 0 16px 40px rgba(99,102,241,.35);
 
-  transition:
-    transform .25s ease,
-    box-shadow .25s ease,
-    opacity .25s ease; /* 动画 */
+  transition: all .25s ease;
 
-  animation: fadeUp 1s ease; /* 入场动画 */
+  animation: fadeUp 1s ease;
 }
 
-/* hover */
+
+/* 按钮悬停效果 */
 .hero-btn:hover {
 
   transform: translateY(-4px); /* 上浮 */
 
-  box-shadow:
-    0 22px 50px rgba(168,85,247,.4); /* 发光加强 */
+  box-shadow: 0 22px 50px rgba(168,85,247,.4);
 }
 
+
 /* =========================================================
-   动画
+   通用标题样式
 ========================================================= */
 
-/* 入场动画 */
+.section-title {
+
+  text-align: center;
+
+  font-size: 42px;
+
+  font-weight: 800;
+
+  margin-bottom: 60px;
+
+  /* 渐变标题 */
+  background: linear-gradient(90deg, #ffffff, #c084fc, #60a5fa);
+
+  -webkit-background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+}
+
+
+/* =========================================================
+   SKILLS 技能区域
+========================================================= */
+
+.skills-section {
+
+  padding: 120px 20px;
+
+  background: #0b0b12;
+
+  color: white;
+}
+
+
+/* 技能网格布局 */
+.skills-grid {
+
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+  gap: 28px;
+}
+
+
+/* 技能卡片 */
+.skill-card {
+
+  background: rgba(255,255,255,.06);
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  border-radius: 24px;
+
+  padding: 36px 28px;
+
+  backdrop-filter: blur(12px); /* 玻璃效果 */
+
+  transition: all .25s ease;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+
+/* 卡片悬停 */
+.skill-card:hover {
+
+  transform: translateY(-6px);
+
+  border: 1px solid rgba(168,85,247,.5);
+}
+
+
+/* 卡片标题 */
+.skill-card h3 {
+
+  font-size: 28px;
+
+  margin-bottom: 14px;
+}
+
+
+/* 卡片描述 */
+.skill-card p {
+
+  color: #9ca3af;
+
+  line-height: 1.8;
+}
+
+
+/* =========================================================
+   AI 区域
+========================================================= */
+
+.ai-section {
+
+  padding: 140px 20px;
+
+  text-align: center;
+
+  background:
+    radial-gradient(circle at center, rgba(168,85,247,.12), transparent 40%),
+    #09090f;
+}
+
+
+/* AI描述 */
+.ai-desc {
+
+  max-width: 850px;
+
+  margin: 40px auto 0;
+
+  color: #d1d5db;
+
+  font-size: 20px;
+
+  line-height: 2;
+}
+
+
+/* =========================================================
+   FOOTER 页脚
+========================================================= */
+
+.footer {
+
+  padding: 40px 20px;
+
+  text-align: center;
+
+  background: #050816;
+
+  color: #6b7280;
+
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+
+/* =========================================================
+   动画效果
+========================================================= */
+
+/* 文字上浮 */
 @keyframes fadeUp {
 
   from {
@@ -248,54 +390,64 @@
   }
 }
 
-/* Emoji浮动 */
+
+/* emoji 浮动 */
 @keyframes floatEmoji {
 
-  0% {
+  0% { transform: translateY(0); }
 
-    transform: translateY(0px);
-  }
+  50% { transform: translateY(-6px); }
 
-  50% {
-
-    transform: translateY(-6px);
-  }
-
-  100% {
-
-    transform: translateY(0px);
-  }
+  100% { transform: translateY(0); }
 }
 
+
 /* =========================================================
-   MOBILE
+   MOBILE 手机适配
 ========================================================= */
 
 @media (max-width: 768px) {
 
   .hero {
 
-    padding: 60px 20px; /* 手机内边距 */
+    padding: 60px 20px;
   }
 
   .hero h1 {
 
-    font-size: 40px; /* 手机标题缩小 */
+    font-size: 40px;
 
     line-height: 1.25;
   }
 
   .hero p {
 
-    font-size: 16px; /* 手机文字 */
+    font-size: 16px;
 
     line-height: 1.8;
   }
 
   .hero-btn {
 
-    width: 100%; /* 按钮铺满 */
+    width: 100%;
 
     max-width: 320px;
+  }
+
+  .section-title {
+
+    font-size: 32px;
+  }
+
+  .skill-card h3 {
+
+    font-size: 22px;
+  }
+
+  .ai-desc {
+
+    font-size: 16px;
+
+    line-height: 1.9;
   }
 }

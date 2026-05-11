@@ -3,7 +3,8 @@ function ProfileInfo({
   profile,
   translatedInfo = {
     teachSkill: '',
-    learnSkill: ''
+    learnSkill: '',
+    nationality: ''
   },
   onEdit,
   onHome,
@@ -12,24 +13,17 @@ function ProfileInfo({
   return (
     <>
       <div className="profile-info">
-        <div className="profile-row">
-          <span className="profile-label">{text.username || '用户名'}</span>
-          <span>{profile.username || '-'}</span>
-        </div>
 
-        <div className="profile-row">
-          <span className="profile-label">{text.phone || '电话'}</span>
-          <span>{profile.phone || '-'}</span>
-        </div>
+        <div className="profile-row-group">
+          <div className="profile-row half">
+            <span className="profile-label">{text.username || '用户名'}</span>
+            <span>{profile.username || '-'}</span>
+          </div>
 
-        <div className="profile-row">
-          <span className="profile-label">{text.email || '邮箱'}</span>
-          <span>{profile.email || '-'}</span>
-        </div>
-
-        <div className="profile-row">
-          <span className="profile-label">{text.address || '地址'}</span>
-          <span>{profile.address || '-'}</span>
+          <div className="profile-row half">
+            <span className="profile-label">{text.age || '年龄'}</span>
+            <span>{profile.age || '-'}</span>
+          </div>
         </div>
 
         <div className="profile-row">
@@ -45,9 +39,26 @@ function ProfileInfo({
           </span>
         </div>
 
+        <div className="profile-row-group">
+          <div className="profile-row half">
+            <span className="profile-label">{text.phone || '电话'}</span>
+            <span>{profile.phone || '-'}</span>
+          </div>
+
+          <div className="profile-row half">
+            <span className="profile-label">{text.nationality || '国籍'}</span>
+            <span>{translatedInfo.nationality || profile.nationality || '-'}</span>
+          </div>
+        </div>
+
         <div className="profile-row">
-          <span className="profile-label">{text.age || '年龄'}</span>
-          <span>{profile.age || '-'}</span>
+          <span className="profile-label">{text.email || '邮箱'}</span>
+          <span>{profile.email || '-'}</span>
+        </div>
+
+        <div className="profile-row">
+          <span className="profile-label">{text.address || '地址'}</span>
+          <span>{profile.address || '-'}</span>
         </div>
 
         <div className="profile-row">

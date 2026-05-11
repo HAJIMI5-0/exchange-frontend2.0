@@ -60,12 +60,37 @@
   }
 
   .filter-group,
-  .filter-group select,
+  .filter-group input,
   .match-btn {
     width: 100%;               /* 全部变成一行一块（竖排） */
   }
 
   .match-result {
     grid-template-columns: 1fr; /* 卡片一列显示（手机不能多列） */
+  }
+    .profile-row-group {
+
+    flex-direction: column; /* 手机端上下排列 */
+
+    gap: 0; /* 去掉左右间距 */
+  }
+
+  .profile-row-group .profile-row {
+
+    width: 100%; /* 手机端每项占满一行 */
+
+    border-bottom: 1px solid rgba(255,255,255,.08); /* 手机端恢复分割线 */
+  }
+
+    .profile-form-row-group {
+
+    flex-direction: column; /* 手机端上下排列 */
+
+    gap: 18px; /* 上下间距 */
+  }
+
+  .profile-form-row-group input {
+
+    width: 100%; /* 手机端输入框占满 */
   }
 }

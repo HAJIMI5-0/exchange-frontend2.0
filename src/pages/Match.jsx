@@ -54,31 +54,23 @@ function Match({ text }) {
         <div className="filter-group">
           <label>{text.iCan || '我会什么'}</label>
 
-          <select
+          <input
+            type="text"
             value={haveSkill}
             onChange={(e) => setHaveSkill(e.target.value)}
-          >
-            <option value="">{text.noLimit || '不限'}</option>
-            <option value="java">Java</option>
-            <option value="react">React</option>
-            <option value="python">Python</option>
-            <option value="ui设计">{text.uiDesign || 'UI设计'}</option>
-          </select>
+            placeholder="请输入你会的技能，例如 Java"
+          />
         </div>
 
         <div className="filter-group">
           <label>{text.iWantLearn || '我想学什么'}</label>
 
-          <select
+          <input
+            type="text"
             value={wantSkill}
             onChange={(e) => setWantSkill(e.target.value)}
-          >
-            <option value="">{text.noLimit || '不限'}</option>
-            <option value="java">Java</option>
-            <option value="react">React</option>
-            <option value="python">Python</option>
-            <option value="ui设计">{text.uiDesign || 'UI设计'}</option>
-          </select>
+            placeholder="请输入你想学的技能，例如 React"
+        />
         </div>
 
         <button className="match-btn" onClick={handleMatch}>

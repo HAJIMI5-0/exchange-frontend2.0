@@ -247,7 +247,25 @@
 
   flex-direction: column; /* 纵向排列 */
 
-  gap: 18px; /* 每行间距 */
+  gap: 0; /* 每一行之间不额外拉开，靠 padding 控制距离 */
+}
+
+/* 两个信息放在同一行 */
+.profile-row-group {
+
+  display: flex; /* 横向排列 */
+
+  gap: 30px; /* 左右两个信息之间的距离 */
+
+  border-bottom: 1px solid rgba(255,255,255,.08); /* 一整行底部分割线 */
+}
+
+/* 两列中的每一块 */
+.profile-row-group .profile-row {
+
+  width: 50%; /* 每个占一半宽度 */
+
+  border-bottom: none; /* 避免里面再出现分割线 */
 }
 
 /* 每一行 */
@@ -261,7 +279,7 @@
 
   gap: 20px; /* 间距 */
 
-  padding: 16px 0; /* 内边距 */
+  padding: 18px 0; /* 内边距 */
 
   border-bottom: 1px solid rgba(255,255,255,.08); /* 半透明分割线 */
 }
@@ -269,7 +287,7 @@
 /* 左侧标签 */
 .profile-label {
 
-  min-width: 140px; /* 固定宽度 */
+  min-width: 120px; /* 固定宽度 */
 
   font-weight: 700; /* 粗体 */
 
@@ -285,8 +303,21 @@
 
   text-align: right; /* 右对齐 */
 
+  font-weight: 600; /* 内容稍微加粗 */
+
   word-break: break-word; /* 自动换行 */
 }
+
+/* ===== 个人信息内容居中 ===== */
+.profile-row span:last-child {
+
+  flex: 1; /* 右侧内容占满剩余空间 */
+
+  text-align: left; /* 用户信息文字居中 */
+
+  font-weight: 600; /* 内容稍微加粗 */
+}
+
 
 /* =========================================================
    EDIT FORM
@@ -349,6 +380,20 @@
 
   box-shadow:
     0 0 0 4px rgba(168,85,247,.16); /* 发光 */
+}
+
+/* 编辑表单两列行 */
+.profile-form-row-group {
+
+  display: flex; /* 横向排列 */
+
+  gap: 18px; /* 两个输入框之间的距离 */
+}
+
+/* 两列行里的输入框 */
+.profile-form-row-group input {
+
+  width: 50%; /* 每个输入框占一半 */
 }
 
 /* =========================================================
