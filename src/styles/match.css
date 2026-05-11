@@ -1,0 +1,573 @@
+/* =========================================================
+   MATCH PAGE
+   2026 AI Startup Glass UI
+========================================================= */
+
+/* ===== 页面整体 ===== */
+.match-page {
+
+  min-height: calc(100vh - 132px); /* 页面高度 */
+
+  padding: 70px 40px; /* 内边距 */
+
+  box-sizing: border-box; /* padding不撑大 */
+
+  position: relative; /* 相对定位 */
+
+  overflow: hidden; /* 超出隐藏 */
+
+  text-align: center; /* 默认文字居中 */
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(168,85,247,.22),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(59,130,246,.18),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #0b0b12 0%,
+      #151522 45%,
+      #09090f 100%
+    ); /* AI Startup 深色背景 */
+
+  color: white; /* 默认白字 */
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+/* 页面标题 */
+.match-page h1 {
+
+  margin: 0 0 18px; /* 下方间距 */
+
+  font-size: 52px; /* 标题大小 */
+
+  font-weight: 900; /* 超粗 */
+
+  letter-spacing: 2px; /* 字间距 */
+
+  line-height: 1.2; /* 行高 */
+
+  background:
+    linear-gradient(
+      90deg,
+      #ffffff,
+      #c084fc,
+      #60a5fa
+    ); /* 渐变文字 */
+
+  -webkit-background-clip: text; /* 背景裁剪 */
+
+  -webkit-text-fill-color: transparent; /* 透明文字 */
+}
+
+/* 描述文字 */
+.match-desc {
+
+  max-width: 760px; /* 最大宽度 */
+
+  margin: 0 auto 42px; /* 居中 */
+
+  font-size: 17px; /* 字体大小 */
+
+  line-height: 1.8; /* 行高 */
+
+  color: #c9c9d6; /* 浅灰色 */
+}
+
+/* =========================================================
+   FILTER BOX
+========================================================= */
+
+/* 筛选区域 */
+.match-filter-box {
+
+  max-width: 1200px; /* 最大宽度 */
+
+  margin: 0 auto 52px; /* 居中 */
+
+  padding: 30px; /* 内边距 */
+
+  display: flex; /* flex布局 */
+
+  justify-content: center; /* 居中 */
+
+  align-items: end; /* 底部对齐 */
+
+  gap: 24px; /* 间距 */
+
+  flex-wrap: wrap; /* 小屏换行 */
+
+  border-radius: 28px; /* 大圆角 */
+
+  background: rgba(255,255,255,.08); /* 毛玻璃背景 */
+
+  border: 1px solid rgba(255,255,255,.1); /* 半透明边框 */
+
+  backdrop-filter: blur(18px); /* 毛玻璃模糊 */
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.45); /* 阴影 */
+}
+
+/* =========================================================
+   FILTER GROUP
+========================================================= */
+
+/* 每组筛选 */
+.filter-group {
+
+  display: flex; /* flex布局 */
+
+  flex-direction: column; /* 上下排列 */
+
+  gap: 10px; /* 间距 */
+
+  text-align: left; /* 左对齐 */
+}
+
+/* label */
+.filter-group label {
+
+  font-size: 14px; /* 字体大小 */
+
+  font-weight: 700; /* 粗体 */
+
+  color: #f4f4ff; /* 白色 */
+
+  letter-spacing: .5px; /* 字间距 */
+}
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+/* 下拉框 */
+.filter-group select {
+
+  width: 220px; /* 固定宽度 */
+
+  min-height: 52px; /* 防止裁切 */
+
+  padding: 0 16px; /* 左右内边距 */
+
+  border-radius: 14px; /* 圆角 */
+
+  border: 1px solid rgba(255,255,255,.12); /* 半透明边框 */
+
+  outline: none; /* 去蓝框 */
+
+  background: rgba(20,20,32,.95); /* 深色背景 */
+
+  color: white; /* 白字 */
+
+  font-size: 15px; /* 字体大小 */
+
+  line-height: 1.4; /* 行高 */
+
+  font-family:
+    "Pretendard",
+    "Noto Sans KR",
+    "Inter",
+    sans-serif; /* 字体 */
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.04); /* 内阴影 */
+
+  transition: .25s ease; /* 动画 */
+}
+
+/* focus */
+.filter-group select:focus {
+
+  border-color: #a855f7; /* 紫色边框 */
+
+  box-shadow:
+    0 0 0 4px rgba(168,85,247,.16); /* 发光 */
+}
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+/* 匹配按钮 */
+.match-btn {
+
+  min-width: 180px; /* 最小宽度 */
+
+  height: 52px; /* 高度 */
+
+  padding: 0 30px; /* 左右内边距 */
+
+  border: none; /* 去边框 */
+
+  border-radius: 999px; /* 胶囊按钮 */
+
+  background:
+    linear-gradient(
+      135deg,
+      #a855f7,
+      #6366f1,
+      #2563eb
+    ); /* 紫蓝渐变 */
+
+  color: white; /* 白字 */
+
+  font-size: 15px; /* 字体大小 */
+
+  font-weight: 800; /* 粗体 */
+
+  cursor: pointer; /* 小手 */
+
+  box-shadow:
+    0 12px 30px rgba(99,102,241,.35); /* 阴影 */
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease; /* 动画 */
+}
+
+/* hover */
+.match-btn:hover {
+
+  transform: translateY(-3px); /* 上浮 */
+
+  box-shadow:
+    0 20px 50px rgba(168,85,247,.4); /* 发光 */
+}
+
+/* =========================================================
+   RESULT GRID
+========================================================= */
+
+/* 卡片区域 */
+.match-result {
+
+  max-width: 1400px; /* 最大宽度 */
+
+  margin: 0 auto; /* 居中 */
+
+  display: grid; /* grid布局 */
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(240px,1fr)); /* 自适应 */
+
+  gap: 26px; /* 卡片间距 */
+}
+
+/* =========================================================
+   USER CARD
+========================================================= */
+
+/* 用户卡片 */
+.user-card {
+
+  position: relative; /* 相对定位 */
+
+  overflow: hidden; /* 超出隐藏 */
+
+  padding: 28px 22px; /* 内边距 */
+
+  border-radius: 26px; /* 大圆角 */
+
+  text-align: left; /* 左对齐 */
+
+  background: rgba(255,255,255,.08); /* 毛玻璃背景 */
+
+  border: 1px solid rgba(255,255,255,.1); /* 半透明边框 */
+
+  backdrop-filter: blur(18px); /* 毛玻璃 */
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.35); /* 阴影 */
+
+  transition:
+    transform .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease; /* 动画 */
+}
+
+/* hover */
+.user-card:hover {
+
+  transform: translateY(-8px); /* 上浮 */
+
+  border-color: rgba(192,132,252,.5); /* 紫色边框 */
+
+  box-shadow:
+    0 28px 70px rgba(168,85,247,.2); /* 发光 */
+}
+
+/* 卡片光效 */
+.user-card::before {
+
+  content: ""; /* 伪元素 */
+
+  position: absolute; /* 绝对定位 */
+
+  top: -60px; /* 顶部偏移 */
+
+  right: -60px; /* 右侧偏移 */
+
+  width: 150px; /* 宽度 */
+
+  height: 150px; /* 高度 */
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(168,85,247,.45),
+      transparent 65%
+    ); /* 紫色光效 */
+}
+
+/* =========================================================
+   AVATAR
+========================================================= */
+
+/* 头像 */
+.user-avatar-card {
+
+  width: 82px; /* 宽度 */
+
+  height: 82px; /* 高度 */
+
+  margin: 0 auto 18px; /* 居中 */
+
+  display: flex; /* flex布局 */
+
+  align-items: center; /* 垂直居中 */
+
+  justify-content: center; /* 水平居中 */
+
+  border-radius: 50%; /* 圆形 */
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(168,85,247,.2),
+      rgba(59,130,246,.2)
+    ); /* 渐变背景 */
+
+  border: 1px solid rgba(255,255,255,.12); /* 边框 */
+
+  color: white; /* 白字 */
+
+  font-size: 34px; /* 图标大小 */
+
+  box-shadow:
+    0 0 30px rgba(168,85,247,.2); /* 发光 */
+}
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+/* 名字 */
+.user-card h3 {
+
+  margin: 0; /* 去默认margin */
+
+  text-align: center; /* 居中 */
+
+  font-size: 24px; /* 字体大小 */
+
+  font-weight: 800; /* 粗体 */
+
+  color: white; /* 白色 */
+}
+
+/* 年龄 */
+.user-age {
+
+  margin: 8px 0 22px; /* 间距 */
+
+  text-align: center; /* 居中 */
+
+  color: #c9c9d6; /* 浅灰 */
+
+  font-size: 14px; /* 字体大小 */
+}
+
+/* =========================================================
+   SKILL AREA
+========================================================= */
+
+/* 技能区域 */
+.skill-section {
+
+  padding-top: 16px; /* 顶部内边距 */
+
+  margin-bottom: 18px; /* 底部间距 */
+
+  border-top: 1px solid rgba(255,255,255,.08); /* 分割线 */
+}
+
+/* 标签标题 */
+.skill-title {
+
+  display: inline-block; /* 横向 */
+
+  margin-bottom: 10px; /* 底部间距 */
+
+  padding: 6px 12px; /* 内边距 */
+
+  border-radius: 999px; /* 胶囊 */
+
+  font-size: 12px; /* 字体大小 */
+
+  font-weight: 800; /* 粗体 */
+}
+
+/* 我会 */
+.skill-title.can {
+
+  background: rgba(59,130,246,.16); /* 蓝色背景 */
+
+  color: #93c5fd; /* 蓝色文字 */
+
+  border: 1px solid rgba(59,130,246,.25); /* 边框 */
+}
+
+/* 想学 */
+.skill-title.want {
+
+  background: rgba(16,185,129,.16); /* 绿色背景 */
+
+  color: #6ee7b7; /* 绿色文字 */
+
+  border: 1px solid rgba(16,185,129,.25); /* 边框 */
+}
+
+/* =========================================================
+   TAG
+========================================================= */
+
+/* 技能标签 */
+.tag {
+
+  display: inline-block; /* 横向 */
+
+  margin: 4px 6px 0 0; /* 间距 */
+
+  padding: 7px 12px; /* 内边距 */
+
+  border-radius: 999px; /* 胶囊 */
+
+  font-size: 13px; /* 字体大小 */
+
+  color: #f4f4ff; /* 白字 */
+
+  background: rgba(255,255,255,.08); /* 半透明背景 */
+
+  border: 1px solid rgba(255,255,255,.08); /* 边框 */
+}
+
+/* =========================================================
+   SELECT BUTTON
+========================================================= */
+
+/* 选择用户按钮 */
+.select-user-btn {
+
+  width: 100%; /* 宽度铺满 */
+
+  height: 48px; /* 高度 */
+
+  margin-top: 20px; /* 顶部间距 */
+
+  border: none; /* 去边框 */
+
+  border-radius: 16px; /* 圆角 */
+
+  background:
+    linear-gradient(
+      135deg,
+      #111827,
+      #312e81
+    ); /* 深色渐变 */
+
+  color: white; /* 白字 */
+
+  font-size: 14px; /* 字体大小 */
+
+  font-weight: 800; /* 粗体 */
+
+  cursor: pointer; /* 小手 */
+
+  transition:
+    transform .2s ease,
+    opacity .2s ease; /* 动画 */
+}
+
+/* hover */
+.select-user-btn:hover {
+
+  transform: scale(1.03); /* 放大 */
+
+  opacity: .92; /* 微透明 */
+}
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+/* 空状态 */
+.empty-text {
+
+  grid-column: 1 / -1; /* 占满整行 */
+
+  padding: 36px; /* 内边距 */
+
+  border-radius: 24px; /* 圆角 */
+
+  color: #c9c9d6; /* 浅灰 */
+
+  background: rgba(255,255,255,.06); /* 半透明背景 */
+
+  border: 1px dashed rgba(255,255,255,.14); /* 虚线边框 */
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .match-page {
+
+    padding: 50px 20px; /* 手机内边距 */
+  }
+
+  .match-page h1 {
+
+    font-size: 36px; /* 手机标题 */
+  }
+
+  .match-filter-box {
+
+    padding: 22px; /* 手机padding */
+
+    align-items: stretch; /* 拉伸 */
+  }
+
+  .filter-group,
+  .filter-group select,
+  .match-btn {
+
+    width: 100%; /* 手机铺满 */
+  }
+
+  .match-result {
+
+    grid-template-columns: 1fr; /* 单列 */
+  }
+}

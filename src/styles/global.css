@@ -1,0 +1,200 @@
+/* =========================================================
+   GLOBAL STYLE
+   2026 AI Startup Glass UI
+========================================================= */
+
+/* ===== 全局重置 ===== */
+* {
+  margin: 0; /* 去掉所有默认外边距 */
+  padding: 0; /* 去掉所有默认内边距 */
+  box-sizing: border-box; /* padding 不会撑大元素 */
+}
+
+/* ===== 根变量（全站统一颜色） ===== */
+:root {
+
+  /* 主渐变色 */
+  --primary: #a855f7; /* 紫色 */
+  --secondary: #6366f1; /* 靛蓝 */
+  --blue: #2563eb; /* 蓝色 */
+
+  /* 文字颜色 */
+  --text-main: #ffffff; /* 主文字 */
+  --text-secondary: #cfcfe3; /* 副文字 */
+
+  /* Glass 背景 */
+  --glass-bg: rgba(255, 255, 255, 0.08); /* 毛玻璃背景 */
+  --glass-border: rgba(255, 255, 255, 0.10); /* 毛玻璃边框 */
+
+  /* 阴影 */
+  --shadow-main: 0 20px 60px rgba(0, 0, 0, 0.45); /* 主阴影 */
+
+  /* 圆角 */
+  --radius-lg: 28px; /* 大圆角 */
+  --radius-md: 16px; /* 中圆角 */
+}
+
+/* ===== body ===== */
+body {
+
+  font-family: "Inter", Arial, sans-serif; /* 全站字体 */
+
+  color: var(--text-main); /* 默认文字颜色 */
+
+  min-height: 100vh; /* 最小高度铺满屏幕 */
+
+  overflow-x: hidden; /* 禁止横向滚动 */
+
+  background:
+    radial-gradient(circle at top left, rgba(168, 85, 247, 0.25), transparent 28%), /* 左上紫色光晕 */
+    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.18), transparent 32%), /* 右下蓝色光晕 */
+    linear-gradient(135deg, #09090f 0%, #11111b 45%, #07070c 100%); /* 深色科技背景 */
+}
+
+/* ===== 动态背景光效 ===== */
+body::before {
+
+  content: ""; /* 伪元素必须有 content */
+
+  position: fixed; /* 固定背景 */
+
+  inset: 0; /* 铺满整个页面 */
+
+  z-index: -1; /* 放到最底层 */
+
+  pointer-events: none; /* 不影响点击 */
+
+  background:
+    radial-gradient(circle at 20% 20%, rgba(168,85,247,.14), transparent 28%), /* 紫色动态光 */
+    radial-gradient(circle at 80% 70%, rgba(59,130,246,.12), transparent 30%); /* 蓝色动态光 */
+
+  animation: floatBg 12s ease-in-out infinite alternate; /* 动态浮动动画 */
+}
+
+/* ===== 背景浮动动画 ===== */
+@keyframes floatBg {
+
+  from {
+    transform: translateY(0px); /* 初始位置 */
+  }
+
+  to {
+    transform: translateY(-24px); /* 向上浮动 */
+  }
+}
+
+/* ===== 所有链接 ===== */
+a {
+  text-decoration: none; /* 去掉下划线 */
+  color: inherit; /* 继承颜色 */
+}
+
+/* ===== 所有按钮 / 输入框 ===== */
+button,
+input,
+select,
+textarea {
+  font-family: inherit; /* 继承字体 */
+}
+
+/* ===== 页面总容器 ===== */
+.container {
+  width: 100%; /* 宽度铺满 */
+
+  min-height: 100vh; /* 最小高度铺满 */
+}
+
+/* ===== 通用 Glass 卡片 ===== */
+.glass-card {
+
+  background: var(--glass-bg); /* 毛玻璃背景 */
+
+  border: 1px solid var(--glass-border); /* 半透明边框 */
+
+  border-radius: var(--radius-lg); /* 大圆角 */
+
+  backdrop-filter: blur(18px); /* 毛玻璃模糊 */
+
+  box-shadow: var(--shadow-main); /* 阴影 */
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease; /* 动画 */
+}
+
+/* ===== hover 效果 ===== */
+.glass-card:hover {
+
+  transform: translateY(-6px); /* 上浮 */
+
+  border-color: rgba(192,132,252,.45); /* 紫色边框 */
+
+  box-shadow:
+    0 24px 70px rgba(168,85,247,.22); /* 发光阴影 */
+}
+
+/* ===== 通用按钮 ===== */
+.primary-btn {
+
+  border: none; /* 去边框 */
+
+  border-radius: var(--radius-md); /* 圆角 */
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--secondary),
+      var(--blue)
+    ); /* 紫蓝渐变 */
+
+  color: white; /* 白字 */
+
+  font-weight: 700; /* 粗体 */
+
+  cursor: pointer; /* 小手 */
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease; /* 动画 */
+}
+
+/* ===== 按钮 hover ===== */
+.primary-btn:hover {
+
+  transform: translateY(-2px); /* 上浮 */
+
+  box-shadow:
+    0 18px 40px rgba(168,85,247,.35); /* 发光 */
+}
+
+/* ===== 通用输入框 ===== */
+.glass-input {
+
+  background: rgba(20,20,32,.94); /* 深色背景 */
+
+  border: 1px solid rgba(255,255,255,.1); /* 半透明边框 */
+
+  border-radius: 14px; /* 圆角 */
+
+  color: white; /* 白字 */
+
+  transition: .25s; /* 动画 */
+}
+
+/* ===== 输入框 focus ===== */
+.glass-input:focus {
+
+  outline: none; /* 去掉默认蓝框 */
+
+  border-color: var(--primary); /* 紫色边框 */
+
+  box-shadow:
+    0 0 0 4px rgba(168,85,247,.16); /* 发光 */
+}
+
+/* ===== placeholder ===== */
+.glass-input::placeholder {
+  color: #9ca3af; /* placeholder 灰色 */
+}

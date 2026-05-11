@@ -1,0 +1,503 @@
+/* =========================================================
+   PROFILE PAGE
+   2026 AI Startup Glass UI
+========================================================= */
+
+/* ===== 个人信息页面整体 ===== */
+.profile-page {
+
+  display: flex; /* flex布局 */
+
+  flex-direction: column; /* 垂直排列 */
+
+  align-items: center; /* 水平居中 */
+
+  min-height: calc(100vh - 120px); /* 页面高度 */
+
+  padding: 70px 20px; /* 内边距 */
+
+  position: relative; /* 相对定位 */
+
+  overflow: hidden; /* 超出隐藏 */
+
+  color: white; /* 全页面默认白字 */
+}
+
+/* ===== 页面背景光晕 ===== */
+.profile-page::before {
+
+  content: ""; /* 伪元素 */
+
+  position: absolute; /* 绝对定位 */
+
+  top: -120px; /* 顶部偏移 */
+
+  right: -120px; /* 右侧偏移 */
+
+  width: 320px; /* 光晕宽度 */
+
+  height: 320px; /* 光晕高度 */
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(168,85,247,.22),
+      transparent 70%
+    ); /* 紫色光晕 */
+
+  pointer-events: none; /* 不影响点击 */
+}
+
+/* =========================================================
+   PAGE TITLE
+========================================================= */
+
+/* 页面标题 */
+.profile-page h1 {
+
+  margin-bottom: 30px; /* 底部间距 */
+
+  font-size: 42px; /* 标题大小 */
+
+  font-weight: 900; /* 超粗字体 */
+
+  letter-spacing: 1px; /* 字间距 */
+
+  line-height: 1.2; /* 行高 */
+
+  text-align: center; /* 居中 */
+
+  background:
+    linear-gradient(
+      90deg,
+      white,
+      #c084fc,
+      #60a5fa
+    ); /* 渐变文字 */
+
+  -webkit-background-clip: text; /* 背景裁剪 */
+
+  -webkit-text-fill-color: transparent; /* 透明文字 */
+}
+
+/* =========================================================
+   PROFILE CARD
+========================================================= */
+
+/* 资料卡片 */
+.profile-card {
+
+  position: relative; /* 相对定位 */
+
+  overflow: hidden; /* 超出隐藏 */
+
+  width: 720px; /* 卡片宽度 */
+
+  max-width: 95%; /* 小屏适配 */
+
+  padding: 34px; /* 内边距 */
+
+  border-radius: 30px; /* 大圆角 */
+
+  background: rgba(255,255,255,.08); /* 毛玻璃背景 */
+
+  border: 1px solid rgba(255,255,255,.1); /* 半透明边框 */
+
+  backdrop-filter: blur(18px); /* 毛玻璃模糊 */
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.45); /* 阴影 */
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease; /* 动画 */
+
+  animation: fadeUp .5s ease; /* 入场动画 */
+
+  color: white; /* 卡片全部白字 */
+}
+
+/* ===== 卡片所有文字统一白色 ===== */
+.profile-card p,
+.profile-card span,
+.profile-card div,
+.profile-card label,
+.profile-card h2,
+.profile-card h3 {
+
+  color: white;
+}
+
+/* hover */
+.profile-card:hover {
+
+  transform: translateY(-6px); /* 上浮 */
+
+  border-color: rgba(192,132,252,.4); /* 紫色边框 */
+
+  box-shadow:
+    0 24px 70px rgba(168,85,247,.22); /* 发光 */
+}
+
+/* 卡片紫色光效 */
+.profile-card::before {
+
+  content: ""; /* 伪元素 */
+
+  position: absolute; /* 绝对定位 */
+
+  top: -70px; /* 顶部偏移 */
+
+  right: -70px; /* 右侧偏移 */
+
+  width: 180px; /* 光效宽度 */
+
+  height: 180px; /* 光效高度 */
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(168,85,247,.45),
+      transparent 65%
+    ); /* 紫色光效 */
+}
+
+/* =========================================================
+   TOP AREA
+========================================================= */
+
+/* 头像 + 基本信息 */
+.profile-top {
+
+  display: flex; /* 横向排列 */
+
+  align-items: center; /* 垂直居中 */
+
+  gap: 24px; /* 间距 */
+
+  margin-bottom: 36px; /* 下方间距 */
+}
+
+/* =========================================================
+   AVATAR
+========================================================= */
+
+/* 大头像 */
+.profile-avatar {
+
+  width: 130px; /* 宽度 */
+
+  height: 130px; /* 高度 */
+
+  border-radius: 50%; /* 圆形 */
+
+  object-fit: cover; /* 图片填充 */
+
+  border: 3px solid rgba(255,255,255,.12); /* 半透明边框 */
+
+  box-shadow:
+    0 0 30px rgba(168,85,247,.18); /* 紫色光晕 */
+
+  transition: .25s ease; /* 动画 */
+}
+
+/* hover */
+.profile-avatar:hover {
+
+  transform: scale(1.03); /* 微放大 */
+}
+
+/* =========================================================
+   BASIC INFO
+========================================================= */
+
+/* 名字 */
+.profile-basic h2 {
+
+  margin: 0 0 10px 0; /* 下方间距 */
+
+  font-size: 32px; /* 字体大小 */
+
+  font-weight: 800; /* 超粗 */
+
+  color: white; /* 白字 */
+}
+
+/* 副信息 */
+.profile-basic p {
+
+  margin: 0; /* 去默认margin */
+
+  color: white; /* 白色 */
+
+  font-size: 15px; /* 字体大小 */
+
+  line-height: 1.7; /* 行高 */
+}
+
+/* =========================================================
+   DETAIL INFO
+========================================================= */
+
+/* 信息区域 */
+.profile-info {
+
+  display: flex; /* flex布局 */
+
+  flex-direction: column; /* 纵向排列 */
+
+  gap: 18px; /* 每行间距 */
+}
+
+/* 每一行 */
+.profile-row {
+
+  display: flex; /* 横向排列 */
+
+  justify-content: space-between; /* 左右分开 */
+
+  align-items: center; /* 垂直居中 */
+
+  gap: 20px; /* 间距 */
+
+  padding: 16px 0; /* 内边距 */
+
+  border-bottom: 1px solid rgba(255,255,255,.08); /* 半透明分割线 */
+}
+
+/* 左侧标签 */
+.profile-label {
+
+  min-width: 140px; /* 固定宽度 */
+
+  font-weight: 700; /* 粗体 */
+
+  color: white; /* 白色 */
+
+  font-size: 15px; /* 字体大小 */
+}
+
+/* 右侧内容 */
+.profile-value {
+
+  color: white; /* 白色 */
+
+  text-align: right; /* 右对齐 */
+
+  word-break: break-word; /* 自动换行 */
+}
+
+/* =========================================================
+   EDIT FORM
+========================================================= */
+
+/* 编辑表单 */
+.profile-form {
+
+  display: flex; /* flex布局 */
+
+  flex-direction: column; /* 纵向排列 */
+
+  gap: 18px; /* 输入框间距 */
+}
+
+/* 输入框 */
+.profile-form input,
+.profile-form select {
+
+  width: 100%; /* 宽度铺满 */
+
+  min-height: 52px; /* 防止文字裁切 */
+
+  padding: 14px 16px; /* 内边距 */
+
+  border-radius: 14px; /* 圆角 */
+
+  border: 1px solid rgba(255,255,255,.1); /* 半透明边框 */
+
+  background: rgba(20,20,32,.94); /* 深色背景 */
+
+  color: white; /* 白色文字 */
+
+  font-size: 15px; /* 字体大小 */
+
+  line-height: 1.4; /* 行高 */
+
+  font-family:
+    "Pretendard",
+    "Noto Sans KR",
+    "Inter",
+    sans-serif; /* 字体 */
+
+  transition: .25s ease; /* 动画 */
+}
+
+/* placeholder */
+.profile-form input::placeholder {
+
+  color: rgba(255,255,255,.65); /* 半透明白色 */
+}
+
+/* focus */
+.profile-form input:focus,
+.profile-form select:focus {
+
+  outline: none; /* 去掉蓝框 */
+
+  border-color: #a855f7; /* 紫色边框 */
+
+  box-shadow:
+    0 0 0 4px rgba(168,85,247,.16); /* 发光 */
+}
+
+/* =========================================================
+   BUTTON AREA
+========================================================= */
+
+/* 按钮区域 */
+.profile-actions {
+
+  display: flex; /* 横向排列 */
+
+  gap: 14px; /* 按钮间距 */
+
+  margin-top: 30px; /* 顶部间距 */
+
+  flex-wrap: wrap; /* 小屏换行 */
+}
+
+/* 所有按钮 */
+.profile-actions button {
+
+  min-height: 52px; /* 固定高度 */
+
+  padding: 14px 22px; /* 内边距 */
+
+  border: none; /* 去边框 */
+
+  border-radius: 16px; /* 圆角 */
+
+  font-size: 15px; /* 字体大小 */
+
+  font-weight: 700; /* 粗体 */
+
+  color: white; /* 白字 */
+
+  cursor: pointer; /* 小手 */
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    opacity .25s ease; /* 动画 */
+}
+
+/* 保存按钮 */
+.profile-actions button:first-child {
+
+  background:
+    linear-gradient(
+      135deg,
+      #a855f7,
+      #6366f1,
+      #2563eb
+    ); /* 紫蓝渐变 */
+}
+
+/* 保存 hover */
+.profile-actions button:first-child:hover {
+
+  transform: translateY(-2px); /* 上浮 */
+
+  box-shadow:
+    0 18px 40px rgba(168,85,247,.35); /* 发光 */
+}
+
+/* 取消按钮 */
+.profile-actions button:nth-child(2) {
+
+  background: rgba(255,255,255,.1); /* 半透明背景 */
+
+  border: 1px solid rgba(255,255,255,.08); /* 边框 */
+}
+
+/* 取消 hover */
+.profile-actions button:nth-child(2):hover {
+
+  background: rgba(255,255,255,.16); /* 更亮 */
+}
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+/* 入场动画 */
+@keyframes fadeUp {
+
+  from {
+
+    opacity: 0; /* 初始透明 */
+
+    transform: translateY(18px); /* 向下 */
+  }
+
+  to {
+
+    opacity: 1; /* 显示 */
+
+    transform: translateY(0); /* 回到原位 */
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .profile-page {
+
+    padding: 50px 20px; /* 手机内边距 */
+  }
+
+  .profile-page h1 {
+
+    font-size: 34px; /* 手机标题缩小 */
+  }
+
+  .profile-card {
+
+    padding: 28px 22px; /* 手机卡片内边距 */
+  }
+
+  .profile-top {
+
+    flex-direction: column; /* 上下排列 */
+
+    text-align: center; /* 居中 */
+  }
+
+  .profile-row {
+
+    flex-direction: column; /* 上下排列 */
+
+    align-items: flex-start; /* 左对齐 */
+
+    gap: 8px; /* 间距 */
+  }
+
+  .profile-value {
+
+    text-align: left; /* 左对齐 */
+  }
+
+  .profile-actions {
+
+    flex-direction: column; /* 按钮纵向 */
+  }
+
+  .profile-actions button {
+
+    width: 100%; /* 按钮铺满 */
+  }
+}

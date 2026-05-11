@@ -1,0 +1,71 @@
+/*手机适配页面*/
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {   /* 当屏幕宽度 ≤ 768px（手机）时生效 */
+
+  /* ===== 导航栏 ===== */
+  .navbar {
+    padding: 18px 20px;        /* 缩小内边距（手机空间小） */
+    flex-wrap: wrap;           /* 元素不够放时自动换行 */
+    gap: 16px;                 /* 元素之间间距 */
+  }
+
+  .logo-img {
+    width: 60px;               /* 缩小logo */
+    height: 60px;
+  }
+
+  .nav-right {
+    width: 100%;               /* 右侧占满一整行 */
+    justify-content: flex-start; /* 内容靠左（不再两边分开） */
+  }
+
+  /* ===== 登录注册 ===== */
+  .auth-form {
+    width: 100%;               /* 表单铺满屏幕 */
+  }
+
+  /* ===== 个人页 ===== */
+  .profile-top {
+    flex-direction: column;    /* 原来横排 → 改成竖排 */
+    text-align: center;        /* 内容居中 */
+  }
+
+  .profile-row {
+    flex-direction: column;    /* 标签和内容上下排列 */
+    align-items: flex-start;   /* 左对齐 */
+    gap: 6px;                  /* 行间距 */
+  }
+
+  .profile-actions {
+    flex-direction: column;    /* 按钮竖着排 */
+  }
+
+  .profile-actions button {
+    width: 100%;               /* 按钮铺满屏幕 */
+  }
+
+  /* ===== 匹配页 ===== */
+  .match-page {
+    padding: 50px 20px;        /* 左右边距缩小 */
+  }
+
+  .match-page h1 {
+    font-size: 32px;           /* 标题缩小 */
+  }
+
+  .match-filter-box {
+    padding: 22px;             /* 缩小内边距 */
+    align-items: stretch;      /* 子元素撑满（更整齐） */
+  }
+
+  .filter-group,
+  .filter-group select,
+  .match-btn {
+    width: 100%;               /* 全部变成一行一块（竖排） */
+  }
+
+  .match-result {
+    grid-template-columns: 1fr; /* 卡片一列显示（手机不能多列） */
+  }
+}

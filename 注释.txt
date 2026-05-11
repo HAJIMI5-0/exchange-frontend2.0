@@ -1,0 +1,47 @@
+项目文件结构说明（中英对照横向版）
+
+frontend —— 前端项目根目录 | Frontend project root directory
+public —— 静态资源目录 | Static assets (not processed)
+
+src —— 源代码主目录 | Main source code
+
+api —— 接口目录 | API layer
+profileApi.js —— 个人信息接口 | Profile API (get/update user info)
+translateApi.js —— 翻译接口 | Translation API (backend translation)
+userApi.js —— 用户接口 | User API (login/register)
+
+assets —— 图片资源 | Image assets (logo, avatar)
+
+config —— 配置目录 | Configuration
+index.js —— 全局配置 | Global config (API base URL)
+
+data —— 数据目录 | Data layer
+mockUsers.js —— 模拟用户数据 | Mock user data (for match page)
+
+i18n —— 多语言目录 | Internationalization
+messages.js —— 多语言文本 | Multi-language text config
+
+pages —— 页面组件 | Page components
+Home.jsx —— 首页 | Home page
+Match.jsx —— 匹配页面 | Match page
+Chat.jsx —— 聊天页面 | Chat page
+Login.jsx —— 登录页面 | Login page
+Register.jsx —— 注册页面 | Register page
+Profile.jsx —— 个人页面 | Profile page
+Board.jsx —— 告示板页面 | Board page
+
+styles —— 样式目录 | Styles
+App.css —— 主样式 | Main layout styles
+index.css —— 全局样式 | Global styles
+
+App.jsx —— 主组件（路由+导航） | Main component (routing + navbar)
+main.jsx —— 入口文件 | Entry point (mount React)
+frontend-connection-test.jsx —— 后端连接测试 | Backend connection test
+
+index.html —— 页面入口 | HTML entry
+package.json —— 项目依赖 | Project dependencies
+package-lock.json —— 依赖锁定 | Dependency lock file
+vite.config.js —— 构建配置 | Vite config
+eslint.config.js —— 代码规范 | ESLint config
+README.md —— 项目说明 | Project documentation
+.gitignore —— Git忽略文件 | Git ignore rules

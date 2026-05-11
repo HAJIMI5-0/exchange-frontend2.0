@@ -1,0 +1,350 @@
+/* =========================================================
+   NAVBAR
+   2026 AI Startup Glass UI
+========================================================= */
+
+/* ===== 导航栏整体 ===== */
+.navbar {
+
+  position: sticky; /* 吸顶导航 */
+
+  top: 0; /* 固定顶部 */
+
+  z-index: 999; /* 高层级 */
+
+  display: flex; /* flex 横向布局 */
+
+  justify-content: space-between; /* 左右分开 */
+
+  align-items: center; /* 垂直居中 */
+
+  padding: 20px 42px; /* 内边距 */
+
+  background: rgba(10, 10, 18, 0.72); /* 半透明深色背景 */
+
+  backdrop-filter: blur(18px); /* 毛玻璃模糊 */
+
+  border-bottom: 1px solid rgba(255,255,255,.08); /* 底部分割线 */
+}
+
+/* =========================================================
+   LOGO AREA
+========================================================= */
+
+/* logo + 标题 */
+.logo-title {
+
+  display: flex; /* 横向排列 */
+
+  align-items: center; /* 垂直居中 */
+
+  gap: 14px; /* logo 和文字间距 */
+}
+
+/* logo 图片 */
+.logo-img {
+
+  width: 72px; /* 宽度 */
+
+  height: 72px; /* 高度 */
+
+  object-fit: contain; /* 保持比例 */
+}
+
+/* logo 标题 */
+.logo-title h2 {
+
+  margin: 0; /* 去默认 margin */
+
+  font-size: 26px; /* 字体大小 */
+
+  font-weight: 800; /* 超粗字体 */
+
+  letter-spacing: 1px; /* 字间距 */
+
+  background:
+    linear-gradient(
+      90deg,
+      white,
+      #c084fc,
+      #60a5fa
+    ); /* 紫蓝渐变文字 */
+
+  -webkit-background-clip: text; /* 裁剪背景 */
+
+  -webkit-text-fill-color: transparent; /* 透明文字 */
+}
+
+/* =========================================================
+   RIGHT AREA
+========================================================= */
+
+/* 导航栏右边整体 */
+.nav-right {
+
+  display: flex; /* flex 横向排列 */
+
+  align-items: center; /* 垂直居中 */
+
+  gap: 24px; /* 元素间距 */
+
+  flex-wrap: wrap; /* 空间不够自动换行 */
+}
+
+/* =========================================================
+   LANGUAGE SELECT
+========================================================= */
+
+/* 语言选择框 */
+.lang-select {
+
+  padding: 10px 14px; /* 内边距 */
+
+  border-radius: 14px; /* 圆角 */
+
+  border: 1px solid rgba(255,255,255,.1); /* 半透明边框 */
+
+  background: rgba(20,20,32,.92); /* 深色背景 */
+
+  color: white; /* 白色文字 */
+
+  font-size: 14px; /* 字体大小 */
+
+  cursor: pointer; /* 小手 */
+
+  transition: .25s ease; /* 动画 */
+}
+
+/* focus 效果 */
+.lang-select:focus {
+
+  outline: none; /* 去掉蓝框 */
+
+  border-color: #a855f7; /* 紫色边框 */
+
+  box-shadow:
+    0 0 0 4px rgba(168,85,247,.16); /* 紫色发光 */
+}
+
+/* =========================================================
+   NAVIGATION LINKS
+========================================================= */
+
+/* 导航链接整体 */
+.nav-links {
+
+  display: flex; /* 横向排列 */
+
+  align-items: center; /* 垂直居中 */
+
+  gap: 22px; /* 链接间距 */
+}
+
+/* 导航链接 */
+.nav-links a,
+.auth-links a,
+.profile-link {
+
+  position: relative; /* 相对定位 */
+
+  color: #f3f4f6; /* 浅白色 */
+
+  text-decoration: none; /* 去下划线 */
+
+  font-size: 15px; /* 字体大小 */
+
+  font-weight: 600; /* 半粗体 */
+
+  transition: .25s ease; /* 动画 */
+}
+
+/* hover 效果 */
+.nav-links a:hover,
+.auth-links a:hover,
+.profile-link:hover {
+
+  color: #c084fc; /* hover 紫色 */
+}
+
+/* 底部渐变线动画 */
+.nav-links a::after,
+.auth-links a::after {
+
+  content: ""; /* 伪元素 */
+
+  position: absolute; /* 绝对定位 */
+
+  left: 0; /* 左边 */
+
+  bottom: -6px; /* 下边 */
+
+  width: 0; /* 初始宽度 */
+
+  height: 2px; /* 线高度 */
+
+  border-radius: 999px; /* 圆角线 */
+
+  background:
+    linear-gradient(
+      90deg,
+      #c084fc,
+      #60a5fa
+    ); /* 渐变颜色 */
+
+  transition: .25s ease; /* 动画 */
+}
+
+/* hover 展开线 */
+.nav-links a:hover::after,
+.auth-links a:hover::after {
+
+  width: 100%; /* hover 展开 */
+}
+
+/* =========================================================
+   AUTH LINKS
+========================================================= */
+
+/* 登录注册区域 */
+.auth-links {
+
+  display: flex; /* 横向排列 */
+
+  align-items: center; /* 垂直居中 */
+
+  gap: 16px; /* 间距 */
+}
+
+/* =========================================================
+   USER INFO
+========================================================= */
+
+/* 用户信息区域 */
+.user-box {
+
+  display: flex; /* 横向排列 */
+
+  align-items: center; /* 垂直居中 */
+
+  gap: 12px; /* 元素间距 */
+}
+
+/* 用户头像 */
+.user-avatar {
+
+  width: 42px; /* 宽度 */
+
+  height: 42px; /* 高度 */
+
+  border-radius: 50%; /* 圆形头像 */
+
+  object-fit: cover; /* 裁剪铺满 */
+
+  border: 2px solid rgba(255,255,255,.12); /* 半透明边框 */
+
+  transition: .25s ease; /* 动画 */
+}
+
+/* hover 发光 */
+.user-avatar:hover {
+
+  transform: scale(1.05); /* 微放大 */
+
+  box-shadow:
+    0 0 20px rgba(168,85,247,.4); /* 紫色发光 */
+}
+
+/* 用户名 */
+.username,
+.username-link {
+
+  font-size: 15px; /* 字体大小 */
+
+  font-weight: 600; /* 半粗 */
+
+  color: white; /* 白色 */
+}
+
+/* =========================================================
+   LOGOUT BUTTON
+========================================================= */
+
+/* 退出按钮 */
+.logout-btn {
+
+  padding: 10px 16px; /* 内边距 */
+
+  border: none; /* 去边框 */
+
+  border-radius: 14px; /* 圆角 */
+
+  background:
+    linear-gradient(
+      135deg,
+      #ef4444,
+      #dc2626
+    ); /* 红色渐变 */
+
+  color: white; /* 白色文字 */
+
+  font-size: 14px; /* 字体大小 */
+
+  font-weight: 700; /* 粗体 */
+
+  cursor: pointer; /* 小手 */
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    opacity .25s ease; /* 动画 */
+}
+
+/* hover */
+.logout-btn:hover {
+
+  transform: translateY(-2px); /* 上浮 */
+
+  box-shadow:
+    0 14px 30px rgba(239,68,68,.35); /* 红色发光 */
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .navbar {
+
+    padding: 18px 20px; /* 手机内边距 */
+
+    flex-wrap: wrap; /* 自动换行 */
+
+    gap: 18px; /* 间距 */
+  }
+
+  .logo-img {
+
+    width: 58px; /* 手机 logo 缩小 */
+
+    height: 58px;
+  }
+
+  .logo-title h2 {
+
+    font-size: 20px; /* 手机标题缩小 */
+  }
+
+  .nav-right {
+
+    width: 100%; /* 宽度铺满 */
+
+    justify-content: flex-start; /* 左对齐 */
+  }
+
+  .nav-links,
+  .auth-links {
+
+    flex-wrap: wrap; /* 自动换行 */
+  }
+}
