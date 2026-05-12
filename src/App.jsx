@@ -11,7 +11,6 @@ import './styles/board.css'  //BoardUI
 import './styles/responsive.css' // 手机适配样式
 
 
-
 import { useState, useEffect } from 'react'   // React状态和副作用
 import { NavLink, Routes, Route } from 'react-router-dom' // 路由组件
 import logo from './assets/frontend_logo.png' // logo图片
@@ -118,7 +117,7 @@ const [lang, setLang] = useState(() => {
 
               {/* 用户名 */}
               <NavLink to="/profile" className="profile-link username-link">
-                {user.username}
+                {user.name || user.name}
               </NavLink>
 
               {/* 退出按钮 */}
@@ -140,22 +139,16 @@ const [lang, setLang] = useState(() => {
       <Routes>
           /*根据网址前往页面 */
         <Route path="/" element={<Home text={text} />} />       {/* 首页 */}
-        <Route path="/match" element={<Match text={text} />} /> {/* 匹配 */}
-        <Route path="/chat" element={<Chat text={text} />} />   {/* 聊天 */}
+        <Route path="/match" element={<Match text={text} user={user} />} />  {/* 匹配 */}
+        <Route path="/chat" element={<Chat text={text} user={user} />} />  {/* 聊天 */}
         <Route path="/board" element={<Board />} />             {/* 告示板 */}
         <Route path="/login" element={<Login text={text} setUser={setUser} />} />  {/* 登录 */}
         <Route path="/register" element={<Register text={text} />} />  {/* 注册 */}
-        <Route
-          path="/profile"
-          element={
-          <Profile key={`${user?.username || 'guest'}-${lang}`}
-          text={text}
-          user={user}
-          setUser={setUser}
-          lang={lang}
-        />
-      }/>  {/* 个人页面 */}
-      </Routes>
+        <Route path="/profile" element={<Profile key={`${user?.username || 'guest'}-${lang}`} 
+        text={text} 
+        user={user} 
+        setUser={setUser} 
+        lang={lang}/>}/>  {/* 个人页面 */}</Routes>
     </div>
   )
 }

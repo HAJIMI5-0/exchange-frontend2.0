@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function Board() {
 
@@ -9,41 +9,35 @@ function Board() {
     "자료공유"
   ]
 
-  const posts = [
-    {
-      id: 1,
-      category: "자유게시판",
-      title: "리액트 스터디 파트너를 찾고 있습니다",
-      author: "Alex",
-      date: "2026-05-07",
-      views: 124,
-      content: "프론트엔드 기술을 함께 교환하며 공부할 사람을 찾고 있습니다."
-    },
-
-    {
-      id: 2,
-      category: "질문게시판",
-      title: "Spring Boot API는 어떻게 사용하나요?",
-      author: "Sophia",
-      date: "2026-05-06",
-      views: 89,
-      content: "백엔드 API 연결 방법에 대해 도움이 필요합니다."
-    },
-
-    {
-      id: 3,
-      category: "자료공유",
-      title: "무료 JavaScript PDF 학습 자료 공유",
-      author: "Daniel",
-      date: "2026-05-05",
-      views: 201,
-      content: "유용한 JavaScript 학습 자료를 공유합니다."
-    }
-  ]
+  const [posts, setPosts] = useState([])
 
   const [selectedCategory, setSelectedCategory] = useState("전체")
   const [search, setSearch] = useState("")
   const [selectedPost, setSelectedPost] = useState(null)
+
+  const [showWriteModal, setShowWriteModal] = useState(false)
+
+  const [newPost, setNewPost] = useState({
+    category: "자유게시판",
+    title: "",
+    author: "",
+    content: "",
+    views: 0,
+    date: new Date().toISOString().split("T")[0]
+  })
+
+  useEffect(() => {
+
+    fetch("http://localhost:5090/api/board")
+      .then((res) => res.json())
+      .then((data) => {
+        setPosts(data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+  }, [])
 
   const filteredPosts = posts.filter((post) => {
 
@@ -57,10 +51,43 @@ function Board() {
     return categoryMatch && searchMatch
   })
 
+  const handleWrite = () => {
+
+    fetch("http://localhost:8080/api/board", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newPost)
+    })
+
+      .then((res) => res.json())
+
+      .then((data) => {
+
+        setPosts([data, ...posts])
+
+        setShowWriteModal(false)
+
+        setNewPost({
+          category: "자유게시판",
+          title: "",
+          author: "",
+          content: "",
+          views: 0,
+          date: new Date().toISOString().split("T")[0]
+        })
+
+      })
+
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
   return (
     <div className="board-page">
 
-      {/* ===== Header ===== */}
       <div className="board-header">
 
         <div>
@@ -68,13 +95,15 @@ function Board() {
           <p>다른 사용자들과 지식을 공유하고 소통해보세요.</p>
         </div>
 
-        <button className="write-btn">
+        <button
+          className="write-btn"
+          onClick={() => setShowWriteModal(true)}
+        >
           글쓰기
         </button>
 
       </div>
 
-      {/* ===== Search ===== */}
       <div className="board-search-area">
 
         <input
@@ -87,7 +116,6 @@ function Board() {
 
       </div>
 
-      {/* ===== Categories ===== */}
       <div className="board-categories">
 
         {categories.map((category) => (
@@ -95,7 +123,9 @@ function Board() {
           <button
             key={category}
             className={`category-btn ${
-              selectedCategory === category ? 'active-category' : ''
+              selectedCategory === category
+                ? 'active-category'
+                : ''
             }`}
             onClick={() => setSelectedCategory(category)}
           >
@@ -106,7 +136,6 @@ function Board() {
 
       </div>
 
-      {/* ===== Post List ===== */}
       <div className="board-post-list">
 
         {filteredPosts.map((post) => (
@@ -151,8 +180,6 @@ function Board() {
 
       </div>
 
-      {/* ===== Post Detail Modal ===== */}
-
       {selectedPost && (
 
         <div
@@ -195,6 +222,95 @@ function Board() {
             <p className="modal-content">
               {selectedPost.content}
             </p>
+
+          </div>
+
+        </div>
+
+      )}
+
+      {showWriteModal && (
+
+        <div
+          className="modal-overlay"
+          onClick={() => setShowWriteModal(false)}
+        >
+
+          <div
+            className="post-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+
+            <div className="modal-top">
+
+              <span className="post-category">
+                글쓰기
+              </span>
+
+              <button
+                className="close-btn"
+                onClick={() => setShowWriteModal(false)}
+              >
+                ✕
+              </button>
+
+            </div>
+
+            <select
+              value={newPost.category}
+              onChange={(e) =>
+                setNewPost({
+                  ...newPost,
+                  category: e.target.value
+                })
+              }
+            >
+              <option>자유게시판</option>
+              <option>질문게시판</option>
+              <option>자료공유</option>
+            </select>
+
+            <input
+              type="text"
+              placeholder="제목 입력"
+              value={newPost.title}
+              onChange={(e) =>
+                setNewPost({
+                  ...newPost,
+                  title: e.target.value
+                })
+              }
+            />
+
+            <input
+              type="text"
+              placeholder="작성자 입력"
+              value={newPost.author}
+              onChange={(e) =>
+                setNewPost({
+                  ...newPost,
+                  author: e.target.value
+                })
+              }
+            />
+
+            <textarea
+              placeholder="내용 입력"
+              value={newPost.content}
+              onChange={(e) =>
+                setNewPost({
+                  ...newPost,
+                  content: e.target.value
+                })
+              }
+            />
+
+            <button
+              className="write-btn"
+              onClick={handleWrite}
+            >
+              작성하기
+            </button>
 
           </div>
 

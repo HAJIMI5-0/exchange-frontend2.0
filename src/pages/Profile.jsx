@@ -29,6 +29,7 @@ function Profile({ text, user, setUser, lang = 'zh' }) {
   const [profile, setProfile] = useState({
     id: '',
     username: '',
+    name: '',
     phone: '',
     email: '',
     address: '',
@@ -53,6 +54,7 @@ function Profile({ text, user, setUser, lang = 'zh' }) {
         const profileData = {
           id: data.id || user.id || '',
           username: data.username || user.username || '',
+          name: data.name || data.nickname || user.name || data.username || user.username || '',
           phone: data.phone || '',
           email: data.email || '',
           address: data.address || '',
@@ -68,6 +70,8 @@ function Profile({ text, user, setUser, lang = 'zh' }) {
 
         const updatedUser = {
           ...user,
+          username: profileData.username,
+          name: profileData.name,
           avatar: profileData.avatar
         }
 
@@ -100,7 +104,7 @@ function Profile({ text, user, setUser, lang = 'zh' }) {
     }
 
     translateProfileInfo()
-  }, [lang, profile.teachSkill, profile.learnSkill, isEditing])
+  }, [lang, profile.teachSkill, profile.learnSkill, profile.nationality, isEditing])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -123,11 +127,13 @@ function Profile({ text, user, setUser, lang = 'zh' }) {
 
       const updatedProfile = {
         ...profile,
+        username: user.username,
         avatar: avatarUrl
       }
 
       const updatedUser = {
         ...user,
+        name: updatedProfile.name,
         avatar: avatarUrl
       }
 
@@ -148,23 +154,45 @@ function Profile({ text, user, setUser, lang = 'zh' }) {
 
   const handleSave = async () => {
     try {
-      const data = await updateProfileApi(profile)
+      const saveProfile = {
+        ...profile,
+        username: user.username
+      }
+
+      const data = await updateProfileApi(saveProfile)
+
+      const updatedProfile = {
+        ...saveProfile,
+        id: data.id ?? saveProfile.id,
+        username: user.username,
+        name: data.name ?? saveProfile.name,
+        phone: data.phone ?? saveProfile.phone,
+        email: data.email ?? saveProfile.email,
+        address: data.address ?? saveProfile.address,
+        avatar: data.avatar ?? saveProfile.avatar,
+        gender: data.gender ?? saveProfile.gender,
+        age: data.age ?? saveProfile.age,
+        nationality: data.nationality ?? saveProfile.nationality,
+        teachSkill: data.teachSkill ?? saveProfile.teachSkill,
+        learnSkill: data.learnSkill ?? saveProfile.learnSkill
+      }
 
       const updatedUser = {
         ...user,
-        username: data.username || profile.username,
-        phone: data.phone || profile.phone,
-        email: data.email || profile.email,
-        address: data.address || profile.address,
-        avatar: data.avatar || profile.avatar,
-        gender: data.gender || profile.gender,
-        age: data.age || profile.age,
-        nationality: data.nationality || profile.nationality,
-        teachSkill: data.teachSkill || profile.teachSkill,
-        learnSkill: data.learnSkill || profile.learnSkill
+        username: user.username,
+        name: updatedProfile.name,
+        phone: updatedProfile.phone,
+        email: updatedProfile.email,
+        address: updatedProfile.address,
+        avatar: updatedProfile.avatar,
+        gender: updatedProfile.gender,
+        age: updatedProfile.age,
+        nationality: updatedProfile.nationality,
+        teachSkill: updatedProfile.teachSkill,
+        learnSkill: updatedProfile.learnSkill
       }
 
-      setProfile(updatedUser)
+      setProfile(updatedProfile)
       setUser(updatedUser)
       localStorage.setItem('loginUser', JSON.stringify(updatedUser))
       setResult(text.saveSuccess || '保存成功')
@@ -210,15 +238,20 @@ function Profile({ text, user, setUser, lang = 'zh' }) {
         <div className="profile-top">
           <img
             src={profile.avatar && profile.avatar.trim() ? profile.avatar : defaultAvatar}
-            alt={'avatar'}
-            className={'profile-avatar'}
+            alt="avatar"
+            className="profile-avatar"
             onError={(e) => {
               e.target.src = defaultAvatar
             }}
           />
 
           <div className="profile-basic">
-            <h2>{profile.username || 'User'}</h2>
+            <h2>{profile.name || profile.username || 'User'}</h2>
+
+          <p className="profile-username-small">
+              @{profile.username || '-'}
+          </p>
+
             <p>{text.welcome || '欢迎来到个人中心'}</p>
           </div>
         </div>

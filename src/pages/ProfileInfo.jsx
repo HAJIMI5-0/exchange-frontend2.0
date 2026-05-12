@@ -16,8 +16,8 @@ function ProfileInfo({
 
         <div className="profile-row-group">
           <div className="profile-row half">
-            <span className="profile-label">{text.username || '用户名'}</span>
-            <span>{profile.username || '-'}</span>
+            <span className="profile-label">{text.name || '用户名'}</span>
+            <span>{profile.name || '-'}</span>
           </div>
 
           <div className="profile-row half">

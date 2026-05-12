@@ -1,140 +1,272 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+
+const API_BASE = 'http://10.30.4.139:8080'
 
 function Chat({ text }) {
+  const currentUser = JSON.parse(
+    localStorage.getItem('loginUser')
+  )
 
-  const initialChats = [
-    {
-      id: 1,
-      user: "Alex",
-      status: "온라인",
-      lastMessage: "안녕하세요, 잘 지내세요?",
-      time: "오후 10:30",
-      messages: [
-        { type: "received", text: "안녕하세요!" },
-        { type: "sent", text: "안녕하세요, 만나서 반가워요." },
-        { type: "received", text: "어떤 기술을 배우고 싶나요?" }
-      ]
-    },
+  const currentUsername = currentUser?.username || ''
 
-    {
-      id: 2,
-      user: "Sophia",
-      status: "오프라인",
-      lastMessage: "기술 교환을 해봐요!",
-      time: "오후 9:15",
-      messages: [
-        { type: "received", text: "React를 가르쳐 줄 수 있나요?" },
-        { type: "sent", text: "물론이죠, 도와드릴게요." }
-      ]
-    },
-
-    {
-      id: 3,
-      user: "Daniel",
-      status: "온라인",
-      lastMessage: "내일 봐요.",
-      time: "어제",
-      messages: [
-        { type: "received", text: "내일 봐요!" }
-      ]
-    }
-  ]
-
-  const [chats, setChats] = useState(initialChats)
-
-  const [selectedChat, setSelectedChat] =
-    useState(initialChats[0])
-
-  const [newMessage, setNewMessage] = useState("")
-
+  const [rooms, setRooms] = useState([])
+  const [selectedRoom, setSelectedRoom] = useState(null)
+  const [messages, setMessages] = useState([])
+  const [newMessage, setNewMessage] = useState('')
   const [isAiLoading, setIsAiLoading] = useState(false)
+  const [aiSuggestion, setAiSuggestion] = useState('')
+  const [translatedMessages, setTranslatedMessages] = useState({})
 
-  const [aiSuggestion, setAiSuggestion] = useState("")
+  const messagesEndRef = useRef(null)
 
-  /* ===== 메시지 전송 ===== */
+  const scrollToBottom = () => {
+    setTimeout(() => {
+      messagesEndRef.current?.scrollIntoView({
+        behavior: 'smooth'
+      })
+    }, 100)
+  }
 
-  const handleSendMessage = () => {
+  // 当前页面语言
+  const getCurrentLang = () => {
+    return localStorage.getItem('lang') || 'ko'
+  }
 
-    if (!newMessage.trim()) return
+  // 检测消息语言
+  const detectLanguage = (text) => {
+    if (!text) return 'en'
 
-    const updatedChats = chats.map((chat) => {
+    if (/[\uac00-\ud7af]/.test(text)) return 'ko'
+    if (/[\u4e00-\u9fff]/.test(text)) return 'zh'
+    if (/[\u3040-\u30ff]/.test(text)) return 'ja'
+    if (/[\u0600-\u06FF]/.test(text)) return 'ar'
 
-      if (chat.id === selectedChat.id) {
+    return 'en'
+  }
 
-        const updatedMessages = [
-          ...chat.messages,
-          {
-            type: "sent",
-            text: newMessage
-          }
-        ]
+  // 加载聊天室
+  useEffect(() => {
+    if (!currentUsername) return
+    fetchRooms()
+  }, [currentUsername])
 
-        return {
-          ...chat,
-          lastMessage: newMessage,
-          messages: updatedMessages
-        }
+  const fetchRooms = async () => {
+    try {
+      const res = await fetch(
+        `${API_BASE}/api/chat/rooms?username=${currentUsername}`
+      )
+
+      if (!res.ok) {
+        setRooms([])
+        return
       }
 
-      return chat
-    })
+      const data = await res.json()
 
-    setChats(updatedChats)
+      if (!Array.isArray(data)) {
+        setRooms([])
+        return
+      }
 
-    const updatedSelectedChat = updatedChats.find(
-      (chat) => chat.id === selectedChat.id
-    )
+      setRooms(data)
 
-    setSelectedChat(updatedSelectedChat)
+      if (data.length > 0) {
+        setSelectedRoom(prev =>
+          prev?.roomId === data[0].roomId
+            ? prev
+            : data[0]
+        )
+      }
 
-    setNewMessage("")
-
-    setAiSuggestion("")
+    } catch (err) {
+      console.log('聊天室加载失败', err)
+      setRooms([])
+    }
   }
 
-  /* ===== AI 메시지 추천 ===== */
+  // 加载聊天记录（实时）
+  useEffect(() => {
+    if (!selectedRoom || !currentUsername) return
 
-const handleAiSuggest = async () => {
+    fetchMessages(true)
 
-  setIsAiLoading(true)
+    const interval = setInterval(() => {
+      fetchMessages(false)
+    }, 2000)
 
-  try {
+    return () => clearInterval(interval)
 
-    const res = await fetch('http://10.30.4.139:8080/api/chat/ai-suggest', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        message: newMessage,
-        partner: selectedChat.user
-      })
-    })
+  }, [selectedRoom, currentUsername])
 
-    const data = await res.json()
+  const fetchMessages = async (shouldScroll = false) => {
+    try {
+      const res = await fetch(
+        `${API_BASE}/api/chat/messages?me=${currentUsername}&partner=${selectedRoom.partnerUsername}`
+      )
 
-    if (data.success) {
-      setAiSuggestion(data.suggestion)
-    } else {
-      setAiSuggestion('AI 추천 생성에 실패했습니다.')
+      if (!res.ok) return
+
+      const data = await res.json()
+
+      if (!Array.isArray(data)) return
+
+      setMessages(data)
+
+      if (shouldScroll) {
+        scrollToBottom()
+      }
+
+    } catch (err) {
+      console.log('聊天记录加载失败', err)
+    }
+  }
+
+  // 自动翻译
+  useEffect(() => {
+    if (!messages.length) return
+    autoTranslateMessages()
+  }, [messages])
+
+  const autoTranslateMessages = async () => {
+    const currentLang = getCurrentLang()
+    const translations = {}
+
+    for (const msg of messages) {
+      const messageLang = detectLanguage(msg.content)
+
+      if (messageLang === currentLang) {
+        continue
+      }
+
+      try {
+        const res = await fetch(
+          `${API_BASE}/api/translate`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              text: msg.content,
+              targetLang: currentLang
+            })
+          }
+        )
+
+        const translated = await res.text()
+
+        if (
+          translated &&
+          translated.trim() &&
+          translated !== msg.content
+        ) {
+          translations[msg.id] = translated
+        }
+
+      } catch (err) {
+        console.log('翻译失败', err)
+      }
     }
 
-  } catch (err) {
-    console.log('AI 추천 실패', err)
-    setAiSuggestion('AI 서버 연결에 실패했습니다.')
-  } finally {
-    setIsAiLoading(false)
+    setTranslatedMessages(translations)
   }
-}
+
+  // 发消息
+  const handleSendMessage = async () => {
+    if (!newMessage.trim()) return
+    if (!selectedRoom) return
+
+    try {
+      const res = await fetch(
+        `${API_BASE}/api/chat/send`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            senderUsername: currentUsername,
+            receiverUsername: selectedRoom.partnerUsername,
+            content: newMessage
+          })
+        }
+      )
+
+      const data = await res.json()
+
+      if (data.success) {
+        setNewMessage('')
+        setAiSuggestion('')
+        fetchMessages(true)
+        fetchRooms()
+      } else {
+        alert(data.message)
+      }
+
+    } catch (err) {
+      console.log('发送失败', err)
+    }
+  }
+
+  // AI 推荐
+  const handleAiSuggest = async () => {
+    if (!messages.length) return
+
+    setIsAiLoading(true)
+
+    try {
+      const lastMessage = messages[messages.length - 1]
+
+      const res = await fetch(
+        `${API_BASE}/api/chat/ai-suggest`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: lastMessage.content,
+            partner: selectedRoom.partnerUsername
+          })
+        }
+      )
+
+      const data = await res.json()
+
+      if (data.success) {
+        setAiSuggestion(data.suggestion)
+        scrollToBottom()
+      }
+
+    } catch (err) {
+      console.log('AI失败', err)
+    } finally {
+      setIsAiLoading(false)
+    }
+  }
+
+  if (!currentUsername) {
+    return (
+      <div style={{ color: 'white', padding: '40px' }}>
+        Please login first.
+      </div>
+    )
+  }
+
+  if (rooms.length === 0) {
+    return (
+      <div style={{ color: 'white', padding: '40px' }}>
+        No matched chats.
+      </div>
+    )
+  }
 
   return (
     <div className="chat-page">
 
-      {/* ===== Sidebar ===== */}
+      {/* 左侧 */}
       <div className="chat-sidebar">
-
         <div className="chat-sidebar-top">
-
           <h2 className="chat-title">
             {text.chat}
           </h2>
@@ -144,117 +276,94 @@ const handleAiSuggest = async () => {
             placeholder="채팅 검색..."
             className="chat-search"
           />
-
         </div>
 
-        {/* ===== Chat Users ===== */}
         <div className="chat-user-list">
-
-          {chats.map((chat) => (
-
+          {rooms.map(room => (
             <div
-              key={chat.id}
+              key={room.roomId}
               className={`chat-user-card ${
-                selectedChat.id === chat.id
+                selectedRoom?.roomId === room.roomId
                   ? 'active-chat'
                   : ''
               }`}
               onClick={() => {
-                setSelectedChat(chat)
-                setAiSuggestion("")
+                setSelectedRoom(room)
+                setAiSuggestion('')
+                scrollToBottom()
               }}
             >
-
               <div className="chat-avatar">
-                {chat.user.charAt(0)}
+                {room.partnerName?.charAt(0)}
               </div>
 
               <div className="chat-user-info">
-
-                <div className="chat-user-top">
-
-                  <h4>{chat.user}</h4>
-
-                  <span>{chat.time}</span>
-
-                </div>
-
-                <p>{chat.lastMessage}</p>
-
+                <h4>{room.partnerName}</h4>
+                <p>
+                  {room.lastMessage || '새로운 대화를 시작하세요'}
+                </p>
               </div>
-
             </div>
-
           ))}
-
         </div>
-
       </div>
 
-      {/* ===== Main Chat ===== */}
+      {/* 右侧 */}
       <div className="chat-main">
 
-        {/* ===== Header ===== */}
         <div className="chat-header">
-
           <div className="chat-header-info">
-
             <div className="chat-avatar">
-              {selectedChat.user.charAt(0)}
+              {selectedRoom?.partnerName?.charAt(0)}
             </div>
 
             <div>
-
-              <h3>{selectedChat.user}</h3>
-
-              <p>{selectedChat.status}</p>
-
+              <h3>{selectedRoom?.partnerName}</h3>
+              <p>온라인</p>
             </div>
-
           </div>
-
         </div>
 
-        {/* ===== Messages ===== */}
+        {/* 消息区 */}
         <div className="chat-messages">
-
-          {selectedChat.messages.map((msg, index) => (
-
+          {messages.map(msg => (
             <div
-              key={index}
-              className={`message ${msg.type}`}
+              key={msg.id}
+              className={`message ${
+                msg.senderUsername === currentUsername
+                  ? 'sent'
+                  : 'received'
+              }`}
             >
-              {msg.text}
-            </div>
+              <div>{msg.content}</div>
 
+              {translatedMessages[msg.id] && (
+                <div className="translated-message">
+                  🌐 {translatedMessages[msg.id]}
+                </div>
+              )}
+            </div>
           ))}
 
-          {/* ===== AI Suggestion ===== */}
-
           {aiSuggestion && (
-
             <div
               className="ai-suggestion-box"
-              onClick={() => setNewMessage(aiSuggestion)}
+              onClick={() =>
+                setNewMessage(aiSuggestion)
+              }
             >
-
               <p className="ai-label">
                 ✨ AI Suggestion
               </p>
-
-              <p>
-                {aiSuggestion}
-              </p>
-
+              <p>{aiSuggestion}</p>
             </div>
-
           )}
 
+          <div ref={messagesEndRef}></div>
         </div>
 
-        {/* ===== Input Area ===== */}
+        {/* 输入 */}
         <div className="chat-input-area">
-
           <button className="plus-btn">
             +
           </button>
@@ -274,8 +383,6 @@ const handleAiSuggest = async () => {
             }}
           />
 
-          {/* ===== AI Button ===== */}
-
           <button
             className="ai-btn"
             onClick={handleAiSuggest}
@@ -290,11 +397,9 @@ const handleAiSuggest = async () => {
           >
             보내기
           </button>
-
         </div>
 
       </div>
-
     </div>
   )
 }

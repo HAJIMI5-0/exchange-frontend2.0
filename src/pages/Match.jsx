@@ -11,10 +11,17 @@ function Match({ text }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
+  // 保存当前被选择的用户
+  const [selectedUser, setSelectedUser] = useState(null)
+
+  // 保存申请好友后的提示文字
+  const [applyResult, setApplyResult] = useState('')
+
   const handleMatch = async () => {
     setLoading(true)
     setError('')
     setUsers([])
+    setApplyResult('')
 
     try {
       const params = new URLSearchParams()
@@ -46,6 +53,57 @@ function Match({ text }) {
     }
   }
 
+  // 点击选择TA，打开弹窗
+  const handleSelectUser = (user) => {
+  setSelectedUser(user)
+  setApplyResult('')
+  }
+
+  // 关闭弹窗
+  const handleCloseModal = () => {
+    setSelectedUser(null)
+    setApplyResult('')
+  }
+
+  // 申请好友
+  const handleApplyFriend = async () => {
+    const loginUser = JSON.parse(localStorage.getItem('loginUser'))
+
+    if (!loginUser || !loginUser.username) {
+      setApplyResult('请先登录后再申请好友')
+      return
+    }
+
+    if (!selectedUser || !selectedUser.username) {
+      setApplyResult('无法获取对方用户信息')
+      return
+    }
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/friend-requests`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          requesterUsername: loginUser.username,
+          receiverUsername: selectedUser.username
+        })
+      })
+
+      const data = await res.json()
+
+      if (res.ok && data.success === true) {
+        setApplyResult('好友申请已发送')
+      } else {
+        setApplyResult(data.message || '申请失败')
+      }
+    } catch (err) {
+      console.error(err)
+      setApplyResult('申请失败，请检查后端好友申请接口')
+    }
+  }
+
   return (
     <div className="match-page">
       <h1>{text.matchTitle || '技能匹配'}</h1>
@@ -70,7 +128,7 @@ function Match({ text }) {
             value={wantSkill}
             onChange={(e) => setWantSkill(e.target.value)}
             placeholder="请输入你想学的技能，例如 React"
-        />
+          />
         </div>
 
         <button className="match-btn" onClick={handleMatch}>
@@ -130,13 +188,88 @@ function Match({ text }) {
                 </div>
               </div>
 
-              <button className="select-user-btn">
+              <button 
+                type="button"
+                className="select-user-btn"
+                onClick={() => handleSelectUser(user)}
+              >
                 {text.selectTa || '选择TA'}
               </button>
             </div>
           ))
         )}
       </div>
+
+      {/* 用户信息弹窗 */}
+      {selectedUser && (
+        <div className="modal-mask">
+          <div className="user-modal">
+            <button className="modal-close-btn" onClick={handleCloseModal}>
+            X
+            </button>
+
+            <div className="modal-avatar">
+              {selectedUser.avatar ? (
+                <img src={selectedUser.avatar} alt="avatar" />
+              ) : (
+                <span>👤</span>
+              )}
+            </div>
+
+            <h2>{selectedUser.name || selectedUser.username}</h2>
+
+            <div className="modal-info">
+              <div className="modal-row">
+                <span className="modal-label">用户名</span>
+                <span className="modal-value">{selectedUser.username || '-'}</span>
+              </div>
+
+              <div className="modal-row">
+                <span className="modal-label">年龄</span>
+                <span className="modal-value">{selectedUser.age || '-'}</span>
+              </div>
+
+              <div className="modal-row">
+                <span className="modal-label">性别</span>
+                <span className="modal-value">{selectedUser.gender || '-'}</span>
+              </div>
+
+              <div className="modal-row">
+                <span className="modal-label">国籍</span>
+                <span className="modal-value">{selectedUser.nationality || '-'}</span>
+              </div>
+
+              <div className="modal-row ">
+                <span className="modal-label">擅长技能</span>
+                <span className="modal-value">
+                  {(selectedUser.skills && selectedUser.skills.length > 0)
+                    ? selectedUser.skills.join(', ')
+                    : selectedUser.teachSkill || '-'}
+                </span>
+              </div>
+
+              <div className="modal-row ">
+                <span className="modal-label">想学技能</span>
+                <span className="modal-value">
+                  {(selectedUser.wants && selectedUser.wants.length > 0)
+                    ? selectedUser.wants.join(', ')
+                    : selectedUser.learnSkill || '-'}
+                </span>
+              </div>
+            </div>
+
+            <button className="apply-friend-btn" onClick={handleApplyFriend}>
+              申请好友
+            </button>
+
+            {applyResult && (
+              <p className="apply-result">
+                {applyResult}
+              </p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

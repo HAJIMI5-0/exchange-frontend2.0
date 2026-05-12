@@ -18,9 +18,9 @@ function ProfileForm({
 
       <div className="profile-form-row-group">
         <input
-          name="username"
-          placeholder={text.username || '用户名'}
-          value={profile.username}
+          name="name"
+          placeholder={text.name || '用户名'}
+          value={profile.name || ''}
           onChange={onChange}
         />
 
