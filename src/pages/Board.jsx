@@ -28,7 +28,7 @@ function Board() {
 
   useEffect(() => {
 
-    fetch("http://localhost:5090/api/board")
+    fetch("http://localhost:8080/api/board")
       .then((res) => res.json())
       .then((data) => {
         setPosts(data)

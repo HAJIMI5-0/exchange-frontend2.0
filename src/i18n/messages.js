@@ -16,7 +16,7 @@ const messages = {
     loginPage: '登录页面',
     registerPage: '注册页面',
 
-    username: '用户名',
+    name: '用户名',
     password: '密码',
     phone: '电话',
     email: '邮箱',
@@ -74,7 +74,7 @@ const messages = {
     loginPage: 'Login Page',
     registerPage: 'Register Page',
 
-    username: 'Username',
+    name: 'Username',
     password: 'Password',
     phone: 'Phone',
     email: 'Email',
@@ -132,7 +132,7 @@ const messages = {
     loginPage: '로그인 페이지',
     registerPage: '회원가입 페이지',
 
-    username: '아이디',
+    name: '아이디',
     password: '비밀번호',
     phone: '전화번호',
     email: '이메일',
@@ -190,7 +190,7 @@ const messages = {
     loginPage: 'ログインページ',
     registerPage: '登録ページ',
 
-    username: 'ユーザー名',
+    name: 'ユーザー名',
     password: 'パスワード',
     phone: '電話',
     email: 'メール',
@@ -247,7 +247,7 @@ const messages = {
     loginPage: 'Page de connexion',
     registerPage: 'Page d’inscription',
 
-    username: 'Nom d’utilisateur',
+    name: 'Nom d’utilisateur',
     password: 'Mot de passe',
     phone: 'Téléphone',
     email: 'E-mail',
@@ -304,7 +304,7 @@ const messages = {
     loginPage: 'Login-Seite',
     registerPage: 'Registrierungsseite',
 
-    username: 'Benutzername',
+    name: 'Benutzername',
     password: 'Passwort',
     phone: 'Telefon',
     email: 'E-Mail',
@@ -361,7 +361,7 @@ const messages = {
     loginPage: 'Página de inicio de sesión',
     registerPage: 'Página de registro',
 
-    username: 'Nombre de usuario',
+    name: 'Nombre de usuario',
     password: 'Contraseña',
     phone: 'Teléfono',
     email: 'Correo',
@@ -418,7 +418,7 @@ const messages = {
     loginPage: 'صفحة تسجيل الدخول',
     registerPage: 'صفحة إنشاء الحساب',
 
-    username: 'اسم المستخدم',
+    name: 'اسم المستخدم',
     password: 'كلمة المرور',
     phone: 'الهاتف',
     email: 'البريد الإلكتروني',

@@ -33,6 +33,12 @@ function Register({ text }) {                   // Register组件接收text
       return                                  // 终止函数，不继续执行
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/          // 邮箱格式正则表达式
+    if (!emailRegex.test(email)) {                           // 如果邮箱格式不符合 xxx@xxx.xxx
+      setResult(text.emailInvalid || '邮箱格式不正确')          // 显示邮箱格式错误提示
+      return                                                 // 终止函数，不发送注册请求
+    }
+
     try {
       const res = await fetch('http://10.30.4.139:8080/api/register', {  // 向后端发送请求
         method: 'POST',                         // 使用 POST 请求（提交数据）
@@ -50,16 +56,18 @@ function Register({ text }) {                   // Register组件接收text
       const data = await res.json()            // 将返回结果解析为 JSON 对象
 
       if (res.ok) {                           // 如果状态码是 200（成功）
-        setResult(`${text.registerBtn}成功：${data.username || username}`)  // 显示成功信息
+        navigate('/login')                    //注册成功跳转登录页
       } else {
         setResult(data.message || `${text.registerBtn}失败`)               // 显示失败信息
       }
 
     } catch (err) {                            // 捕获错误（例如后端没启动）
       console.error('注册错误:', err)           // 在控制台输出错误
-      setResult('注册请求失败，请检查后端是否启动')  // 显示错误提示（这里建议也做多语言）
+      setResult('注册失败')                    // 显示错误提示（这里建议也做多语言）
     }
   }
+
+
 
   return (
     <section className="auth-page">            {/* 页面最外层容器 */}

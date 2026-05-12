@@ -6,17 +6,17 @@
 /* ===== 页面整体 ===== */
 .match-page {
 
-  min-height: calc(100vh - 132px); /* 页面高度 */
+  min-height: calc(100vh - 132px); /* 页面最小高度，减去导航栏等顶部区域高度 */
 
-  padding: 70px 40px; /* 内边距 */
+  padding: 70px 40px; /* 页面上下 70px、左右 40px 的内边距 */
 
-  box-sizing: border-box; /* padding不撑大 */
+  box-sizing: border-box; /* 让 padding 和 border 计算在元素宽高里面 */
 
-  position: relative; /* 相对定位 */
+  position: relative; /* 设置相对定位，方便内部元素使用绝对定位 */
 
-  overflow: hidden; /* 超出隐藏 */
+  overflow: hidden; /* 超出页面范围的内容隐藏 */
 
-  text-align: center; /* 默认文字居中 */
+  text-align: center; /* 页面内默认文字居中 */
 
   background:
     radial-gradient(
@@ -34,9 +34,9 @@
       #0b0b12 0%,
       #151522 45%,
       #09090f 100%
-    ); /* AI Startup 深色背景 */
+    ); /* 页面背景：左上紫色光效 + 右下蓝色光效 + 深色渐变 */
 
-  color: white; /* 默认白字 */
+  color: white; /* 页面默认文字颜色为白色 */
 }
 
 /* =========================================================
@@ -46,13 +46,13 @@
 /* 页面标题 */
 .match-page h1 {
 
-  margin: 0 0 18px; /* 下方间距 */
+  margin: 0 0 18px; /* 去掉默认上外边距，底部留 18px */
 
-  font-size: 52px; /* 标题大小 */
+  font-size: 52px; /* 标题字体大小 */
 
-  font-weight: 900; /* 超粗 */
+  font-weight: 900; /* 标题加粗 */
 
-  letter-spacing: 2px; /* 字间距 */
+  letter-spacing: 2px; /* 字母或文字之间的间距 */
 
   line-height: 1.2; /* 行高 */
 
@@ -62,25 +62,25 @@
       #ffffff,
       #c084fc,
       #60a5fa
-    ); /* 渐变文字 */
+    ); /* 标题文字渐变背景 */
 
-  -webkit-background-clip: text; /* 背景裁剪 */
+  -webkit-background-clip: text; /* 把背景裁剪到文字区域 */
 
-  -webkit-text-fill-color: transparent; /* 透明文字 */
+  -webkit-text-fill-color: transparent; /* 让文字本身透明，从而显示背景渐变色 */
 }
 
 /* 描述文字 */
 .match-desc {
 
-  max-width: 760px; /* 最大宽度 */
+  max-width: 760px; /* 描述文字最大宽度 */
 
-  margin: 0 auto 42px; /* 居中 */
+  margin: 0 auto 42px; /* 上下间距，左右 auto 实现居中 */
 
-  font-size: 17px; /* 字体大小 */
+  font-size: 17px; /* 描述文字大小 */
 
-  line-height: 1.8; /* 行高 */
+  line-height: 1.8; /* 行高，让文字更好读 */
 
-  color: #c9c9d6; /* 浅灰色 */
+  color: #c9c9d6; /* 描述文字颜色 */
 }
 
 /* =========================================================
@@ -90,32 +90,32 @@
 /* 筛选区域 */
 .match-filter-box {
 
-  max-width: 1200px; /* 最大宽度 */
+  max-width: 1200px; /* 筛选框最大宽度 */
 
-  margin: 0 auto 52px; /* 居中 */
+  margin: 0 auto 52px; /* 居中显示，底部留 52px */
 
-  padding: 30px; /* 内边距 */
+  padding: 30px; /* 筛选框内部间距 */
 
-  display: flex; /* flex布局 */
+  display: flex; /* 使用 flex 布局 */
 
-  justify-content: center; /* 居中 */
+  justify-content: center; /* 内容水平居中 */
 
-  align-items: end; /* 底部对齐 */
+  align-items: end; /* 子元素底部对齐 */
 
-  gap: 24px; /* 间距 */
+  gap: 24px; /* 子元素之间的间距 */
 
-  flex-wrap: wrap; /* 小屏换行 */
+  flex-wrap: wrap; /* 屏幕宽度不够时自动换行 */
 
-  border-radius: 28px; /* 大圆角 */
+  border-radius: 28px; /* 筛选框圆角 */
 
-  background: rgba(255,255,255,.08); /* 毛玻璃背景 */
+  background: rgba(255,255,255,.08); /* 半透明白色背景，形成玻璃效果 */
 
   border: 1px solid rgba(255,255,255,.1); /* 半透明边框 */
 
-  backdrop-filter: blur(18px); /* 毛玻璃模糊 */
+  backdrop-filter: blur(18px); /* 背景模糊，毛玻璃效果 */
 
   box-shadow:
-    0 20px 60px rgba(0,0,0,.45); /* 阴影 */
+    0 20px 60px rgba(0,0,0,.45); /* 筛选框阴影 */
 }
 
 /* =========================================================
@@ -125,25 +125,25 @@
 /* 每组筛选 */
 .filter-group {
 
-  display: flex; /* flex布局 */
+  display: flex; /* 使用 flex 布局 */
 
-  flex-direction: column; /* 上下排列 */
+  flex-direction: column; /* 标签和输入框上下排列 */
 
-  gap: 10px; /* 间距 */
+  gap: 10px; /* 标签和输入框之间的间距 */
 
-  text-align: left; /* 左对齐 */
+  text-align: left; /* 文字左对齐 */
 }
 
 /* label */
 .filter-group label {
 
-  font-size: 14px; /* 字体大小 */
+  font-size: 14px; /* 标签字体大小 */
 
-  font-weight: 700; /* 粗体 */
+  font-weight: 700; /* 标签字体加粗 */
 
-  color: #f4f4ff; /* 白色 */
+  color: #f4f4ff; /* 标签文字颜色 */
 
-  letter-spacing: .5px; /* 字间距 */
+  letter-spacing: .5px; /* 标签字间距 */
 }
 
 /* =========================================================
@@ -153,52 +153,52 @@
 /* 输入框 */
 .filter-group input {
 
-  width: 220px; /* 固定宽度 */
+  width: 220px; /* 输入框宽度 */
 
-  min-height: 52px; /* 输入框高度 */
+  min-height: 52px; /* 输入框最小高度 */
 
-  padding: 0 16px; /* 左右内边距 */
+  padding: 0 16px; /* 输入框左右内边距 */
 
-  border-radius: 14px; /* 圆角 */
+  border-radius: 14px; /* 输入框圆角 */
 
-  border: 1px solid rgba(255,255,255,.12); /* 半透明边框 */
+  border: 1px solid rgba(255,255,255,.12); /* 输入框半透明边框 */
 
-  outline: none; /* 去掉默认蓝色外框 */
+  outline: none; /* 去掉输入框默认外边框 */
 
-  background: rgba(20,20,32,.95); /* 深色背景 */
+  background: rgba(20,20,32,.95); /* 输入框深色背景 */
 
   color: white; /* 输入文字颜色 */
 
-  font-size: 15px; /* 字体大小 */
+  font-size: 15px; /* 输入文字大小 */
 
-  line-height: 1.4; /* 行高 */
+  line-height: 1.4; /* 输入文字行高 */
 
   font-family:
     "Pretendard",
     "Noto Sans KR",
     "Inter",
-    sans-serif; /* 字体 */
+    sans-serif; /* 输入框字体 */
 
   box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,.04); /* 内阴影 */
+    inset 0 0 0 1px rgba(255,255,255,.04); /* 输入框内部细阴影 */
 
-  transition: .25s ease; /* 动画 */
+  transition: .25s ease; /* 状态变化动画 */
 }
 
 /* 输入框提示文字 */
 .filter-group input::placeholder {
 
-  color: rgba(255,255,255,.45); /* placeholder 颜色 */
+  color: rgba(255,255,255,.45); /* placeholder 提示文字颜色 */
 }
 
 /* 输入框聚焦 */
 .filter-group input:focus {
 
-  border-color: #a855f7; /* 聚焦时紫色边框 */
+  border-color: #a855f7; /* 输入框聚焦时边框变紫色 */
 
   box-shadow:
     0 0 0 4px rgba(168,85,247,.16),
-    inset 0 0 0 1px rgba(255,255,255,.05); /* 聚焦发光 */
+    inset 0 0 0 1px rgba(255,255,255,.05); /* 输入框聚焦时外部发光和内部边线 */
 }
 
 /* =========================================================
@@ -208,15 +208,15 @@
 /* 匹配按钮 */
 .match-btn {
 
-  min-width: 180px; /* 最小宽度 */
+  min-width: 180px; /* 按钮最小宽度 */
 
-  height: 52px; /* 高度 */
+  height: 52px; /* 按钮高度 */
 
-  padding: 0 30px; /* 左右内边距 */
+  padding: 0 30px; /* 按钮左右内边距 */
 
-  border: none; /* 去边框 */
+  border: none; /* 去掉按钮边框 */
 
-  border-radius: 999px; /* 胶囊按钮 */
+  border-radius: 999px; /* 胶囊形圆角按钮 */
 
   background:
     linear-gradient(
@@ -224,31 +224,31 @@
       #a855f7,
       #6366f1,
       #2563eb
-    ); /* 紫蓝渐变 */
+    ); /* 按钮紫蓝渐变背景 */
 
-  color: white; /* 白字 */
+  color: white; /* 按钮文字颜色 */
 
-  font-size: 15px; /* 字体大小 */
+  font-size: 15px; /* 按钮文字大小 */
 
-  font-weight: 800; /* 粗体 */
+  font-weight: 800; /* 按钮文字加粗 */
 
-  cursor: pointer; /* 小手 */
+  cursor: pointer; /* 鼠标悬停时显示小手 */
 
   box-shadow:
-    0 12px 30px rgba(99,102,241,.35); /* 阴影 */
+    0 12px 30px rgba(99,102,241,.35); /* 按钮阴影 */
 
   transition:
     transform .25s ease,
-    box-shadow .25s ease; /* 动画 */
+    box-shadow .25s ease; /* 按钮 hover 动画 */
 }
 
 /* hover */
 .match-btn:hover {
 
-  transform: translateY(-3px); /* 上浮 */
+  transform: translateY(-3px); /* 鼠标悬停时按钮上浮 */
 
   box-shadow:
-    0 20px 50px rgba(168,85,247,.4); /* 发光 */
+    0 20px 50px rgba(168,85,247,.4); /* 鼠标悬停时阴影更明显 */
 }
 
 /* =========================================================
@@ -258,18 +258,18 @@
 /* 卡片区域 */
 .match-result {
 
-  max-width: 1400px; /* 最大宽度 */
+  max-width: 1400px; /* 匹配结果区域最大宽度 */
 
-  margin: 0 auto; /* 居中 */
+  margin: 0 auto; /* 居中显示 */
 
-  display: grid; /* grid布局 */
+  display: grid; /* 使用 grid 网格布局 */
 
   grid-template-columns:
-    repeat(auto-fit,minmax(240px,280px)); /* 自适应 */
+    repeat(auto-fit,minmax(240px,280px)); /* 自动适应列数，每张卡片最小 240px，最大 280px */
 
-  justify-content: center;
+  justify-content: center; /* 网格内容居中 */
   
-  gap: 26px; /* 卡片间距 */
+  gap: 26px; /* 用户卡片之间的间距 */
 }
 
 /* =========================================================
@@ -279,63 +279,63 @@
 /* 用户卡片 */
 .user-card {
 
-  position: relative; /* 相对定位 */
+  position: relative; /* 相对定位，方便伪元素定位 */
 
-  overflow: hidden; /* 超出隐藏 */
+  overflow: hidden; /* 超出卡片范围的内容隐藏 */
 
-  padding: 28px 22px; /* 内边距 */
+  padding: 28px 22px; /* 卡片内边距 */
 
-  border-radius: 26px; /* 大圆角 */
+  border-radius: 26px; /* 卡片圆角 */
 
-  text-align: left; /* 左对齐 */
+  text-align: left; /* 卡片内容默认左对齐 */
 
-  background: rgba(255,255,255,.08); /* 毛玻璃背景 */
+  background: rgba(255,255,255,.08); /* 卡片半透明背景 */
 
-  border: 1px solid rgba(255,255,255,.1); /* 半透明边框 */
+  border: 1px solid rgba(255,255,255,.1); /* 卡片半透明边框 */
 
-  backdrop-filter: blur(18px); /* 毛玻璃 */
+  backdrop-filter: blur(18px); /* 卡片毛玻璃模糊效果 */
 
   box-shadow:
-    0 18px 45px rgba(0,0,0,.35); /* 阴影 */
+    0 18px 45px rgba(0,0,0,.35); /* 卡片阴影 */
 
   transition:
     transform .25s ease,
     border-color .25s ease,
-    box-shadow .25s ease; /* 动画 */
+    box-shadow .25s ease; /* 卡片 hover 动画 */
 }
 
 /* hover */
 .user-card:hover {
 
-  transform: translateY(-8px); /* 上浮 */
+  transform: translateY(-8px); /* 鼠标悬停时卡片上浮 */
 
-  border-color: rgba(192,132,252,.5); /* 紫色边框 */
+  border-color: rgba(192,132,252,.5); /* 鼠标悬停时边框变紫色 */
 
   box-shadow:
-    0 28px 70px rgba(168,85,247,.2); /* 发光 */
+    0 28px 70px rgba(168,85,247,.2); /* 鼠标悬停时阴影发光 */
 }
 
 /* 卡片光效 */
 .user-card::before {
 
-  content: ""; /* 伪元素 */
+  content: ""; /* 创建伪元素内容 */
 
   position: absolute; /* 绝对定位 */
 
-  top: -60px; /* 顶部偏移 */
+  top: -60px; /* 光效向上偏移 */
 
-  right: -60px; /* 右侧偏移 */
+  right: -60px; /* 光效向右偏移 */
 
-  width: 150px; /* 宽度 */
+  width: 150px; /* 光效宽度 */
 
-  height: 150px; /* 高度 */
+  height: 150px; /* 光效高度 */
 
   background:
     radial-gradient(
       circle,
       rgba(168,85,247,.45),
       transparent 65%
-    ); /* 紫色光效 */
+    ); /* 卡片右上角紫色光效 */
 }
 
 /* =========================================================
@@ -345,35 +345,35 @@
 /* 头像 */
 .user-avatar-card {
 
-  width: 82px; /* 宽度 */
+  width: 82px; /* 头像区域宽度 */
 
-  height: 82px; /* 高度 */
+  height: 82px; /* 头像区域高度 */
 
-  margin: 0 auto 18px; /* 居中 */
+  margin: 0 auto 18px; /* 头像水平居中，底部留 18px */
 
-  display: flex; /* flex布局 */
+  display: flex; /* 使用 flex 布局 */
 
   align-items: center; /* 垂直居中 */
 
   justify-content: center; /* 水平居中 */
 
-  border-radius: 50%; /* 圆形 */
+  border-radius: 50%; /* 头像区域变圆形 */
 
   background:
     linear-gradient(
       135deg,
       rgba(168,85,247,.2),
       rgba(59,130,246,.2)
-    ); /* 渐变背景 */
+    ); /* 头像区域紫蓝渐变背景 */
 
-  border: 1px solid rgba(255,255,255,.12); /* 边框 */
+  border: 1px solid rgba(255,255,255,.12); /* 头像区域边框 */
 
-  color: white; /* 白字 */
+  color: white; /* 默认头像图标颜色 */
 
-  font-size: 34px; /* 图标大小 */
+  font-size: 34px; /* 默认头像图标大小 */
 
   box-shadow:
-    0 0 30px rgba(168,85,247,.2); /* 发光 */
+    0 0 30px rgba(168,85,247,.2); /* 头像区域发光阴影 */
 }
 
 /* =========================================================
@@ -383,27 +383,27 @@
 /* 名字 */
 .user-card h3 {
 
-  margin: 0; /* 去默认margin */
+  margin: 0; /* 去掉标题默认外边距 */
 
-  text-align: center; /* 居中 */
+  text-align: center; /* 用户名居中 */
 
-  font-size: 24px; /* 字体大小 */
+  font-size: 24px; /* 用户名字体大小 */
 
-  font-weight: 800; /* 粗体 */
+  font-weight: 800; /* 用户名加粗 */
 
-  color: white; /* 白色 */
+  color: white; /* 用户名颜色 */
 }
 
 /* 年龄 */
 .user-age {
 
-  margin: 8px 0 22px; /* 间距 */
+  margin: 8px 0 22px; /* 年龄文字上下间距 */
 
-  text-align: center; /* 居中 */
+  text-align: center; /* 年龄文字居中 */
 
-  color: #c9c9d6; /* 浅灰 */
+  color: #c9c9d6; /* 年龄文字颜色 */
 
-  font-size: 14px; /* 字体大小 */
+  font-size: 14px; /* 年龄文字大小 */
 }
 
 /* =========================================================
@@ -413,47 +413,47 @@
 /* 技能区域 */
 .skill-section {
 
-  padding-top: 16px; /* 顶部内边距 */
+  padding-top: 16px; /* 技能区域顶部内边距 */
 
-  margin-bottom: 18px; /* 底部间距 */
+  margin-bottom: 18px; /* 技能区域底部间距 */
 
-  border-top: 1px solid rgba(255,255,255,.08); /* 分割线 */
+  border-top: 1px solid rgba(255,255,255,.08); /* 技能区域顶部的分割线 */
 }
 
 /* 标签标题 */
 .skill-title {
 
-  display: inline-block; /* 横向 */
+  display: inline-block; /* 让技能标题像标签一样显示 */
 
-  margin-bottom: 10px; /* 底部间距 */
+  margin-bottom: 10px; /* 标签标题下方间距 */
 
-  padding: 6px 12px; /* 内边距 */
+  padding: 6px 12px; /* 标签标题内边距 */
 
-  border-radius: 999px; /* 胶囊 */
+  border-radius: 999px; /* 胶囊形圆角 */
 
-  font-size: 12px; /* 字体大小 */
+  font-size: 12px; /* 标签标题字体大小 */
 
-  font-weight: 800; /* 粗体 */
+  font-weight: 800; /* 标签标题加粗 */
 }
 
 /* 我会 */
 .skill-title.can {
 
-  background: rgba(59,130,246,.16); /* 蓝色背景 */
+  background: rgba(59,130,246,.16); /* “我会”标签蓝色半透明背景 */
 
-  color: #93c5fd; /* 蓝色文字 */
+  color: #93c5fd; /* “我会”标签文字颜色 */
 
-  border: 1px solid rgba(59,130,246,.25); /* 边框 */
+  border: 1px solid rgba(59,130,246,.25); /* “我会”标签边框 */
 }
 
 /* 想学 */
 .skill-title.want {
 
-  background: rgba(16,185,129,.16); /* 绿色背景 */
+  background: rgba(16,185,129,.16); /* “想学”标签绿色半透明背景 */
 
-  color: #6ee7b7; /* 绿色文字 */
+  color: #6ee7b7; /* “想学”标签文字颜色 */
 
-  border: 1px solid rgba(16,185,129,.25); /* 边框 */
+  border: 1px solid rgba(16,185,129,.25); /* “想学”标签边框 */
 }
 
 /* =========================================================
@@ -463,21 +463,21 @@
 /* 技能标签 */
 .tag {
 
-  display: inline-block; /* 横向 */
+  display: inline-block; /* 让技能标签横向排列 */
 
-  margin: 4px 6px 0 0; /* 间距 */
+  margin: 4px 6px 0 0; /* 技能标签之间的间距 */
 
-  padding: 7px 12px; /* 内边距 */
+  padding: 7px 12px; /* 技能标签内边距 */
 
-  border-radius: 999px; /* 胶囊 */
+  border-radius: 999px; /* 胶囊形标签 */
 
-  font-size: 13px; /* 字体大小 */
+  font-size: 13px; /* 技能标签文字大小 */
 
-  color: #f4f4ff; /* 白字 */
+  color: #f4f4ff; /* 技能标签文字颜色 */
 
-  background: rgba(255,255,255,.08); /* 半透明背景 */
+  background: rgba(255,255,255,.08); /* 技能标签半透明背景 */
 
-  border: 1px solid rgba(255,255,255,.08); /* 边框 */
+  border: 1px solid rgba(255,255,255,.08); /* 技能标签边框 */
 }
 
 /* =========================================================
@@ -487,42 +487,42 @@
 /* 选择用户按钮 */
 .select-user-btn {
 
-  width: 100%; /* 宽度铺满 */
+  width: 100%; /* 按钮宽度铺满卡片 */
 
-  height: 48px; /* 高度 */
+  height: 48px; /* 按钮高度 */
 
-  margin-top: 20px; /* 顶部间距 */
+  margin-top: 20px; /* 按钮上方间距 */
 
-  border: none; /* 去边框 */
+  border: none; /* 去掉边框 */
 
-  border-radius: 16px; /* 圆角 */
+  border-radius: 16px; /* 按钮圆角 */
 
   background:
     linear-gradient(
       135deg,
       #111827,
       #312e81
-    ); /* 深色渐变 */
+    ); /* 按钮深色渐变背景 */
 
-  color: white; /* 白字 */
+  color: white; /* 按钮文字颜色 */
 
-  font-size: 14px; /* 字体大小 */
+  font-size: 14px; /* 按钮文字大小 */
 
-  font-weight: 800; /* 粗体 */
+  font-weight: 800; /* 按钮文字加粗 */
 
-  cursor: pointer; /* 小手 */
+  cursor: pointer; /* 鼠标悬停显示小手 */
 
   transition:
     transform .2s ease,
-    opacity .2s ease; /* 动画 */
+    opacity .2s ease; /* 按钮 hover 动画 */
 }
 
 /* hover */
 .select-user-btn:hover {
 
-  transform: scale(1.03); /* 放大 */
+  transform: scale(1.03); /* 鼠标悬停时按钮放大 */
 
-  opacity: .92; /* 微透明 */
+  opacity: .92; /* 鼠标悬停时按钮稍微透明 */
 }
 
 /* =========================================================
@@ -532,52 +532,52 @@
 /* 空状态 */
 .empty-text {
 
-  grid-column: 1 / -1; /* 占满整行 */
+  grid-column: 1 / -1; /* 占满整行网格 */
 
-  padding: 36px; /* 内边距 */
+  padding: 36px; /* 空状态提示内边距 */
 
-  border-radius: 24px; /* 圆角 */
+  border-radius: 24px; /* 空状态提示圆角 */
 
-  color: #c9c9d6; /* 浅灰 */
+  color: #c9c9d6; /* 空状态文字颜色 */
 
-  background: rgba(255,255,255,.06); /* 半透明背景 */
+  background: rgba(255,255,255,.06); /* 空状态半透明背景 */
 
-  border: 1px dashed rgba(255,255,255,.14); /* 虚线边框 */
+  border: 1px dashed rgba(255,255,255,.14); /* 空状态虚线边框 */
 }
 
 /* =========================================================
    MOBILE
 ========================================================= */
 
-@media (max-width: 768px) {
+@media (max-width: 768px) { /* 当屏幕宽度小于等于 768px 时，使用手机端样式 */
 
   .match-page {
 
-    padding: 50px 20px; /* 手机内边距 */
+    padding: 50px 20px; /* 手机端页面内边距 */
   }
 
   .match-page h1 {
 
-    font-size: 36px; /* 手机标题 */
+    font-size: 36px; /* 手机端标题大小 */
   }
 
   .match-filter-box {
 
-    padding: 22px; /* 手机padding */
+    padding: 22px; /* 手机端筛选框内边距 */
 
-    align-items: stretch; /* 拉伸 */
+    align-items: stretch; /* 手机端子元素拉伸 */
   }
 
   .filter-group,
   .filter-group select,
   .match-btn {
 
-    width: 100%; /* 手机铺满 */
+    width: 100%; /* 手机端筛选项和按钮宽度铺满 */
   }
 
   .match-result {
 
-    grid-template-columns: 1fr; /* 单列 */
+    grid-template-columns: 1fr; /* 手机端匹配结果单列显示 */
   }
 }
 
@@ -585,233 +585,248 @@
    USER INFO MODAL
 ========================================================= */
 
+/* 弹窗背景遮罩 */
 .modal-mask {
-  position: fixed !important;
-  inset: 0 !important;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.72);
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-  z-index: 999999 !important;
-  backdrop-filter: blur(8px);
+  position: fixed !important; /* 固定在屏幕上，不随页面滚动 */
+  inset: 0 !important; /* 四个方向都为 0，铺满全屏 */
+  width: 100vw; /* 宽度占满浏览器窗口 */
+  height: 100vh; /* 高度占满浏览器窗口 */
+  background: rgba(0, 0, 0, 0.72); /* 半透明黑色遮罩 */
+  display: flex !important; /* 使用 flex 布局 */
+  justify-content: center; /* 弹窗水平居中 */
+  align-items: center; /* 弹窗垂直居中 */
+  z-index: 999999 !important; /* 遮罩层级很高，保证盖住页面内容 */
+  backdrop-filter: blur(8px); /* 遮罩后面的内容模糊 */
 }
 
+/* 弹窗主体 */
 .user-modal {
-  position: relative;
-  width: 920px;
-  max-width: 90vw;
-  max-height: 88vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 42px 48px 38px;
-  border-radius: 30px;
-  background: rgba(32, 31, 48, 0.98);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: white;
-  text-align: center;
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6);
-  z-index: 1000000 !important;
+  position: relative; /* 相对定位，方便关闭按钮绝对定位 */
+  width: 920px; /* 弹窗宽度 */
+  max-width: 90vw; /* 弹窗最大宽度不超过屏幕 90% */
+  max-height: 88vh; /* 弹窗最大高度不超过屏幕 88% */
+  overflow-y: auto; /* 内容过多时可以上下滚动 */
+  overflow-x: hidden; /* 禁止左右滚动 */
+  padding: 42px 48px 38px; /* 弹窗内部间距 */
+  border-radius: 30px; /* 弹窗圆角 */
+  background: rgba(32, 31, 48, 0.98); /* 弹窗深色背景 */
+  border: 1px solid rgba(255, 255, 255, 0.14); /* 弹窗半透明边框 */
+  color: white; /* 弹窗默认文字颜色 */
+  text-align: center; /* 弹窗默认文字居中 */
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6); /* 弹窗阴影 */
+  z-index: 1000000 !important; /* 弹窗层级比遮罩更高 */
 
   scrollbar-width: none;      /* Firefox 隐藏滚动条 */
   -ms-overflow-style: none;   /* IE / Edge 隐藏滚动条 */
 }
 
+/* Chrome 隐藏滚动条 */
 .user-modal::-webkit-scrollbar {
-  display: none;              /* Chrome 隐藏滚动条 */
+  display: none;              /* 不显示滚动条 */
 }
 
+/* 弹窗关闭按钮 */
 .modal-close-btn {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 44px;
-  height: 44px;
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.14);
-  color: #ffffff;
-  font-size: 28px;
-  font-weight: 800;
-  line-height: 44px;
-  text-align: center;
-  cursor: pointer;
-  z-index: 1000001 !important;
+  position: absolute; /* 绝对定位到弹窗右上角 */
+  top: 18px; /* 距离弹窗顶部 18px */
+  right: 18px; /* 距离弹窗右侧 18px */
+  width: 44px; /* 关闭按钮宽度 */
+  height: 44px; /* 关闭按钮高度 */
+  padding: 0; /* 去掉默认内边距 */
+  border: none; /* 去掉边框 */
+  border-radius: 50%; /* 圆形按钮 */
+  background: rgba(255, 255, 255, 0.14); /* 半透明背景 */
+  color: #ffffff; /* X 文字颜色 */
+  font-size: 28px; /* X 文字大小 */
+  font-weight: 800; /* X 加粗 */
+  line-height: 44px; /* 让 X 垂直居中 */
+  text-align: center; /* 让 X 水平居中 */
+  cursor: pointer; /* 鼠标悬停显示小手 */
+  z-index: 1000001 !important; /* 关闭按钮层级最高 */
 }
 
+/* 弹窗关闭按钮 hover 效果 */
 .modal-close-btn:hover {
-  background: rgba(239, 68, 68, 0.85);
-  transform: scale(1.05);
+  background: rgba(239, 68, 68, 0.85); /* 鼠标悬停时背景变红 */
+  transform: scale(1.05); /* 鼠标悬停时稍微放大 */
 }
 
+/* 弹窗头像外框 */
 .modal-avatar {
-  width: 104px;
-  height: 104px;
-  margin: 0 auto 18px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, rgba(168,85,247,.35), rgba(59,130,246,.28));
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  font-size: 38px;
+  width: 104px; /* 头像区域宽度 */
+  height: 104px; /* 头像区域高度 */
+  margin: 0 auto 18px; /* 水平居中，底部留 18px */
+  border-radius: 50%; /* 圆形头像 */
+  background: linear-gradient(135deg, rgba(168,85,247,.35), rgba(59,130,246,.28)); /* 紫蓝渐变背景 */
+  border: 1px solid rgba(255, 255, 255, 0.16); /* 半透明边框 */
+  display: flex; /* 使用 flex 布局 */
+  align-items: center; /* 头像内容垂直居中 */
+  justify-content: center; /* 头像内容水平居中 */
+  overflow: hidden; /* 超出圆形范围的图片隐藏 */
+  font-size: 38px; /* 默认头像图标大小 */
 }
 
+/* 弹窗头像图片 */
 .modal-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 100%; /* 图片宽度填满头像区域 */
+  height: 100%; /* 图片高度填满头像区域 */
+  object-fit: cover; /* 图片裁剪填充，不拉伸变形 */
 }
 
+/* 弹窗用户名标题 */
 .user-modal h2 {
-  margin: 0 0 30px;
-  font-size: 32px;
-  font-weight: 900;
-  color: #ffffff;
-  letter-spacing: 0;
+  margin: 0 0 30px; /* 去掉上方间距，底部留 30px */
+  font-size: 32px; /* 用户名标题字体大小 */
+  font-weight: 900; /* 用户名标题加粗 */
+  color: #ffffff; /* 用户名标题颜色 */
+  letter-spacing: 0; /* 字间距为 0 */
 }
 
 /* 信息外框：让内容自动换行，不要全部横着 */
 .modal-info {
-  width: 100%;
-  margin-top: 10px;
-  padding: 26px;
-  box-sizing: border-box;
-  border-radius: 26px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  width: 100%; /* 信息区域宽度占满弹窗 */
+  margin-top: 10px; /* 顶部间距 */
+  padding: 26px; /* 信息区域内边距 */
+  box-sizing: border-box; /* padding 不撑大盒子 */
+  border-radius: 26px; /* 信息区域圆角 */
+  background: rgba(255, 255, 255, 0.06); /* 信息区域半透明背景 */
+  border: 1px solid rgba(255, 255, 255, 0.08); /* 信息区域半透明边框 */
 
-  display: grid !important;
-  grid-template-columns: repeat(3, 1fr) !important;
-  gap: 18px;
+  display: grid !important; /* 使用 grid 布局显示信息块 */
+  grid-template-columns: repeat(3, 1fr) !important; /* 一行三列 */
+  gap: 18px; /* 信息块之间的间距 */
 }
 
+/* 单个信息块 */
 .modal-row {
-  min-height: 82px;
-  padding: 16px 18px;
-  box-sizing: border-box;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.055);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  min-height: 82px; /* 每个信息块最小高度 */
+  padding: 16px 18px; /* 信息块内边距 */
+  box-sizing: border-box; /* padding 不撑大盒子 */
+  border-radius: 18px; /* 信息块圆角 */
+  background: rgba(255, 255, 255, 0.055); /* 信息块半透明背景 */
+  border: 1px solid rgba(255, 255, 255, 0.08); /* 信息块半透明边框 */
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 8px;
+  display: flex; /* 使用 flex 布局 */
+  flex-direction: column; /* 标签和值上下排列 */
+  justify-content: center; /* 垂直方向居中 */
+  align-items: flex-start; /* 内容靠左 */
+  gap: 8px; /* 标签和值之间的间距 */
 
-  text-align: left;
+  text-align: left; /* 信息文字左对齐 */
 }
 
+/* 占满整行的信息块 */
 .modal-row.full {
-  grid-column: 1 / -1 !important;
+  grid-column: 1 / -1 !important; /* 从第一列占到最后一列 */
 }
 
+/* 信息标题 */
 .modal-label {
-  color: #aeb3c8;
-  font-size: 14px;
-  font-weight: 800;
-  white-space: nowrap;
+  color: #aeb3c8; /* 标签文字颜色 */
+  font-size: 14px; /* 标签字体大小 */
+  font-weight: 800; /* 标签加粗 */
+  white-space: nowrap; /* 标签不换行 */
 }
 
+/* 信息内容 */
 .modal-value {
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1.5;
-  word-break: break-word;
-  white-space: normal;
+  color: #ffffff; /* 内容文字颜色 */
+  font-size: 16px; /* 内容字体大小 */
+  font-weight: 700; /* 内容加粗 */
+  line-height: 1.5; /* 内容行高 */
+  word-break: break-word; /* 长内容自动换行 */
+  white-space: normal; /* 允许正常换行 */
 }
 
 /* 申请好友按钮 */
 .apply-friend-btn {
-  width: 100%;
-  height: 58px;
-  margin-top: 28px;
-  border: none;
-  border-radius: 18px;
-  background: linear-gradient(135deg, #7c3aed, #4f46e5, #2563eb);
-  color: white;
-  font-size: 17px;
-  font-weight: 900;
-  cursor: pointer;
-  box-shadow: 0 14px 34px rgba(99, 102, 241, 0.35);
+  width: 100%; /* 按钮宽度铺满 */
+  height: 58px; /* 按钮高度 */
+  margin-top: 28px; /* 按钮上方间距 */
+  border: none; /* 去掉边框 */
+  border-radius: 18px; /* 按钮圆角 */
+  background: linear-gradient(135deg, #7c3aed, #4f46e5, #2563eb); /* 按钮紫蓝渐变背景 */
+  color: white; /* 按钮文字颜色 */
+  font-size: 17px; /* 按钮文字大小 */
+  font-weight: 900; /* 按钮文字加粗 */
+  cursor: pointer; /* 鼠标悬停显示小手 */
+  box-shadow: 0 14px 34px rgba(99, 102, 241, 0.35); /* 按钮阴影 */
 }
 
+/* 申请好友按钮 hover 效果 */
 .apply-friend-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 50px rgba(124, 58, 237, 0.42);
+  transform: translateY(-2px); /* 鼠标悬停时按钮上浮 */
+  box-shadow: 0 20px 50px rgba(124, 58, 237, 0.42); /* 鼠标悬停时阴影增强 */
 }
 
+/* 创建聊天室或操作结果提示 */
 .apply-result {
-  margin-top: 16px;
-  color: #9ee6b8;
-  font-size: 14px;
-  font-weight: 700;
+  margin-top: 16px; /* 顶部间距 */
+  color: #9ee6b8; /* 提示文字颜色 */
+  font-size: 14px; /* 提示文字大小 */
+  font-weight: 700; /* 提示文字加粗 */
 }
 
 /* 防止卡片光效挡住按钮 */
 .user-card::before {
-  pointer-events: none;
+  pointer-events: none; /* 伪元素不接收鼠标事件，避免影响按钮点击 */
 }
 
+/* 确保选择TA按钮可以点击 */
 .select-user-btn {
-  position: relative;
-  z-index: 5;
+  position: relative; /* 设置相对定位，让 z-index 生效 */
+  z-index: 5; /* 提高按钮层级 */
 }
 
 /* 手机端 */
-@media (max-width: 768px) {
+@media (max-width: 768px) { /* 屏幕宽度小于等于 768px 时生效 */
   .user-modal {
-    width: 92vw;
-    padding: 40px 22px 30px;
+    width: 92vw; /* 手机端弹窗宽度占屏幕 92% */
+    padding: 40px 22px 30px; /* 手机端弹窗内边距 */
   }
 
   .modal-info {
-    grid-template-columns: 1fr;
-    padding: 18px;
+    grid-template-columns: 1fr; /* 手机端信息区域改为单列 */
+    padding: 18px; /* 手机端信息区域内边距 */
   }
 
   .modal-row {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 6px;
+    align-items: flex-start; /* 手机端内容靠左 */
+    flex-direction: column; /* 手机端标签和值上下排列 */
+    gap: 6px; /* 手机端标签和值之间的间距 */
   }
 
   .modal-label {
-    width: auto;
-    min-width: auto;
+    width: auto; /* 手机端取消固定宽度 */
+    min-width: auto; /* 手机端取消最小宽度 */
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px) { /* 第二组手机端样式，保留原代码重复部分 */
   .user-modal {
-    width: 92vw;
-    padding: 36px 22px 28px;
+    width: 92vw; /* 手机端弹窗宽度 */
+    padding: 36px 22px 28px; /* 手机端弹窗内边距 */
   }
 
   .modal-info {
-    grid-template-columns: 1fr;
-    padding: 18px;
+    grid-template-columns: 1fr; /* 手机端信息区域单列显示 */
+    padding: 18px; /* 手机端信息区域内边距 */
   }
 }
 
 /* 防止卡片右上角光效挡住按钮 */
 .user-card::before {
-  pointer-events: none;
+  pointer-events: none; /* 伪元素不接收鼠标事件，防止遮挡按钮点击 */
 }
 
 /* 确保选择TA按钮可以点击 */
 .select-user-btn {
-  position: relative;
-  z-index: 5;
+  position: relative; /* 设置相对定位，让 z-index 生效 */
+  z-index: 5; /* 提高按钮层级 */
 }
 
 /* 手机端弹窗适配 */
-@media (max-width: 768px) {
+@media (max-width: 768px) { /* 手机端样式 */
   .user-modal {
     width: 92vw; /* 手机宽度 */
     padding: 36px 24px 28px; /* 手机内边距 */
@@ -822,11 +837,11 @@
   }
 
   .modal-info p {
-    flex-direction: column; /* 手机上label和值上下排列 */
-    gap: 2px; /* 间距变小 */
+    flex-direction: column; /* 手机上 label 和值上下排列 */
+    gap: 2px; /* 手机上 label 和值之间的间距变小 */
   }
 
   .modal-info strong {
-    min-width: auto; /* 手机取消固定宽度 */
+    min-width: auto; /* 手机上取消 strong 的最小宽度 */
   }
 }

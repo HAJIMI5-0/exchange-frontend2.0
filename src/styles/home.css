@@ -1,68 +1,68 @@
 /* =========================================================
    HOME PAGE
    2026 AI Startup Glass UI
-   首页样式（AI创业风格玻璃拟态）
+   Home Page Styles (AI Startup Glass Morphism Style)
 ========================================================= */
 
 
 /* =========================================================
-   全局样式
+   GLOBAL STYLES
 ========================================================= */
 
 body {
 
-  margin: 0; /* 去掉默认外边距 */
+  margin: 0; /* Remove default margin */
 
-  padding: 0; /* 去掉默认内边距 */
+  padding: 0; /* Remove default padding */
 
-  background: #050816; /* 整体深色背景 */
+  background: #050816; /* Dark ambient cosmic background */
 
   font-family:
     Inter,
     Pretendard,
-    sans-serif; /* 字体优先级 */
+    sans-serif; /* Typography priority stack */
 
-  overflow-x: hidden; /* 禁止横向滚动 */
+  overflow-x: hidden; /* Prevent horizontal layout overflow */
 }
 
 
 /* =========================================================
-   HERO 首屏区域
+   HERO BANNER SECTION
 ========================================================= */
 
 .hero {
 
-  display: flex; /* 弹性布局 */
+  display: flex; /* Flexbox layout layout */
 
-  flex-direction: column; /* 垂直排列 */
+  flex-direction: column; /* Vertical alignment */
 
-  justify-content: center; /* 垂直居中 */
+  justify-content: center; /* Vertical center alignment */
 
-  align-items: center; /* 水平居中 */
+  align-items: center; /* Horizontal center alignment */
 
-  min-height: calc(100vh - 120px); /* 占满屏幕高度 */
+  min-height: calc(100vh - 120px); /* Fill browser view height */
 
-  padding: 80px 20px; /* 内边距 */
+  padding: 80px 20px; /* Padding container */
 
-  position: relative; /* 用于光效定位 */
+  position: relative; /* Position anchor for radiant blooms */
 
-  overflow: hidden; /* 隐藏溢出光效 */
+  overflow: hidden; /* Mask out overlapping radiant blurs */
 
-  text-align: center; /* 文字居中 */
+  text-align: center; /* Center typography alignment */
 
   box-sizing: border-box;
 
-  /* 背景：渐变 + 光效 */
+  /* Background mesh: dual-directional glowing radial blooms + linear gradient base */
   background:
     radial-gradient(circle at top left, rgba(168,85,247,.22), transparent 32%),
     radial-gradient(circle at bottom right, rgba(59,130,246,.18), transparent 30%),
     linear-gradient(135deg, #0b0b12 0%, #151522 45%, #09090f 100%);
 
-  color: white; /* 字体颜色 */
+  color: white; /* Typography core colors */
 }
 
 
-/* 左上光效 */
+/* Top-left radiant lighting bloom overlay */
 .hero::before {
 
   content: "";
@@ -79,11 +79,11 @@ body {
 
   background: radial-gradient(circle, rgba(168,85,247,.28), transparent 70%);
 
-  pointer-events: none; /* 不影响点击 */
+  pointer-events: none; /* Avoid hijacking touch interactions on CTA actions */
 }
 
 
-/* 右下光效 */
+/* Bottom-right radiant lighting bloom overlay */
 .hero::after {
 
   content: "";
@@ -105,18 +105,18 @@ body {
 
 
 /* =========================================================
-   HERO 标题
+   HERO MAIN HEADING
 ========================================================= */
 
 .hero h1 {
 
   position: relative;
 
-  z-index: 2; /* 让标题在光效上层 */
+  z-index: 2; /* Elevate heading above radiant overlay layers */
 
   margin-bottom: 18px;
 
-  font-size: 72px; /* 大标题 */
+  font-size: 72px; /* Massive typographic scaling */
 
   font-weight: 900;
 
@@ -124,18 +124,18 @@ body {
 
   letter-spacing: 1px;
 
-  /* 渐变文字效果 */
+  /* Metallic fluid linear gradient mask clipping effect */
   background: linear-gradient(90deg, #ffffff, #c084fc, #60a5fa);
 
   -webkit-background-clip: text;
 
   -webkit-text-fill-color: transparent;
 
-  animation: fadeUp .6s ease; /* 进入动画 */
+  animation: fadeUp .6s ease; /* Fluid vertical entrance trigger */
 }
 
 
-/* emoji 动画 */
+/* Floating inline loop keyframe linker */
 .hero span {
 
   display: inline-block;
@@ -147,7 +147,7 @@ body {
 
 
 /* =========================================================
-   HERO 描述文字
+   HERO DESCRIPTION TYPOGRAPHY
 ========================================================= */
 
 .hero p {
@@ -156,7 +156,7 @@ body {
 
   z-index: 2;
 
-  max-width: 760px; /* 限制宽度 */
+  max-width: 760px; /* Constrain typographic line width bounds */
 
   margin: 0 auto;
 
@@ -171,7 +171,7 @@ body {
 
 
 /* =========================================================
-   HERO 按钮
+   HERO CALL-TO-ACTION BUTTON
 ========================================================= */
 
 .hero-btn {
@@ -190,9 +190,9 @@ body {
 
   border: none;
 
-  border-radius: 999px; /* 圆角按钮 */
+  border-radius: 999px; /* Capsule pill layout geometry */
 
-  /* 渐变背景 */
+  /* Primary fluid energetic brand color gradient layout */
   background: linear-gradient(135deg, #a855f7, #6366f1, #2563eb);
 
   color: white;
@@ -203,26 +203,64 @@ body {
 
   cursor: pointer;
 
-  /* 阴影 */
+  outline: none;
+
+  /* Drop shadow dimensions */
   box-shadow: 0 16px 40px rgba(99,102,241,.35);
 
-  transition: all .25s ease;
+  /* ⚡ UPGRADED: Standard rigid spring curve for an ultra-premium iOS responsive physical response */
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
   animation: fadeUp 1s ease;
+  
+  overflow: hidden; /* Restrain fluid light reflections within rounded border radius limits */
 }
 
 
-/* 按钮悬停效果 */
+/* Tactile expansion bounce feedbacks when cursor hover conditions trigger */
 .hero-btn:hover {
 
-  transform: translateY(-4px); /* 上浮 */
+  transform: translateY(-4px) scale(1.02); /* Gentle upward acceleration and expansion expansion */
 
-  box-shadow: 0 22px 50px rgba(168,85,247,.4);
+  box-shadow: 0 22px 50px rgba(168,85,247,.45);
+}
+
+/* Tactile physical deep downward compression feedbacks when clicked */
+.hero-btn:active {
+
+  transform: translateY(-1px) scale(0.97); /* Micro-compression depression simulation feedback */
+
+  box-shadow: 0 8px 20px rgba(99,102,241,0.25);
+}
+
+/* Fluid glass glare flow sweep overlay effects */
+.hero-btn::after {
+
+  content: '';
+
+  position: absolute;
+
+  top: 0;
+
+  left: -100%;
+
+  width: 100%;
+
+  height: 100%;
+
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+
+  transition: 0.55s ease-in-out;
+}
+
+.hero-btn:hover::after {
+
+  left: 100%;
 }
 
 
 /* =========================================================
-   通用标题样式
+   REUSABLE CONTAINER COMPONENT HEADINGS
 ========================================================= */
 
 .section-title {
@@ -235,7 +273,7 @@ body {
 
   margin-bottom: 60px;
 
-  /* 渐变标题 */
+  /* Gradient masked section headers */
   background: linear-gradient(90deg, #ffffff, #c084fc, #60a5fa);
 
   -webkit-background-clip: text;
@@ -245,7 +283,7 @@ body {
 
 
 /* =========================================================
-   SKILLS 技能区域
+   TRENDING SKILLS DASHBOARD GRID LAYOUT
 ========================================================= */
 
 .skills-section {
@@ -258,7 +296,7 @@ body {
 }
 
 
-/* 技能网格布局 */
+/* Highly dynamic auto-adjust fluid grid matrix rules */
 .skills-grid {
 
   max-width: 1200px;
@@ -273,7 +311,7 @@ body {
 }
 
 
-/* 技能卡片 */
+/* Frosted glass-morphism dashboards containers cards templates */
 .skill-card {
 
   background: rgba(255,255,255,.06);
@@ -284,7 +322,7 @@ body {
 
   padding: 36px 28px;
 
-  backdrop-filter: blur(12px); /* 玻璃效果 */
+  backdrop-filter: blur(12px); /* Diffuse underlying structural page artifacts behind layers */
 
   transition: all .25s ease;
 
@@ -292,7 +330,7 @@ body {
 }
 
 
-/* 卡片悬停 */
+/* Dashboard layout card cursor interactive highlights links */
 .skill-card:hover {
 
   transform: translateY(-6px);
@@ -301,7 +339,7 @@ body {
 }
 
 
-/* 卡片标题 */
+/* Dashboard item card typographic headers titles */
 .skill-card h3 {
 
   font-size: 28px;
@@ -310,7 +348,7 @@ body {
 }
 
 
-/* 卡片描述 */
+/* Dashboard item description text blocks metadata entries */
 .skill-card p {
 
   color: #9ca3af;
@@ -320,7 +358,7 @@ body {
 
 
 /* =========================================================
-   AI 区域
+   INTELLIGENT AI FEEDS DISPLAYS AREA
 ========================================================= */
 
 .ai-section {
@@ -335,7 +373,7 @@ body {
 }
 
 
-/* AI描述 */
+/* Core feature prompt text paragraphs logs */
 .ai-desc {
 
   max-width: 850px;
@@ -351,7 +389,7 @@ body {
 
 
 /* =========================================================
-   FOOTER 页脚
+   GLOBAL FOOTER CONTAINER BAR
 ========================================================= */
 
 .footer {
@@ -369,10 +407,10 @@ body {
 
 
 /* =========================================================
-   动画效果
+   INTERACTIVE PHYSICAL ANIMATIONS ENGINE
 ========================================================= */
 
-/* 文字上浮 */
+/* Elegant hardware-accelerated fluid vertical entrance animation */
 @keyframes fadeUp {
 
   from {
@@ -391,7 +429,7 @@ body {
 }
 
 
-/* emoji 浮动 */
+/* Natural sinusoidal vertical gravity wave bounce simulations loop for inline icons */
 @keyframes floatEmoji {
 
   0% { transform: translateY(0); }
@@ -403,7 +441,7 @@ body {
 
 
 /* =========================================================
-   MOBILE 手机适配
+   MOBILE RESPONSIVE LAYOUT RESPONSIVE ADAPTATIONS OVERRIDES
 ========================================================= */
 
 @media (max-width: 768px) {
