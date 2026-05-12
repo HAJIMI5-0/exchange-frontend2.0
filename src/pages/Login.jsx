@@ -73,7 +73,7 @@ function Login({ text, setUser }) {               // 登录组件，接收多语
       <div className="auth-form">                             {/* 登录表单区域 */}
         <input
           type="text"                                         // 文本输入框
-          placeholder={text.username}                         // 用户名输入框提示文字
+          placeholder={text.name}                             // 用户名输入框提示文字
           value={username}                                    // 输入框内容绑定 username 状态
           onChange={(e) => setUsername(e.target.value)}       // 输入内容变化时，更新 username
         />

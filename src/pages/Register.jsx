@@ -79,7 +79,7 @@ function Register({ text }) {                   // Register组件接收text
 
         <input
           name="username"                     // 对应 formData.username
-          placeholder={text.username}         // 占位提示（多语言）
+          placeholder={text.name}             // 占位提示（多语言）
           value={formData.username}           // 绑定状态值
           onChange={handleChange}             // 输入时触发更新
         />
