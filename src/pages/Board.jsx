@@ -22,13 +22,12 @@ function Board() {
     title: "",
     author: "",
     content: "",
-    views: 0,
     date: new Date().toISOString().split("T")[0]
   })
 
   useEffect(() => {
 
-    fetch("http://localhost:8080/api/board")
+    fetch("http://10.30.4.139:8080/api/board")
       .then((res) => res.json())
       .then((data) => {
         setPosts(data)
@@ -53,7 +52,7 @@ function Board() {
 
   const handleWrite = () => {
 
-    fetch("http://localhost:8080/api/board", {
+    fetch("http://10.30.4.139:8080/api/board", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -74,9 +73,30 @@ function Board() {
           title: "",
           author: "",
           content: "",
-          views: 0,
           date: new Date().toISOString().split("T")[0]
         })
+
+      })
+
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  const handleDelete = (id) => {
+
+    fetch(`http://10.30.4.139:8080/api/board/${id}`, {
+      method: "DELETE"
+    })
+
+      .then(() => {
+
+        const updatedPosts =
+          posts.filter((post) => post.id !== id)
+
+        setPosts(updatedPosts)
+
+        setSelectedPost(null)
 
       })
 
@@ -152,10 +172,6 @@ function Board() {
                 {post.category}
               </span>
 
-              <span className="post-views">
-                👁 {post.views}
-              </span>
-
             </div>
 
             <h3 className="post-title">
@@ -215,13 +231,18 @@ function Board() {
 
               <span>{selectedPost.date}</span>
 
-              <span>👁 {selectedPost.views}</span>
-
             </div>
 
             <p className="modal-content">
               {selectedPost.content}
             </p>
+
+            <button
+              className="delete-btn"
+              onClick={() => handleDelete(selectedPost.id)}
+            >
+              삭제하기
+            </button>
 
           </div>
 

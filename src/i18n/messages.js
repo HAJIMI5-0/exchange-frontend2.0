@@ -50,11 +50,25 @@ const messages = {
     noLimit: '不限',
     uiDesign: 'UI设计',
     startMatch: '开始匹配',
+    matching: '匹配中...',
     matchEmpty: '请选择技能后开始匹配',
+    matchError: '匹配失败，请检查后端接口是否正常',
     yearsOld: '岁',
+    ageUnknown: '年龄未填写',
     canDo: '我会',
     wantLearn: '想学',
-    selectTa: '选择TA'
+    selectTa: '选择TA',
+
+    haveSkillPlaceholder: '请输入你会的技能，例如 Java',
+    wantSkillPlaceholder: '请输入你想学的技能，例如 React',
+    startChat: '开始聊天',
+    loginBeforeChat: '请先登录后再开始聊天',
+    noReceiverAccount: '暂时无法创建聊天室：匹配接口没有返回对方账号',
+    cannotChatSelf: '不能和自己创建聊天室',
+    chatRoomCreated: '聊天室已创建',
+    createChatFailed: '创建聊天室失败',
+    createChatApiError: '创建聊天室失败，请检查后端聊天室接口',
+    user: '用户'
   },
 
   en: {
@@ -108,11 +122,25 @@ const messages = {
     noLimit: 'No limit',
     uiDesign: 'UI Design',
     startMatch: 'Start Matching',
+    matching: 'Matching...',
     matchEmpty: 'Please select skills and start matching',
+    matchError: 'Matching failed. Please check whether the backend API is working',
     yearsOld: ' years old',
+    ageUnknown: 'Age not provided',
     canDo: 'Can teach',
     wantLearn: 'Wants to learn',
-    selectTa: 'Select'
+    selectTa: 'Select',
+
+    haveSkillPlaceholder: 'Enter a skill you can teach, e.g. Java',
+    wantSkillPlaceholder: 'Enter a skill you want to learn, e.g. React',
+    startChat: 'Start Chat',
+    loginBeforeChat: 'Please log in before starting a chat',
+    noReceiverAccount: 'Cannot create chat room: the matched user account was not returned',
+    cannotChatSelf: 'You cannot create a chat with yourself',
+    chatRoomCreated: 'Chat room created',
+    createChatFailed: 'Failed to create chat room',
+    createChatApiError: 'Failed to create chat room. Please check the backend chat API',
+    user: 'User'
   },
 
   ko: {
@@ -166,11 +194,25 @@ const messages = {
     noLimit: '제한 없음',
     uiDesign: 'UI 디자인',
     startMatch: '매칭 시작',
+    matching: '매칭 중...',
     matchEmpty: '기술을 선택한 후 매칭을 시작하세요',
+    matchError: '매칭 실패, 백엔드 API가 정상인지 확인해주세요',
     yearsOld: '세',
+    ageUnknown: '나이 미입력',
     canDo: '가능한 기술',
     wantLearn: '배우고 싶음',
-    selectTa: '선택'
+    selectTa: '선택',
+
+    haveSkillPlaceholder: '가르칠 수 있는 기술을 입력하세요. 예: Java',
+    wantSkillPlaceholder: '배우고 싶은 기술을 입력하세요. 예: React',
+    startChat: '채팅 시작',
+    loginBeforeChat: '채팅을 시작하려면 먼저 로그인해주세요',
+    noReceiverAccount: '채팅방을 만들 수 없습니다: 상대 계정 정보가 없습니다',
+    cannotChatSelf: '자기 자신과는 채팅방을 만들 수 없습니다',
+    chatRoomCreated: '채팅방이 생성되었습니다',
+    createChatFailed: '채팅방 생성 실패',
+    createChatApiError: '채팅방 생성 실패, 백엔드 채팅 API를 확인해주세요',
+    user: '사용자'
   },
 
   ja: {
@@ -214,6 +256,7 @@ const messages = {
     female: '女性',
     other: 'その他',
     age: '年齢',
+    nationality: '国籍',
     teachSkill: '教えられるスキル',
     learnSkill: '学びたいスキル',
 
@@ -223,11 +266,25 @@ const messages = {
     noLimit: '制限なし',
     uiDesign: 'UIデザイン',
     startMatch: 'マッチング開始',
+    matching: 'マッチング中...',
     matchEmpty: 'スキルを選択してマッチングを開始してください',
+    matchError: 'マッチングに失敗しました。バックエンドAPIを確認してください',
     yearsOld: '歳',
+    ageUnknown: '年齢未入力',
     canDo: 'できること',
     wantLearn: '学びたい',
-    selectTa: '選択'
+    selectTa: '選択',
+
+    haveSkillPlaceholder: '教えられるスキルを入力してください。例：Java',
+    wantSkillPlaceholder: '学びたいスキルを入力してください。例：React',
+    startChat: 'チャット開始',
+    loginBeforeChat: 'チャットを開始するにはログインしてください',
+    noReceiverAccount: 'チャットルームを作成できません：相手のアカウント情報がありません',
+    cannotChatSelf: '自分自身とはチャットできません',
+    chatRoomCreated: 'チャットルームが作成されました',
+    createChatFailed: 'チャットルームの作成に失敗しました',
+    createChatApiError: 'チャットルームの作成に失敗しました。バックエンドAPIを確認してください',
+    user: 'ユーザー'
   },
 
   fr: {
@@ -271,6 +328,7 @@ const messages = {
     female: 'Femme',
     other: 'Autre',
     age: 'Âge',
+    nationality: 'Nationalité',
     teachSkill: 'Compétences à enseigner',
     learnSkill: 'Compétences à apprendre',
 
@@ -280,11 +338,25 @@ const messages = {
     noLimit: 'Sans limite',
     uiDesign: 'Design UI',
     startMatch: 'Commencer',
+    matching: 'Correspondance en cours...',
     matchEmpty: 'Veuillez sélectionner des compétences',
+    matchError: 'La correspondance a échoué. Veuillez vérifier l’API backend',
     yearsOld: ' ans',
+    ageUnknown: 'Âge non renseigné',
     canDo: 'Peut enseigner',
     wantLearn: 'Veut apprendre',
-    selectTa: 'Choisir'
+    selectTa: 'Choisir',
+
+    haveSkillPlaceholder: 'Entrez une compétence que vous pouvez enseigner, ex. Java',
+    wantSkillPlaceholder: 'Entrez une compétence que vous voulez apprendre, ex. React',
+    startChat: 'Commencer la discussion',
+    loginBeforeChat: 'Veuillez vous connecter avant de commencer une discussion',
+    noReceiverAccount: 'Impossible de créer la discussion : le compte de l’utilisateur correspondant est manquant',
+    cannotChatSelf: 'Vous ne pouvez pas discuter avec vous-même',
+    chatRoomCreated: 'Salon de discussion créé',
+    createChatFailed: 'Échec de la création du salon de discussion',
+    createChatApiError: 'Échec de la création du salon. Veuillez vérifier l’API backend',
+    user: 'Utilisateur'
   },
 
   de: {
@@ -328,6 +400,7 @@ const messages = {
     female: 'Weiblich',
     other: 'Andere',
     age: 'Alter',
+    nationality: 'Nationalität',
     teachSkill: 'Fähigkeiten zum Lehren',
     learnSkill: 'Fähigkeiten zum Lernen',
 
@@ -337,11 +410,25 @@ const messages = {
     noLimit: 'Keine Einschränkung',
     uiDesign: 'UI Design',
     startMatch: 'Starten',
+    matching: 'Matching läuft...',
     matchEmpty: 'Bitte Fähigkeiten auswählen',
+    matchError: 'Matching fehlgeschlagen. Bitte prüfen Sie die Backend-API',
     yearsOld: ' Jahre',
+    ageUnknown: 'Alter nicht angegeben',
     canDo: 'Kann lehren',
     wantLearn: 'Möchte lernen',
-    selectTa: 'Auswählen'
+    selectTa: 'Auswählen',
+
+    haveSkillPlaceholder: 'Geben Sie eine Fähigkeit ein, die Sie lehren können, z. B. Java',
+    wantSkillPlaceholder: 'Geben Sie eine Fähigkeit ein, die Sie lernen möchten, z. B. React',
+    startChat: 'Chat starten',
+    loginBeforeChat: 'Bitte melden Sie sich an, bevor Sie einen Chat starten',
+    noReceiverAccount: 'Chatraum kann nicht erstellt werden: Das Konto des gematchten Benutzers fehlt',
+    cannotChatSelf: 'Sie können keinen Chat mit sich selbst erstellen',
+    chatRoomCreated: 'Chatraum wurde erstellt',
+    createChatFailed: 'Chatraum konnte nicht erstellt werden',
+    createChatApiError: 'Chatraum konnte nicht erstellt werden. Bitte prüfen Sie die Backend-Chat-API',
+    user: 'Benutzer'
   },
 
   es: {
@@ -385,6 +472,7 @@ const messages = {
     female: 'Mujer',
     other: 'Otro',
     age: 'Edad',
+    nationality: 'Nacionalidad',
     teachSkill: 'Habilidades que puede enseñar',
     learnSkill: 'Habilidades que quiere aprender',
 
@@ -394,11 +482,25 @@ const messages = {
     noLimit: 'Sin límite',
     uiDesign: 'Diseño UI',
     startMatch: 'Comenzar',
+    matching: 'Emparejando...',
     matchEmpty: 'Seleccione habilidades',
+    matchError: 'Error al emparejar. Verifique la API del backend',
     yearsOld: ' años',
+    ageUnknown: 'Edad no ingresada',
     canDo: 'Puede enseñar',
     wantLearn: 'Quiere aprender',
-    selectTa: 'Seleccionar'
+    selectTa: 'Seleccionar',
+
+    haveSkillPlaceholder: 'Ingrese una habilidad que puede enseñar, por ejemplo Java',
+    wantSkillPlaceholder: 'Ingrese una habilidad que quiere aprender, por ejemplo React',
+    startChat: 'Iniciar chat',
+    loginBeforeChat: 'Inicie sesión antes de comenzar un chat',
+    noReceiverAccount: 'No se puede crear la sala de chat: no se recibió la cuenta del usuario emparejado',
+    cannotChatSelf: 'No puede crear un chat consigo mismo',
+    chatRoomCreated: 'Sala de chat creada',
+    createChatFailed: 'Error al crear la sala de chat',
+    createChatApiError: 'Error al crear la sala de chat. Verifique la API del backend',
+    user: 'Usuario'
   },
 
   ar: {
@@ -442,6 +544,7 @@ const messages = {
     female: 'أنثى',
     other: 'آخر',
     age: 'العمر',
+    nationality: 'الجنسية',
     teachSkill: 'المهارات التي يمكنك تعليمها',
     learnSkill: 'المهارات التي تريد تعلمها',
 
@@ -451,11 +554,25 @@ const messages = {
     noLimit: 'بدون قيود',
     uiDesign: 'تصميم واجهة',
     startMatch: 'ابدأ المطابقة',
+    matching: 'جار المطابقة...',
     matchEmpty: 'يرجى اختيار المهارات',
+    matchError: 'فشلت المطابقة، يرجى التحقق من واجهة الخلفية',
     yearsOld: ' سنة',
+    ageUnknown: 'لم يتم إدخال العمر',
     canDo: 'يمكنه التعليم',
     wantLearn: 'يريد التعلم',
-    selectTa: 'اختيار'
+    selectTa: 'اختيار',
+
+    haveSkillPlaceholder: 'أدخل مهارة يمكنك تعليمها، مثل Java',
+    wantSkillPlaceholder: 'أدخل مهارة تريد تعلمها، مثل React',
+    startChat: 'ابدأ الدردشة',
+    loginBeforeChat: 'يرجى تسجيل الدخول قبل بدء الدردشة',
+    noReceiverAccount: 'لا يمكن إنشاء غرفة الدردشة: لم يتم إرجاع حساب المستخدم المطابق',
+    cannotChatSelf: 'لا يمكنك إنشاء دردشة مع نفسك',
+    chatRoomCreated: 'تم إنشاء غرفة الدردشة',
+    createChatFailed: 'فشل إنشاء غرفة الدردشة',
+    createChatApiError: 'فشل إنشاء غرفة الدردشة، يرجى التحقق من واجهة دردشة الخلفية',
+    user: 'مستخدم'
   }
 }
 
