@@ -53,7 +53,7 @@ export async function updateProfileApi(profile) {
 export async function translateText(content, targetLang) {
   if (!content) return ''
 
-  if (!targetLang || targetLang === 'zh') {
+  if (!targetLang) {
     return content
   }
 

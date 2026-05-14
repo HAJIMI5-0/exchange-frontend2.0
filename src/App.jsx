@@ -138,7 +138,7 @@ const [lang, setLang] = useState(() => {
       {/* ===== 页面路由 ===== */}
       <Routes>
           /*根据网址前往页面 */
-        <Route path="/" element={<Home text={text} />} />       {/* 首页 */}
+        <Route path="/" element={<Home text={text} lang={lang} />} />       {/* 首页 */}
         <Route path="/match" element={<Match text={text} user={user} lang={lang}/>} />  {/* 匹配 */}
         <Route path="/chat" element={<Chat text={text} user={user} />} />  {/* 聊天 */}
         <Route path="/board" element={<Board />} />             {/* 告示板 */}

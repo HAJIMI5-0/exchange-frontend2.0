@@ -85,11 +85,21 @@ function Board() {
 
   const handleDelete = (id) => {
 
-    fetch(`http://10.30.4.139:8080/api/board/${id}`, {
-      method: "DELETE"
-    })
+    const currentUser =
+      JSON.parse(localStorage.getItem("loginUser"))
 
-      .then(() => {
+    fetch(
+      `http://10.30.4.139:8080/api/board/${id}?author=${currentUser?.username}`,
+      {
+        method: "DELETE"
+      }
+    )
+
+      .then((res) => {
+
+        if (!res.ok) {
+          throw new Error("삭제 권한 없음")
+        }
 
         const updatedPosts =
           posts.filter((post) => post.id !== id)
@@ -97,10 +107,10 @@ function Board() {
         setPosts(updatedPosts)
 
         setSelectedPost(null)
-
       })
 
       .catch((err) => {
+        alert(err.message)
         console.log(err)
       })
   }
@@ -237,12 +247,14 @@ function Board() {
               {selectedPost.content}
             </p>
 
-            <button
-              className="delete-btn"
-              onClick={() => handleDelete(selectedPost.id)}
-            >
-              삭제하기
-            </button>
+            {JSON.parse(localStorage.getItem("loginUser"))?.username === selectedPost.author && (
+              <button
+                className="delete-btn"
+                onClick={() => handleDelete(selectedPost.id)}
+              >
+                삭제하기
+              </button>
+            )}
 
           </div>
 
