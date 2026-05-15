@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Board() {
+
+  const navigate = useNavigate()
 
   const categories = [
     "전체",
@@ -13,14 +16,16 @@ function Board() {
 
   const [selectedCategory, setSelectedCategory] = useState("전체")
   const [search, setSearch] = useState("")
-  const [selectedPost, setSelectedPost] = useState(null)
 
   const [showWriteModal, setShowWriteModal] = useState(false)
+
+  const currentUser =
+    JSON.parse(localStorage.getItem("loginUser"))
 
   const [newPost, setNewPost] = useState({
     category: "자유게시판",
     title: "",
-    author: "",
+    author: currentUser?.username || "",
     content: "",
     date: new Date().toISOString().split("T")[0]
   })
@@ -71,7 +76,7 @@ function Board() {
         setNewPost({
           category: "자유게시판",
           title: "",
-          author: "",
+          author: currentUser?.username || "",
           content: "",
           date: new Date().toISOString().split("T")[0]
         })
@@ -83,46 +88,21 @@ function Board() {
       })
   }
 
-  const handleDelete = (id) => {
-
-    const currentUser =
-      JSON.parse(localStorage.getItem("loginUser"))
-
-    fetch(
-      `http://10.30.4.139:8080/api/board/${id}?author=${currentUser?.username}`,
-      {
-        method: "DELETE"
-      }
-    )
-
-      .then((res) => {
-
-        if (!res.ok) {
-          throw new Error("삭제 권한 없음")
-        }
-
-        const updatedPosts =
-          posts.filter((post) => post.id !== id)
-
-        setPosts(updatedPosts)
-
-        setSelectedPost(null)
-      })
-
-      .catch((err) => {
-        alert(err.message)
-        console.log(err)
-      })
-  }
-
   return (
+
     <div className="board-page">
 
+      {/* HEADER */}
       <div className="board-header">
 
         <div>
+
           <h1>커뮤니티 게시판</h1>
-          <p>다른 사용자들과 지식을 공유하고 소통해보세요.</p>
+
+          <p>
+            다른 사용자들과 지식을 공유하고 소통해보세요.
+          </p>
+
         </div>
 
         <button
@@ -134,6 +114,7 @@ function Board() {
 
       </div>
 
+      {/* SEARCH */}
       <div className="board-search-area">
 
         <input
@@ -146,6 +127,7 @@ function Board() {
 
       </div>
 
+      {/* CATEGORY */}
       <div className="board-categories">
 
         {categories.map((category) => (
@@ -159,13 +141,16 @@ function Board() {
             }`}
             onClick={() => setSelectedCategory(category)}
           >
+
             {category}
+
           </button>
 
         ))}
 
       </div>
 
+      {/* POSTS */}
       <div className="board-post-list">
 
         {filteredPosts.map((post) => (
@@ -173,9 +158,10 @@ function Board() {
           <div
             key={post.id}
             className="post-card"
-            onClick={() => setSelectedPost(post)}
+            onClick={() => navigate(`/board/${post.id}`)}
           >
 
+            {/* TOP */}
             <div className="post-top">
 
               <span className="post-category">
@@ -184,19 +170,44 @@ function Board() {
 
             </div>
 
+            {/* TITLE */}
             <h3 className="post-title">
               {post.title}
             </h3>
 
+            {/* CONTENT PREVIEW */}
             <p className="post-content">
-              {post.content}
+
+              {post.content.length > 140
+                ? post.content.slice(0, 140) + "..."
+                : post.content}
+
             </p>
 
+            {/* FOOTER */}
             <div className="post-footer">
 
-              <span>{post.author}</span>
+              <div className="post-author">
 
-              <span>{post.date}</span>
+                <div className="post-avatar">
+
+                  {post.author?.charAt(0)}
+
+                </div>
+
+                <div className="author-info">
+
+                  <span className="author-name">
+                    {post.author}
+                  </span>
+
+                  <span className="post-date">
+                    {post.date}
+                  </span>
+
+                </div>
+
+              </div>
 
             </div>
 
@@ -206,62 +217,7 @@ function Board() {
 
       </div>
 
-      {selectedPost && (
-
-        <div
-          className="modal-overlay"
-          onClick={() => setSelectedPost(null)}
-        >
-
-          <div
-            className="post-modal"
-            onClick={(e) => e.stopPropagation()}
-          >
-
-            <div className="modal-top">
-
-              <span className="post-category">
-                {selectedPost.category}
-              </span>
-
-              <button
-                className="close-btn"
-                onClick={() => setSelectedPost(null)}
-              >
-                ✕
-              </button>
-
-            </div>
-
-            <h2>{selectedPost.title}</h2>
-
-            <div className="modal-info">
-
-              <span>{selectedPost.author}</span>
-
-              <span>{selectedPost.date}</span>
-
-            </div>
-
-            <p className="modal-content">
-              {selectedPost.content}
-            </p>
-
-            {JSON.parse(localStorage.getItem("loginUser"))?.username === selectedPost.author && (
-              <button
-                className="delete-btn"
-                onClick={() => handleDelete(selectedPost.id)}
-              >
-                삭제하기
-              </button>
-            )}
-
-          </div>
-
-        </div>
-
-      )}
-
+      {/* WRITE MODAL */}
       {showWriteModal && (
 
         <div
@@ -289,6 +245,7 @@ function Board() {
 
             </div>
 
+            {/* CATEGORY */}
             <select
               value={newPost.category}
               onChange={(e) =>
@@ -298,11 +255,14 @@ function Board() {
                 })
               }
             >
+
               <option>자유게시판</option>
               <option>질문게시판</option>
               <option>자료공유</option>
+
             </select>
 
+            {/* TITLE */}
             <input
               type="text"
               placeholder="제목 입력"
@@ -315,18 +275,7 @@ function Board() {
               }
             />
 
-            <input
-              type="text"
-              placeholder="작성자 입력"
-              value={newPost.author}
-              onChange={(e) =>
-                setNewPost({
-                  ...newPost,
-                  author: e.target.value
-                })
-              }
-            />
-
+            {/* CONTENT */}
             <textarea
               placeholder="내용 입력"
               value={newPost.content}
@@ -338,6 +287,7 @@ function Board() {
               }
             />
 
+            {/* WRITE BUTTON */}
             <button
               className="write-btn"
               onClick={handleWrite}

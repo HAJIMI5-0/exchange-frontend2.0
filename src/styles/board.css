@@ -277,3 +277,99 @@
 .delete-btn:hover {
   background: rgba(239,68,68,0.28);
 }
+
+/* =========================
+   NEW BOARD ARTICLE STYLE
+========================= */
+
+.post-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 22px;
+  padding: 24px;
+  cursor: pointer;
+  transition: 0.25s;
+  backdrop-filter: blur(20px);
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255,255,255,0.06);
+}
+
+.post-title {
+  font-size: 22px;
+  margin: 18px 0 14px;
+  color: white;
+  line-height: 1.5;
+}
+
+.post-content {
+  color: rgba(255,255,255,0.72);
+  line-height: 1.8;
+  font-size: 15px;
+  margin-bottom: 24px;
+  white-space: pre-wrap;
+}
+
+/* AUTHOR */
+
+.post-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.post-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: linear-gradient(135deg,#6366f1,#22d3ee);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-name {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.post-date {
+  color: rgba(255,255,255,0.45);
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+/* MODAL FIX */
+
+.post-modal {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* SCROLL */
+
+.post-modal::-webkit-scrollbar {
+  width: 6px;
+}
+
+.post-modal::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 999px;
+}
