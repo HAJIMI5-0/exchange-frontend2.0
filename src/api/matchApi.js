@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://10.30.4.139:8080' // 后端接口基础地址
+import client from "./client"; // 后端接口连接文件
 
 // 请求匹配用户
 export const fetchMatchUsers = async ({
@@ -28,7 +28,7 @@ export const fetchMatchUsers = async ({
 
   params.append('limit', String(limit))
 
-  const res = await fetch(`${API_BASE_URL}/api/match?${params.toString()}`)
+    const res = await client.get(`/api/match?${params.toString()}`);
 
   if (!res.ok) {
     throw new Error('后端匹配接口请求失败')
@@ -39,7 +39,7 @@ export const fetchMatchUsers = async ({
 
 // 创建一对一聊天室
 export const createDirectChatRoom = async ({ senderUsername, receiverUsername }) => {
-  const res = await fetch(`${API_BASE_URL}/api/chat/direct`, {
+  const res = await client.post("/api/chat/direct", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

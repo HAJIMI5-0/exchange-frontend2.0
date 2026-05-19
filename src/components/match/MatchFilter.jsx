@@ -42,11 +42,21 @@ function MatchFilter({
           value={timeSlot}
           onChange={(e) => setTimeSlot(e.target.value)}
         >
-          <option value="">{text.noLimit || '不限'}</option>
-          <option value="weekday_morning">{text.weekdayMorning || '平日上午'}</option>
-          <option value="weekday_afternoon">{text.weekdayAfternoon || '平日下午'}</option>
-          <option value="weekday_evening">{text.weekdayEvening || '平日晚上'}</option>
-          <option value="weekend">{text.weekend || '周末'}</option>
+          <option value="weekday_morning">
+            {text.weekdayMorning || '平日上午'}
+          </option>
+
+          <option value="weekday_afternoon">
+            {text.weekdayAfternoon || '平日下午'}
+          </option>
+
+          <option value="weekday_evening">
+            {text.weekdayEvening || '平日晚上'}
+          </option>
+
+          <option value="weekend">
+            {text.weekend || '周末'}
+          </option>
         </select>
       </div>
 
@@ -57,11 +67,21 @@ function MatchFilter({
           value={learnLevel}
           onChange={(e) => setLearnLevel(e.target.value)}
         >
-          <option value="">{text.noLimit || '不限'}</option>
-          <option value="beginner">{text.beginner || '入门'}</option>
-          <option value="basic">{text.basic || '基础'}</option>
-          <option value="intermediate">{text.intermediate || '中级'}</option>
-          <option value="advanced">{text.advanced || '进阶'}</option>
+          <option value="beginner">
+            {text.beginner || '入门'}
+          </option>
+
+          <option value="basic">
+            {text.basic || '基础'}
+          </option>
+
+          <option value="intermediate">
+            {text.intermediate || '中级'}
+          </option>
+
+          <option value="advanced">
+            {text.advanced || '进阶'}
+          </option>
         </select>
       </div>
 

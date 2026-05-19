@@ -1,8 +1,9 @@
-import { BASE_URL } from "../config"
+// import { BASE_URL } from "../config"
+import client from "./client";
 
 export async function loginUser(username, password) {
   try {
-    const res = await fetch(`${BASE_URL}/api/login`, {
+    const res = await fetch(`/api/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

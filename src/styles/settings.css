@@ -1,0 +1,54 @@
+.settings-page {
+  min-height: calc(100vh - 80px);
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.settings-card {
+  width: 100%;
+  max-width: 760px;
+  padding: 36px;
+  border-radius: 24px;
+  background: rgba(24, 26, 40, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+}
+
+.settings-card h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #c8a8ff;
+}
+
+.settings-section {
+  margin-bottom: 28px;
+  padding: 22px;
+  border-radius: 18px;
+  background: rgba(12, 14, 25, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.settings-section h2 {
+  margin-bottom: 18px;
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  color: #cfd2e6;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.settings-row:last-child {
+  border-bottom: none;
+}
+
+.settings-row strong {
+  color: #ffffff;
+}

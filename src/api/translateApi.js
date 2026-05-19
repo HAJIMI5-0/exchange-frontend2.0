@@ -1,8 +1,8 @@
-const BASE_URL = 'http://10.30.4.139:8080' // 后端服务器地址
+import client from "./client"; // 后端服务器地址
 
 // ================= 原始版本（保留，不删除） =================
 // export async function translateText(text, targetLang) {
-//   const res = await fetch(`${BASE_URL}/api/translate`, {
+//   const res = await fetch(`/api/translate`, {
 //     method: 'POST',
 //     headers: {
 //       'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ export async function translateText(text, targetLang) {
   }) // 打印发送内容（方便调试）
 
   try {
-    const res = await fetch(`${BASE_URL}/api/translate`, {
+    const res = await fetch(`/api/translate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

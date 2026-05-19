@@ -18,8 +18,8 @@ function Match({ text, lang = 'zh' }) {
 
   const [haveSkill, setHaveSkill] = useState('')
   const [wantSkill, setWantSkill] = useState('')
-  const [timeSlot, setTimeSlot] = useState('')
-  const [learnLevel, setLearnLevel] = useState('')
+  const [timeSlot, setTimeSlot] = useState('weekday_morning')
+  const [learnLevel, setLearnLevel] = useState('beginner')
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')

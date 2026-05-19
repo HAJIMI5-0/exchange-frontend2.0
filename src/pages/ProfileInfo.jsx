@@ -10,6 +10,15 @@ function ProfileInfo({
   onHome, // 点击首页按钮时执行的函数
   onLogout // 点击退出登录按钮时执行的函数
 }) {
+  const getTimeSlotText = (timeSlot) => { // 根据 timeSlot 的值显示对应语言的学习时间段
+    if (timeSlot === 'weekday_morning') return text.weekdayMorning || '平日上午' // 平日上午
+    if (timeSlot === 'weekday_afternoon') return text.weekdayAfternoon || '平日下午' // 平日下午
+    if (timeSlot === 'weekday_evening') return text.weekdayEvening || '平日晚上' // 平日晚上
+    if (timeSlot === 'weekend') return text.weekend || '周末' // 周末
+
+    return '-' // 如果没有学习时间段，就显示 -
+  }
+
   return (
     <>
       <div className="profile-info"> {/* 个人资料信息显示区域 */}
@@ -69,6 +78,16 @@ function ProfileInfo({
         <div className="profile-row"> {/* 想学习技能显示行 */}
           <span className="profile-label">{text.learnSkill || '想学习的技能'}</span> {/* 想学习技能标签 */}
           <span>{translatedInfo.learnSkill || profile.learnSkill || '-'}</span> {/* 优先显示翻译后的想学习技能，没有就显示原技能，再没有就显示 - */}
+        </div>
+
+        <div className="profile-row"> {/* 学习时间段显示行 */}
+          <span className="profile-label">{text.timeSlot || '学习时间段'}</span> {/* 学习时间段标签 */}
+          <span>{getTimeSlotText(profile.timeSlot)}</span> {/* 根据 timeSlot 的值显示对应的学习时间段 */}
+        </div>
+
+        <div className="profile-row"> {/* 项目 / 奖项显示行 */}
+          <span className="profile-label">{text.projectAwards || '项目 / 奖项'}</span> {/* 项目 / 奖项标签 */}
+          <span>{profile.projectAwards || '-'}</span> {/* 显示项目 / 奖项，没有数据就显示 - */}
         </div>
       </div>
 

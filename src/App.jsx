@@ -10,6 +10,7 @@ import './styles/chat.css'
 import './styles/board.css'
 import './styles/boardDetail.css'
 import './styles/responsive.css'
+import './styles/settings.css'
 
 import { useState, useEffect } from 'react'
 import { NavLink, Routes, Route } from 'react-router-dom'
@@ -26,6 +27,7 @@ import Register from './pages/Register'
 import Profile from './pages/Profile'
 import Board from './pages/Board'
 import BoardDetail from './pages/BoardDetail'
+import Settings from './pages/Settings'
 
 // 다국어
 import messages from './i18n/messages'
@@ -47,6 +49,8 @@ function App() {
       : null
   })
 
+  const [avatarMenuOpen, setAvatarMenuOpen] = useState(false)
+
   const text =
     messages[lang] || messages.zh
 
@@ -55,10 +59,29 @@ function App() {
     localStorage.setItem('lang', lang)
   }, [lang])
 
+  // 点击头像菜单以外的区域，关闭头像菜单
+  useEffect(() => {
+    if (!avatarMenuOpen) return
+
+    const closeAvatarMenu = (e) => {
+      if (!e.target.closest('.user-box')) {
+        setAvatarMenuOpen(false)
+      }
+    }
+
+    document.addEventListener('click', closeAvatarMenu)
+
+    return () => {
+      document.removeEventListener('click', closeAvatarMenu)
+    }
+  }, [avatarMenuOpen])
+
   // 로그아웃
   const handleLogout = () => {
 
     localStorage.removeItem('loginUser')
+
+    setAvatarMenuOpen(false)
 
     setUser(null)
   }
@@ -86,26 +109,6 @@ function App() {
         {/* RIGHT */}
         <div className="nav-right">
 
-          {/* LANGUAGE */}
-          <select
-            className="lang-select"
-            value={lang}
-            onChange={(e) =>
-              setLang(e.target.value)
-            }
-          >
-
-            <option value="zh">中文</option>
-            <option value="en">English</option>
-            <option value="ko">한국어</option>
-            <option value="ja">日本語</option>
-            <option value="fr">Français</option>
-            <option value="de">Deutsch</option>
-            <option value="es">Español</option>
-            <option value="ar">العربية</option>
-
-          </select>
-
           {/* NAVIGATION */}
           <div className="nav-links">
 
@@ -132,10 +135,13 @@ function App() {
 
             <div className="user-box">
 
-              {/* AVATAR */}
-              <NavLink
-                to="/profile"
-                className="profile-link"
+              {/* AVATAR MENU BUTTON */}
+              <button
+                type="button"
+                className="avatar-menu-button"
+                onClick={() =>
+                  setAvatarMenuOpen(!avatarMenuOpen)
+                }
               >
 
                 <img
@@ -152,23 +158,81 @@ function App() {
                   }}
                 />
 
-              </NavLink>
+              </button>
 
               {/* USERNAME */}
               <NavLink
                 to="/profile"
                 className="profile-link username-link"
+                onClick={() =>
+                  setAvatarMenuOpen(false)
+                }
               >
                 {user.name || user.username}
               </NavLink>
 
-              {/* LOGOUT */}
-              <button
-                className="logout-btn"
-                onClick={handleLogout}
-              >
-                {text.logout}
-              </button>
+              {/* AVATAR MENU */}
+              {avatarMenuOpen && (
+
+                <div className="avatar-menu">
+
+                  <div className="avatar-menu-top">
+
+                    <img
+                      src={
+                        user.avatar &&
+                        user.avatar.trim()
+                          ? user.avatar
+                          : defaultAvatar
+                      }
+                      alt="avatar"
+                      className="avatar-menu-img"
+                      onError={(e) => {
+                        e.target.src = defaultAvatar
+                      }}
+                    />
+
+                    <strong>
+                      {user.name || user.username}
+                    </strong>
+
+                    <span>
+                      {user.email || ''}
+                    </span>
+
+                  </div>
+
+                  <NavLink
+                    to="/profile"
+                    className="avatar-menu-item"
+                    onClick={() =>
+                      setAvatarMenuOpen(false)
+                    }
+                  >
+                    👤 {text.profile || '个人资料'}
+                  </NavLink>
+
+                  <NavLink
+                    to="/settings"
+                    className="avatar-menu-item"
+                    onClick={() =>
+                      setAvatarMenuOpen(false)
+                    }
+                  >
+                    ⚙️ {text.settings || '设置'}
+                  </NavLink>
+
+                  <button
+                    type="button"
+                    className="avatar-menu-item avatar-menu-logout"
+                    onClick={handleLogout}
+                  >
+                    🚪 {text.logout || '退出登录'}
+                  </button>
+
+                </div>
+
+              )}
 
             </div>
 
@@ -258,6 +322,18 @@ function App() {
               user={user}
               setUser={setUser}
               lang={lang}
+            />
+          }
+        />
+
+        <Route
+          path="/settings"
+          element={
+            <Settings
+              text={text}
+              user={user}
+              lang={lang}
+              setLang={setLang}
             />
           }
         />

@@ -47,7 +47,9 @@ function Profile({ text, user, setUser, lang = 'zh' }){           // 个人资�
     age: '',                                                      // 年龄
     nationality: '',                                              // 国籍
     teachSkill: '',                                               // 擅长技能
-    learnSkill: ''                                                // 想学技能
+    learnSkill: '',                                               // 想学技能
+    timeSlot: '',                                                 // 学习时间段
+    projectAwards: ''                                             // 项目 / 奖项
   })
 
   // =========================
@@ -75,7 +77,9 @@ function Profile({ text, user, setUser, lang = 'zh' }){           // 个人资�
           age: data.age || '',                                    // 年龄
           nationality: data.nationality || '',                    // 国籍
           teachSkill: data.teachSkill || '',                      // 擅长技能
-          learnSkill: data.learnSkill || ''                       // 想学技能
+          learnSkill: data.learnSkill || '',                      // 想学技能
+          timeSlot: data.timeSlot || '',                          // 学习时间段
+          projectAwards: data.projectAwards || ''                 // 项目 / 奖项
         }
 
         setProfile(profileData)                                   // 把整理好的个人资料保存到 profile 状态中
@@ -84,7 +88,9 @@ function Profile({ text, user, setUser, lang = 'zh' }){           // 个人资�
           ...user,                                                // 保留原来 user 里的其他数据
           username: profileData.username,                         // 更新用户名
           name: profileData.name,                                 // 更新显示名称
-          avatar: profileData.avatar                              // 更新头像
+          avatar: profileData.avatar,                             // 更新头像
+          timeSlot: profileData.timeSlot,                         // 更新学习时间段
+          projectAwards: profileData.projectAwards                // 更新项目 / 奖项
         }
 
         setUser(updatedUser)                                      // 更新 App.jsx 里的 user 状态
@@ -199,7 +205,9 @@ function Profile({ text, user, setUser, lang = 'zh' }){           // 个人资�
         age: data.age ?? saveProfile.age,                         // 优先使用后端返回 age
         nationality: data.nationality ?? saveProfile.nationality, // 优先使用后端返回 nationality
         teachSkill: data.teachSkill ?? saveProfile.teachSkill,    // 优先使用后端返回 teachSkill
-        learnSkill: data.learnSkill ?? saveProfile.learnSkill     // 优先使用后端返回 learnSkill
+        learnSkill: data.learnSkill ?? saveProfile.learnSkill,    // 优先使用后端返回 learnSkill
+        timeSlot: data.timeSlot ?? saveProfile.timeSlot,          // 优先使用后端返回 timeSlot
+        projectAwards: data.projectAwards ?? saveProfile.projectAwards // 优先使用后端返回 projectAwards
       }
 
       const updatedUser = {                                       // 创建更新后的登录用户对象
@@ -214,7 +222,9 @@ function Profile({ text, user, setUser, lang = 'zh' }){           // 个人资�
         age: updatedProfile.age,                                  // 更新年龄
         nationality: updatedProfile.nationality,                  // 更新国籍
         teachSkill: updatedProfile.teachSkill,                    // 更新擅长技能
-        learnSkill: updatedProfile.learnSkill                     // 更新想学技能
+        learnSkill: updatedProfile.learnSkill,                    // 更新想学技能
+        timeSlot: updatedProfile.timeSlot,                        // 更新学习时间段
+        projectAwards: updatedProfile.projectAwards               // 更新项目 / 奖项
       }
 
       setProfile(updatedProfile)                                  // 更新页面显示的个人资料
@@ -289,7 +299,7 @@ function Profile({ text, user, setUser, lang = 'zh' }){           // 个人资�
             <h2>{profile.name || profile.username || 'User'}</h2> {/* 显示用户名称，没有就显示 username，再没有就显示 User */}
 
             <p className="profile-username-small">                {/* 显示小号用户名 */}
-              @{profile.username || '-'}                          {/* 用户名为空时显示 - */}
+              id:{profile.username || '-'}                          {/* 用户名为空时显示 - */}
             </p>
 
             <p>{text.welcome || '欢迎来到个人中心'}</p>            {/* 欢迎文字 */}

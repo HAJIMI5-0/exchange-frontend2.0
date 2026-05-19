@@ -865,3 +865,103 @@
     min-width: auto; /* 手机上取消 strong 的最小宽度 */
   }
 }
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+/* 下拉选择框：和输入框保持统一风格 */
+.filter-group select {
+  width: 220px; /* 下拉框宽度，和 input 保持一致 */
+
+  min-height: 52px; /* 高度和 input 保持一致 */
+
+  padding: 0 16px; /* 左右内边距 */
+
+  border-radius: 14px; /* 圆角和 input 一致 */
+
+  border: 1px solid rgba(255,255,255,.12); /* 半透明边框 */
+
+  outline: none; /* 去掉默认外边框 */
+
+  background: rgba(20,20,32,.95); /* 深色背景 */
+
+  color: white; /* 文字颜色 */
+
+  font-size: 15px; /* 字体大小 */
+
+  line-height: 1.4; /* 行高 */
+
+  font-family:
+    "Pretendard",
+    "Noto Sans KR",
+    "Inter",
+    sans-serif; /* 字体和 input 保持一致 */
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.04); /* 内部细边线 */
+
+  transition: .25s ease; /* 动画过渡 */
+
+  cursor: pointer; /* 鼠标悬停时显示小手 */
+
+  appearance: none; /* 去掉浏览器默认下拉样式 */
+
+  -webkit-appearance: none; /* 兼容 Chrome / Safari */
+
+  -moz-appearance: none; /* 兼容 Firefox */
+
+  background-image:
+    linear-gradient(45deg, transparent 50%, rgba(255,255,255,.75) 50%),
+    linear-gradient(135deg, rgba(255,255,255,.75) 50%, transparent 50%); /* 自定义下拉箭头 */
+
+  background-position:
+    calc(100% - 18px) 22px,
+    calc(100% - 12px) 22px; /* 箭头位置 */
+
+  background-size:
+    6px 6px,
+    6px 6px; /* 箭头大小 */
+
+  background-repeat: no-repeat; /* 箭头不重复 */
+}
+
+/* 下拉框聚焦效果 */
+.filter-group select:focus {
+  border-color: #a855f7; /* 聚焦时边框变紫色 */
+
+  box-shadow:
+    0 0 0 4px rgba(168,85,247,.16),
+    inset 0 0 0 1px rgba(255,255,255,.05); /* 聚焦发光效果 */
+}
+
+/* 下拉框选项 */
+.filter-group select option {
+  background: #151522; /* 下拉选项背景 */
+
+  color: white; /* 下拉选项文字颜色 */
+}
+
+/* =========================================================
+   DISABLED BUTTON
+========================================================= */
+
+/* 匹配按钮禁用状态 */
+.match-btn:disabled {
+  opacity: .65; /* 禁用时变淡 */
+
+  cursor: not-allowed; /* 鼠标显示不可点击 */
+
+  transform: none; /* 禁用时不上浮 */
+
+  box-shadow:
+    0 8px 20px rgba(99,102,241,.18); /* 禁用时阴影减弱 */
+}
+
+/* 禁用状态 hover 不产生动画 */
+.match-btn:disabled:hover {
+  transform: none; /* 禁用 hover 不移动 */
+
+  box-shadow:
+    0 8px 20px rgba(99,102,241,.18); /* 禁用 hover 阴影不变 */
+}

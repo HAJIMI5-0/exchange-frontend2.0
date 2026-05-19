@@ -1,59 +1,41 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
+import client from "../api/client"
 
 function BoardDetail() {
-
   const { id } = useParams()
-
   const navigate = useNavigate()
 
   const [post, setPost] = useState(null)
-
   const [comments, setComments] = useState([])
-
   const [newComment, setNewComment] = useState("")
 
   const currentUser =
     JSON.parse(localStorage.getItem("loginUser"))
 
   useEffect(() => {
-
-    fetch(`http://10.30.4.139:8080/api/board/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setPost(data)
+    client.get(`/api/board/${id}`)
+      .then((res) => {
+        setPost(res.data)
       })
       .catch((err) => {
         console.log(err)
       })
-
   }, [id])
 
   const handleDelete = () => {
-
-    fetch(
-      `http://10.30.4.139:8080/api/board/${id}?author=${currentUser?.username}`,
-      {
-        method: "DELETE"
-      }
+    client.delete(
+      `/api/board/${id}?author=${currentUser?.username}`
     )
-
-      .then((res) => {
-
-        if (!res.ok) {
-          throw new Error("삭제 권한 없음")
-        }
-
+      .then(() => {
         navigate("/board")
       })
-
       .catch((err) => {
-        alert(err.message)
+        alert(err.response?.data?.message || "삭제 권한 없음")
       })
   }
 
   const handleComment = () => {
-
     if (!newComment.trim()) return
 
     const comment = {
@@ -91,11 +73,8 @@ function BoardDetail() {
             </div>
 
             <div>
-
               <h4>{post.author}</h4>
-
               <span>{post.date}</span>
-
             </div>
 
           </div>
@@ -115,14 +94,12 @@ function BoardDetail() {
         </div>
 
         {currentUser?.username === post.author && (
-
           <button
             className="delete-btn"
             onClick={handleDelete}
           >
             삭제하기
           </button>
-
         )}
 
       </div>
@@ -153,26 +130,19 @@ function BoardDetail() {
         <div className="comment-list">
 
           {comments.map((comment, index) => (
-
             <div
               key={index}
               className="comment-item"
             >
-
               <div className="author-avatar small-avatar">
                 {comment.author?.charAt(0)}
               </div>
 
               <div>
-
                 <strong>{comment.author}</strong>
-
                 <p>{comment.content}</p>
-
               </div>
-
             </div>
-
           ))}
 
         </div>

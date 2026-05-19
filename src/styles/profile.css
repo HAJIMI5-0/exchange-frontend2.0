@@ -556,3 +556,85 @@
     width: 100%; /* 按钮铺满 */
   }
 }
+/* =========================================================
+   PROFILE NEW FIELDS
+   timeSlot / projectAwards
+========================================================= */
+
+/* 项目 / 奖项文本框：和 input、select 保持统一风格 */
+.profile-form textarea {
+  width: 100%; /* 宽度铺满 */
+
+  min-height: 120px; /* 文本框高度 */
+
+  padding: 14px 16px; /* 内边距 */
+
+  border-radius: 14px; /* 圆角 */
+
+  border: 1px solid rgba(255,255,255,.1); /* 半透明边框 */
+
+  background: rgba(20,20,32,.94); /* 深色背景 */
+
+  color: white; /* 白色文字 */
+
+  font-size: 15px; /* 字体大小 */
+
+  line-height: 1.6; /* 行高 */
+
+  font-family:
+    "Pretendard",
+    "Noto Sans KR",
+    "Inter",
+    sans-serif; /* 字体 */
+
+  resize: vertical; /* 只允许上下调整大小 */
+
+  transition: .25s ease; /* 动画 */
+
+  box-sizing: border-box; /* 防止 padding 撑大宽度 */
+}
+
+/* 文本框 placeholder */
+.profile-form textarea::placeholder {
+  color: rgba(255,255,255,.65); /* 半透明白色 */
+}
+
+/* 文本框聚焦效果 */
+.profile-form textarea:focus {
+  outline: none; /* 去掉默认蓝框 */
+
+  border-color: #a855f7; /* 紫色边框 */
+
+  box-shadow:
+    0 0 0 4px rgba(168,85,247,.16); /* 紫色发光 */
+}
+
+/* 下拉框选项样式 */
+.profile-form select option {
+  background: #151522; /* 下拉选项背景 */
+
+  color: white; /* 下拉选项文字颜色 */
+}
+
+/* 学习时间段 select 鼠标样式 */
+.profile-form select {
+  cursor: pointer; /* 鼠标悬停显示小手 */
+}
+
+/* 项目 / 奖项显示内容：长文字自动换行 */
+.profile-row span:last-child {
+  word-break: break-word; /* 长文字自动换行 */
+
+  white-space: pre-wrap; /* 保留用户输入的换行 */
+}
+
+/* 手机端：编辑表单两列改为单列 */
+@media (max-width: 768px) {
+  .profile-form-row-group {
+    flex-direction: column; /* 手机端上下排列 */
+  }
+
+  .profile-form-row-group input {
+    width: 100%; /* 手机端输入框铺满 */
+  }
+}
