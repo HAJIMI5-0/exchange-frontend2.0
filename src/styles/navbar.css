@@ -3,28 +3,46 @@
    2026 AI Startup Glass UI
 ========================================================= */
 
-/* ===== 导航栏整体 ===== */
+/* 导航栏整体 */
 .navbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 
-  position: sticky; /* 吸顶导航 */
+/* 左边 logo 固定在左侧 */
+.logo-title {
+  flex-shrink: 0;
+}
 
-  top: 0; /* 固定顶部 */
+/* 右侧区域靠右 */
+.nav-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
 
-  z-index: 999; /* 高层级 */
+/* 中间导航按钮 */
+.nav-links {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 
-  display: flex; /* flex 横向布局 */
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
 
-  justify-content: space-between; /* 左右分开 */
+/* 未登录时：设置 / 登录 留在右边 */
+.auth-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
 
-  align-items: center; /* 垂直居中 */
-
-  padding: 20px 42px; /* 内边距 */
-
-  background: rgba(10, 10, 18, 0.72); /* 半透明深色背景 */
-
-  backdrop-filter: blur(18px); /* 毛玻璃模糊 */
-
-  border-bottom: 1px solid rgba(255,255,255,.08); /* 底部分割线 */
+/* 已登录时：头像菜单留在右边 */
+.user-box {
+  margin-left: auto;
 }
 
 /* =========================================================
@@ -425,3 +443,127 @@
 .avatar-menu-logout {
   color: #ff9b9b;
 }
+
+/* =========================================================
+   NAVBAR SIZE OVERRIDE
+   导航栏放大 / 按钮放大 / 间距拉开
+========================================================= */
+
+/* 整个导航栏变高，左右空间更大 */
+.navbar {
+  min-height: 96px;
+  padding: 22px 64px;
+}
+
+/* logo 和 SOUL 之间拉开 */
+.logo-title {
+  gap: 18px;
+}
+
+/* logo 放大 */
+.logo-img {
+  width: 82px;
+  height: 82px;
+}
+
+/* SOUL 标题放大 */
+.logo-title h2 {
+  font-size: 32px;
+}
+
+/* 中间导航按钮间隔拉开 */
+.nav-links {
+  gap: 42px;
+}
+
+/* 右侧区域间隔拉开 */
+.nav-right {
+  gap: 40px;
+}
+
+/* 未登录时：设置 / 登录 间隔拉开 */
+.auth-links {
+  gap: 30px;
+}
+
+/* 导航按钮、登录、设置、用户名字体放大 */
+.nav-links a,
+.auth-links a,
+.profile-link {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+/* 用户区域间隔拉开 */
+.user-box {
+  gap: 18px;
+}
+
+/* 头像按钮放大 */
+.avatar-menu-button {
+  width: 50px;
+  height: 50px;
+}
+
+/* 导航栏头像放大 */
+.user-avatar {
+  width: 50px;
+  height: 50px;
+}
+
+/* 用户名字体放大 */
+.username,
+.username-link {
+  font-size: 17px;
+}
+
+/* 头像下拉菜单位置跟着头像下移 */
+.avatar-menu {
+  top: 66px;
+  width: 280px;
+  padding: 16px;
+}
+
+/* 下拉菜单按钮也稍微放大 */
+.avatar-menu-item {
+  padding: 14px 16px;
+  font-size: 15px;
+}
+
+/* 手机端不要过大，避免挤出屏幕 */
+@media (max-width: 768px) {
+  .navbar {
+    min-height: auto;
+    padding: 18px 20px;
+  }
+
+  .logo-img {
+    width: 62px;
+    height: 62px;
+  }
+
+  .logo-title h2 {
+    font-size: 22px;
+  }
+
+  .nav-links {
+    gap: 22px;
+  }
+
+  .auth-links {
+    gap: 18px;
+  }
+
+  .nav-links a,
+  .auth-links a,
+  .profile-link {
+    font-size: 15px;
+  }
+
+  .avatar-menu-button,
+  .user-avatar {
+    width: 42px;
+    height: 42px;
+  }
+}
+

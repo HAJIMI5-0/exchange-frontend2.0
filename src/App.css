@@ -19,7 +19,6 @@ body {
   justify-content: space-between; /* 左右两边分开 */
   align-items: center; /* 垂直方向居中 */
   padding: 26px 40px; /* 上下26，左右40的内边距 */
-  background: #000; /* 黑色背景 */
   color: white; /* 默认文字白色 */
   box-sizing: border-box; /* padding 不会把整体宽度撑大 */
 }

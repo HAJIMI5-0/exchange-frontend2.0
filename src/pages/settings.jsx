@@ -7,15 +7,24 @@ function Settings({ text, user, lang, setLang }) {
         <div className="settings-section">
           <h2>{text.accountSettings || "账号设置"}</h2>
 
-          <div className="settings-row">
-            <span>{text.username || "用户名"}</span>
-            <strong>{user?.name || user?.username || "-"}</strong>
-          </div>
+          {user ? (
+            <>
+              <div className="settings-row">
+                <span>{text.username || "用户名"}</span>
+                <strong>{user?.name || user?.username || "-"}</strong>
+              </div>
 
-          <div className="settings-row">
-            <span>{text.email || "邮箱"}</span>
-            <strong>{user?.email || "-"}</strong>
-          </div>
+              <div className="settings-row">
+                <span>{text.email || "邮箱"}</span>
+                <strong>{user?.email || "-"}</strong>
+              </div>
+            </>
+          ) : (
+            <div className="settings-row">
+              <span>{text.loginStatus || "登录状态"}</span>
+              <strong>{text.notLoggedIn || "未登录"}</strong>
+            </div>
+          )}
         </div>
 
         <div className="settings-section">

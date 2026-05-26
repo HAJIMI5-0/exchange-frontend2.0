@@ -135,6 +135,17 @@ function App() {
 
             <div className="user-box">
 
+              {/* SETTINGS OUTSIDE */}
+              <NavLink
+                to="/settings"
+                className="profile-link settings-outside-link"
+                onClick={() =>
+                  setAvatarMenuOpen(false)
+                }
+              >
+                {text.settings || '设置'}
+              </NavLink>
+
               {/* AVATAR MENU BUTTON */}
               <button
                 type="button"
@@ -239,6 +250,10 @@ function App() {
           ) : (
 
             <div className="auth-links">
+
+              <NavLink to="/settings">
+                {text.settings || '设置'}
+              </NavLink>
 
               <NavLink to="/login">
                 {text.login}
