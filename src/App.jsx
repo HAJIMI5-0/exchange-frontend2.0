@@ -1,7 +1,7 @@
 // import './App.css'   // 原来的样式（已不用）
 
 import './styles/global.css'
-import './styles/navbar.css'
+
 import './styles/home.css'
 import './styles/auth.css'
 import './styles/profile.css'
@@ -11,6 +11,9 @@ import './styles/board.css'
 import './styles/boardDetail.css'
 import './styles/responsive.css'
 import './styles/settings.css'
+
+import './styles/navbar.css'
+import './styles/theme.css'
 
 import { useState, useEffect } from 'react'
 import { NavLink, Routes, Route } from 'react-router-dom'

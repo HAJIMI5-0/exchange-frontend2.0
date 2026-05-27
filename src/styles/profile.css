@@ -319,7 +319,7 @@
 }
 
 /* ===== 个人信息内容居中 ===== */
-.profile-row span:last-child {
+.profile-row > span:last-child {
 
   flex: 1; /* 右侧内容占满剩余空间 */
 
@@ -637,4 +637,57 @@
   .profile-form-row-group input {
     width: 100%; /* 手机端输入框铺满 */
   }
+}
+
+/* =========================================================
+   PROFILE SKILL LEVEL TAG
+   技能等级标签
+========================================================= */
+
+.profile-skill-with-level {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.profile-skill-text {
+  font-weight: 600;
+}
+
+.profile-level-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 5px 12px;
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+
+  color: #93c5fd;
+  background: rgba(59, 130, 246, 0.16);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.learn-level-tag {
+  color: #6ee7b7;
+  background: rgba(16, 185, 129, 0.16);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+/* 浅色模式下的等级标签 */
+:root[data-theme="light"] .profile-level-tag {
+  color: #547fcf;
+  background: rgba(91, 141, 239, 0.12);
+  border-color: rgba(91, 141, 239, 0.20);
+}
+
+:root[data-theme="light"] .learn-level-tag {
+  color: #4d9675;
+  background: rgba(96, 170, 135, 0.12);
+  border-color: rgba(96, 170, 135, 0.20);
 }

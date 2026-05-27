@@ -9,10 +9,10 @@ import {
   translateText                                                   // 翻译接口
 } from '../api/profileApi'
 
-import ProfileInfo from './ProfileInfo'                           // 引入个人资料查看组件
-import ProfileForm from './ProfileForm'                           // 引入个人资料编辑表单组件
+import ProfileInfo from '../components/profile/ProfileInfo'       // 引入个人资料查看组件
+import ProfileForm from '../components/profile/ProfileForm'       // 引入个人资料编辑表单组件
 
-function Profile({ text, user, setUser, lang = 'zh' }){           // 个人资料页面组件，接收多语言文本、当前用户、更新用户函数和当前语言
+function Profile({ text, user, setUser, lang = 'zh' }) {          // 个人资料页面组件，接收多语言文本、当前用户、更新用户函数和当前语言
   const navigate = useNavigate()                                  // 创建页面跳转函数
 
   // =========================
@@ -48,6 +48,8 @@ function Profile({ text, user, setUser, lang = 'zh' }){           // 个人资�
     nationality: '',                                              // 国籍
     teachSkill: '',                                               // 擅长技能
     learnSkill: '',                                               // 想学技能
+    teachLevel: '',                                               // 擅长技能等级
+    learnLevel: '',                                               // 想学习的等级
     timeSlot: '',                                                 // 学习时间段
     projectAwards: ''                                             // 项目 / 奖项
   })
@@ -68,7 +70,7 @@ function Profile({ text, user, setUser, lang = 'zh' }){           // 个人资�
         const profileData = {                                     // 把后端返回的数据整理成前端需要的格式
           id: data.id || user.id || '',                           // 优先使用后端返回的 id，没有就用 user 里的 id
           username: data.username || user.username || '',         // 优先使用后端 username，没有就用当前登录用户 username
-          name: data.name || data.nickname || user.name || data.username || user.username || '',        // 显示名称，兼容 name、nickname、username
+          name: data.name || data.nickname || user.name || data.username || user.username || '', // 显示名称，兼容 name、nickname、username
           phone: data.phone || '',                                // 电话，没有就为空
           email: data.email || '',                                // 邮箱，没有就为空
           address: data.address || '',                            // 地址，没有就为空
@@ -78,6 +80,8 @@ function Profile({ text, user, setUser, lang = 'zh' }){           // 个人资�
           nationality: data.nationality || '',                    // 国籍
           teachSkill: data.teachSkill || '',                      // 擅长技能
           learnSkill: data.learnSkill || '',                      // 想学技能
+          teachLevel: data.teachLevel || data.skillOfferLevel || '', // 擅长技能等级，兼容后端不同字段名
+          learnLevel: data.learnLevel || data.skillWantLevel || '',  // 想学习的等级，兼容后端不同字段名
           timeSlot: data.timeSlot || '',                          // 学习时间段
           projectAwards: data.projectAwards || ''                 // 项目 / 奖项
         }
@@ -86,25 +90,36 @@ function Profile({ text, user, setUser, lang = 'zh' }){           // 个人资�
 
         const updatedUser = {                                     // 创建更新后的登录用户对象
           ...user,                                                // 保留原来 user 里的其他数据
+          id: profileData.id,                                     // 更新 id
           username: profileData.username,                         // 更新用户名
           name: profileData.name,                                 // 更新显示名称
+          phone: profileData.phone,                               // 更新电话
+          email: profileData.email,                               // 更新邮箱
+          address: profileData.address,                           // 更新地址
           avatar: profileData.avatar,                             // 更新头像
+          gender: profileData.gender,                             // 更新性别
+          age: profileData.age,                                   // 更新年龄
+          nationality: profileData.nationality,                   // 更新国籍
+          teachSkill: profileData.teachSkill,                     // 更新擅长技能
+          learnSkill: profileData.learnSkill,                     // 更新想学技能
+          teachLevel: profileData.teachLevel,                     // 更新擅长技能等级
+          learnLevel: profileData.learnLevel,                     // 更新想学习的等级
           timeSlot: profileData.timeSlot,                         // 更新学习时间段
           projectAwards: profileData.projectAwards                // 更新项目 / 奖项
         }
 
         setUser(updatedUser)                                      // 更新 App.jsx 里的 user 状态
-        localStorage.setItem('loginUser', JSON.stringify(updatedUser))          // 同步更新 localStorage，刷新页面后也能保留最新用户信息
+        localStorage.setItem('loginUser', JSON.stringify(updatedUser)) // 同步更新 localStorage，刷新页面后也能保留最新用户信息
       } catch (err) {                                             // 获取个人资料失败时执行
         console.error('获取个人信息失败:', err)                    // 在控制台输出错误信息
         setResult(err.message || '获取个人信息失败，请检查后端')    // 页面显示错误提示
       } finally {
-        setLoading(false)                                        // 无论成功还是失败，都结束加载状态
+        setLoading(false)                                         // 无论成功还是失败，都结束加载状态
       }
     }
 
-    fetchProfile()                                               // 调用获取个人资料函数
-  }, [user?.username])                                           // 当 user.username 变化时重新执行
+    fetchProfile()                                                // 调用获取个人资料函数
+  }, [user?.username])                                            // 当 user.username 变化时重新执行
 
   // =========================
   // 自动翻译技能和国籍
@@ -125,7 +140,7 @@ function Profile({ text, user, setUser, lang = 'zh' }){           // 个人资�
     }
 
     translateProfileInfo()                                        // 调用翻译函数
-  }, [lang, profile.teachSkill, profile.learnSkill, profile.nationality, isEditing])        // 这些数据变化时重新翻译
+  }, [lang, profile.teachSkill, profile.learnSkill, profile.nationality, isEditing]) // 这些数据变化时重新翻译
 
   // =========================
   // 编辑表单输入内容
@@ -169,7 +184,7 @@ function Profile({ text, user, setUser, lang = 'zh' }){           // 个人资�
 
       setProfile(updatedProfile)                                  // 更新当前页面的个人资料
       setUser(updatedUser)                                        // 更新全局登录用户信息
-      localStorage.setItem('loginUser', JSON.stringify(updatedUser))        // 更新本地存储中的登录用户信息
+      localStorage.setItem('loginUser', JSON.stringify(updatedUser)) // 更新本地存储中的登录用户信息
 
       setResult(text.uploadSuccess || '头像上传成功')              // 显示上传成功提示
     } catch (err) {                                               // 上传头像失败时执行
@@ -206,6 +221,8 @@ function Profile({ text, user, setUser, lang = 'zh' }){           // 个人资�
         nationality: data.nationality ?? saveProfile.nationality, // 优先使用后端返回 nationality
         teachSkill: data.teachSkill ?? saveProfile.teachSkill,    // 优先使用后端返回 teachSkill
         learnSkill: data.learnSkill ?? saveProfile.learnSkill,    // 优先使用后端返回 learnSkill
+        teachLevel: data.teachLevel ?? data.skillOfferLevel ?? saveProfile.teachLevel, // 优先使用后端返回擅长技能等级
+        learnLevel: data.learnLevel ?? data.skillWantLevel ?? saveProfile.learnLevel,  // 优先使用后端返回想学习等级
         timeSlot: data.timeSlot ?? saveProfile.timeSlot,          // 优先使用后端返回 timeSlot
         projectAwards: data.projectAwards ?? saveProfile.projectAwards // 优先使用后端返回 projectAwards
       }
@@ -223,6 +240,8 @@ function Profile({ text, user, setUser, lang = 'zh' }){           // 个人资�
         nationality: updatedProfile.nationality,                  // 更新国籍
         teachSkill: updatedProfile.teachSkill,                    // 更新擅长技能
         learnSkill: updatedProfile.learnSkill,                    // 更新想学技能
+        teachLevel: updatedProfile.teachLevel,                    // 更新擅长技能等级
+        learnLevel: updatedProfile.learnLevel,                    // 更新想学习的等级
         timeSlot: updatedProfile.timeSlot,                        // 更新学习时间段
         projectAwards: updatedProfile.projectAwards               // 更新项目 / 奖项
       }
@@ -252,13 +271,13 @@ function Profile({ text, user, setUser, lang = 'zh' }){           // 个人资�
   // =========================
   if (!user) {                                                    // 如果当前没有登录用户
     return (
-      <section className="profile-page">                          {/* 个人资料页面容器 */}
-        <h1>{text.profilePage || '个人信息页面'}</h1>              {/* 页面标题 */}
+      <section className="profile-page">
+        <h1>{text.profilePage || '个人信息页面'}</h1>
 
-        <p>{text.notLoggedIn || '当前未登录'}</p>                  {/* 未登录提示 */}
+        <p>{text.notLoggedIn || '当前未登录'}</p>
 
-        <button onClick={() => navigate('/login')}>               {/* 点击跳转到登录页面 */}
-          {text.loginBtn || '登录'}                               {/* 登录按钮文字 */}
+        <button onClick={() => navigate('/login')}>
+          {text.loginBtn || '登录'}
         </button>
       </section>
     )
@@ -269,10 +288,10 @@ function Profile({ text, user, setUser, lang = 'zh' }){           // 个人资�
   // =========================
   if (loading) {                                                  // 如果正在加载个人资料
     return (
-      <section className="profile-page">                          {/* 个人资料页面容器 */}
-        <h1>{text.profilePage || '个人信息页面'}</h1>              {/* 页面标题 */}
+      <section className="profile-page">
+        <h1>{text.profilePage || '个人信息页面'}</h1>
 
-        <p>{text.loading || '加载中...'}</p>                      {/* 加载中提示 */}
+        <p>{text.loading || '加载中...'}</p>
       </section>
     )
   }
@@ -281,59 +300,56 @@ function Profile({ text, user, setUser, lang = 'zh' }){           // 个人资�
   // 个人资料主页面
   // =========================
   return (
-    <section className="profile-page">                            {/* 个人资料页面最外层容器 */}
-      <h1>{text.profilePage || '个人信息页面'}</h1>                {/* 页面标题 */}
+    <section className="profile-page">
+      <h1>{text.profilePage || '个人信息页面'}</h1>
 
-      <div className="profile-card">                              {/* 个人资料卡片 */}
-        <div className="profile-top">                             {/* 头像和基础信息区域 */}
+      <div className="profile-card">
+        <div className="profile-top">
           <img
-            src={profile.avatar && profile.avatar.trim() ? profile.avatar : defaultAvatar} // 如果有头像就显示头像，没有就显示默认头像
-            alt="avatar"                                           // 图片说明文字
-            className="profile-avatar"                             // 头像样式类名
-            onError={(e) => {                                      // 如果头像加载失败
-              e.target.src = defaultAvatar                         // 自动替换成默认头像
+            src={profile.avatar && profile.avatar.trim() ? profile.avatar : defaultAvatar}
+            alt="avatar"
+            className="profile-avatar"
+            onError={(e) => {
+              e.target.src = defaultAvatar
             }}
           />
 
-          <div className="profile-basic">                         {/* 用户基础信息区域 */}
-            <h2>{profile.name || profile.username || 'User'}</h2> {/* 显示用户名称，没有就显示 username，再没有就显示 User */}
+          <div className="profile-basic">
+            <h2>{profile.name || profile.username || 'User'}</h2>
 
-            <p className="profile-username-small">                {/* 显示小号用户名 */}
-              id:{profile.username || '-'}                          {/* 用户名为空时显示 - */}
+            <p className="profile-username-small">
+              id:{profile.username || '-'}
             </p>
 
-            <p>{text.welcome || '欢迎来到个人中心'}</p>            {/* 欢迎文字 */}
+            <p>{text.welcome || '欢迎来到个人中心'}</p>
           </div>
         </div>
 
-        {/* 编辑模式：显示 ProfileForm */}
-        {isEditing ? (                                            // 如果 isEditing 为 true，显示编辑表单
+        {isEditing ? (
           <ProfileForm
-            text={text}                                           // 把多语言文本传给表单组件
-            profile={profile}                                     // 把当前个人资料传给表单组件
-            uploading={uploading}                                 // 把头像上传状态传给表单组件
-            onChange={handleChange}                               // 输入框变化时调用 handleChange
-            onAvatarUpload={handleAvatarUpload}                   // 上传头像时调用 handleAvatarUpload
-            onSave={handleSave}                                   // 点击保存时调用 handleSave
-            onCancel={() => setIsEditing(false)}                  // 点击取消时退出编辑模式
+            text={text}
+            profile={profile}
+            uploading={uploading}
+            onChange={handleChange}
+            onAvatarUpload={handleAvatarUpload}
+            onSave={handleSave}
+            onCancel={() => setIsEditing(false)}
           />
         ) : (
-          /* 查看模式：显示 ProfileInfo */
           <ProfileInfo
-            text={text}                                           // 把多语言文本传给查看组件
-            profile={profile}                                     // 把个人资料传给查看组件
-            translatedInfo={translatedInfo}                       // 把翻译后的技能和国籍传给查看组件
-            onEdit={() => setIsEditing(true)}                     // 点击编辑时进入编辑模式
-            onHome={() => navigate('/')}                          // 点击首页时跳转到首页
-            onLogout={handleLogout}                               // 点击退出登录时执行 handleLogout
+            text={text}
+            profile={profile}
+            translatedInfo={translatedInfo}
+            onEdit={() => setIsEditing(true)}
+            onHome={() => navigate('/')}
+            onLogout={handleLogout}
           />
         )}
 
-        {/* 操作结果提示 */}
-        {result && <p>{result}</p>}                               {/* 如果有结果提示，就显示出来 */}
+        {result && <p>{result}</p>}
       </div>
     </section>
   )
 }
 
-export default Profile // 导出 Profile 组件，供其他文件使用
+export default Profile

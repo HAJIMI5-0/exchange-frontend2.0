@@ -5,44 +5,22 @@
 
 /* 导航栏整体 */
 .navbar {
+  min-height: 96px;
+  padding: 22px 64px;
+  box-sizing: border-box;
+
+  display: grid !important;
+  grid-template-columns: 300px minmax(0, 1fr) 300px;
+  align-items: center;
+
   position: relative;
-  display: flex;
-  align-items: center;
+  z-index: 10000;
+  overflow: visible;
 }
 
-/* 左边 logo 固定在左侧 */
-.logo-title {
-  flex-shrink: 0;
-}
-
-/* 右侧区域靠右 */
+/* 让 nav-right 里面的 nav-links / user-box / auth-links 参与 navbar 的 grid 布局 */
 .nav-right {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-}
-
-/* 中间导航按钮 */
-.nav-links {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-
-  display: flex;
-  align-items: center;
-  gap: 28px;
-}
-
-/* 未登录时：设置 / 登录 留在右边 */
-.auth-links {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
-/* 已登录时：头像菜单留在右边 */
-.user-box {
-  margin-left: auto;
+  display: contents !important;
 }
 
 /* =========================================================
@@ -51,34 +29,31 @@
 
 /* logo + 标题 */
 .logo-title {
+  grid-column: 1;
+  justify-self: start;
 
-  display: flex; /* 横向排列 */
+  display: flex;
+  align-items: center;
+  gap: 18px;
 
-  align-items: center; /* 垂直居中 */
-
-  gap: 14px; /* logo 和文字间距 */
+  flex-shrink: 0;
+  overflow: visible;
 }
 
 /* logo 图片 */
 .logo-img {
-
-  width: 72px; /* 宽度 */
-
-  height: 72px; /* 高度 */
-
-  object-fit: contain; /* 保持比例 */
+  width: 82px;
+  height: 82px;
+  object-fit: contain;
 }
 
 /* logo 标题 */
 .logo-title h2 {
+  margin: 0;
 
-  margin: 0; /* 去默认 margin */
-
-  font-size: 26px; /* 字体大小 */
-
-  font-weight: 800; /* 超粗字体 */
-
-  letter-spacing: 1px; /* 字间距 */
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 1px;
 
   background:
     linear-gradient(
@@ -86,27 +61,122 @@
       white,
       #c084fc,
       #60a5fa
-    ); /* 紫蓝渐变文字 */
+    );
 
-  -webkit-background-clip: text; /* 裁剪背景 */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-  -webkit-text-fill-color: transparent; /* 透明文字 */
+/* =========================================================
+   NAVIGATION LINKS
+========================================================= */
+
+/* 中间导航按钮 */
+.nav-links {
+  grid-column: 2;
+  justify-self: center;
+
+  position: static !important;
+  left: auto !important;
+  transform: none !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 42px;
+
+  overflow: visible;
+}
+
+/* 导航链接、登录链接、用户链接 */
+.nav-links a,
+.auth-links a,
+.profile-link {
+  position: relative;
+
+  color: #f3f4f6;
+  text-decoration: none;
+
+  font-size: 17px;
+  font-weight: 700;
+
+  transition: .25s ease;
+}
+
+/* hover 效果 */
+.nav-links a:hover,
+.auth-links a:hover,
+.profile-link:hover {
+  color: #c084fc;
+}
+
+/* 底部渐变线动画 */
+.nav-links a::after,
+.auth-links a::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: -6px;
+
+  width: 0;
+  height: 2px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #c084fc,
+      #60a5fa
+    );
+
+  transition: .25s ease;
+}
+
+/* hover 展开线 */
+.nav-links a:hover::after,
+.auth-links a:hover::after {
+  width: 100%;
 }
 
 /* =========================================================
    RIGHT AREA
 ========================================================= */
 
-/* 导航栏右边整体 */
-.nav-right {
+/* 未登录时：设置 / 登录 */
+.auth-links {
+  grid-column: 3;
+  justify-self: end;
 
-  display: flex; /* flex 横向排列 */
+  display: flex;
+  align-items: center;
+  gap: 30px;
 
-  align-items: center; /* 垂直居中 */
+  overflow: visible;
+}
 
-  gap: 24px; /* 元素间距 */
+/* 已登录时：用户区域 */
+.user-box {
+  grid-column: 3;
+  justify-self: end;
 
-  flex-wrap: wrap; /* 空间不够自动换行 */
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  position: relative;
+  z-index: 10001;
+  overflow: visible;
+}
+
+/* 用户名 */
+.username,
+.username-link {
+  font-size: 17px;
+  font-weight: 700;
+  color: white;
 }
 
 /* =========================================================
@@ -115,324 +185,159 @@
 
 /* 语言选择框 */
 .lang-select {
+  padding: 10px 14px;
 
-  padding: 10px 14px; /* 内边距 */
+  border-radius: 14px;
 
-  border-radius: 14px; /* 圆角 */
+  border: 1px solid rgba(255,255,255,.1);
 
-  border: 1px solid rgba(255,255,255,.1); /* 半透明边框 */
+  background: rgba(20,20,32,.92);
 
-  background: rgba(20,20,32,.92); /* 深色背景 */
+  color: white;
 
-  color: white; /* 白色文字 */
+  font-size: 14px;
 
-  font-size: 14px; /* 字体大小 */
+  cursor: pointer;
 
-  cursor: pointer; /* 小手 */
-
-  transition: .25s ease; /* 动画 */
+  transition: .25s ease;
 }
 
 /* focus 效果 */
 .lang-select:focus {
+  outline: none;
 
-  outline: none; /* 去掉蓝框 */
-
-  border-color: #a855f7; /* 紫色边框 */
+  border-color: #a855f7;
 
   box-shadow:
-    0 0 0 4px rgba(168,85,247,.16); /* 紫色发光 */
+    0 0 0 4px rgba(168,85,247,.16);
 }
 
 /* =========================================================
-   NAVIGATION LINKS
+   USER AVATAR
 ========================================================= */
 
-/* 导航链接整体 */
-.nav-links {
+/* 头像按钮 */
+.avatar-menu-button {
+  width: 50px;
+  height: 50px;
 
-  display: flex; /* 横向排列 */
+  padding: 0;
 
-  align-items: center; /* 垂直居中 */
+  border: none;
+  border-radius: 50%;
 
-  gap: 22px; /* 链接间距 */
-}
+  background: transparent;
 
-/* 导航链接 */
-.nav-links a,
-.auth-links a,
-.profile-link {
+  cursor: pointer;
 
-  position: relative; /* 相对定位 */
-
-  color: #f3f4f6; /* 浅白色 */
-
-  text-decoration: none; /* 去下划线 */
-
-  font-size: 15px; /* 字体大小 */
-
-  font-weight: 600; /* 半粗体 */
-
-  transition: .25s ease; /* 动画 */
-}
-
-/* hover 效果 */
-.nav-links a:hover,
-.auth-links a:hover,
-.profile-link:hover {
-
-  color: #c084fc; /* hover 紫色 */
-}
-
-/* 底部渐变线动画 */
-.nav-links a::after,
-.auth-links a::after {
-
-  content: ""; /* 伪元素 */
-
-  position: absolute; /* 绝对定位 */
-
-  left: 0; /* 左边 */
-
-  bottom: -6px; /* 下边 */
-
-  width: 0; /* 初始宽度 */
-
-  height: 2px; /* 线高度 */
-
-  border-radius: 999px; /* 圆角线 */
-
-  background:
-    linear-gradient(
-      90deg,
-      #c084fc,
-      #60a5fa
-    ); /* 渐变颜色 */
-
-  transition: .25s ease; /* 动画 */
-}
-
-/* hover 展开线 */
-.nav-links a:hover::after,
-.auth-links a:hover::after {
-
-  width: 100%; /* hover 展开 */
-}
-
-/* =========================================================
-   AUTH LINKS
-========================================================= */
-
-/* 登录注册区域 */
-.auth-links {
-
-  display: flex; /* 横向排列 */
-
-  align-items: center; /* 垂直居中 */
-
-  gap: 16px; /* 间距 */
-}
-
-/* =========================================================
-   USER INFO
-========================================================= */
-
-/* 用户信息区域 */
-.user-box {
-
-  display: flex; /* 横向排列 */
-
-  align-items: center; /* 垂直居中 */
-
-  gap: 12px; /* 元素间距 */
+  position: relative;
+  z-index: 10002;
 }
 
 /* 用户头像 */
 .user-avatar {
+  width: 50px;
+  height: 50px;
 
-  width: 42px; /* 宽度 */
+  border-radius: 50%;
 
-  height: 42px; /* 高度 */
+  object-fit: cover;
 
-  border-radius: 50%; /* 圆形头像 */
+  border: 2px solid rgba(255,255,255,.12);
 
-  object-fit: cover; /* 裁剪铺满 */
-
-  border: 2px solid rgba(255,255,255,.12); /* 半透明边框 */
-
-  transition: .25s ease; /* 动画 */
+  transition: .25s ease;
 }
 
 /* hover 发光 */
 .user-avatar:hover {
-
-  transform: scale(1.05); /* 微放大 */
+  transform: scale(1.05);
 
   box-shadow:
-    0 0 20px rgba(168,85,247,.4); /* 紫色发光 */
-}
-
-/* 用户名 */
-.username,
-.username-link {
-
-  font-size: 15px; /* 字体大小 */
-
-  font-weight: 600; /* 半粗 */
-
-  color: white; /* 白色 */
+    0 0 20px rgba(168,85,247,.4);
 }
 
 /* =========================================================
-   LOGOUT BUTTON
+   AVATAR DROPDOWN MENU
 ========================================================= */
-
-/* 退出按钮 */
-.logout-btn {
-
-  padding: 10px 16px; /* 内边距 */
-
-  border: none; /* 去边框 */
-
-  border-radius: 14px; /* 圆角 */
-
-  background:
-    linear-gradient(
-      135deg,
-      #ef4444,
-      #dc2626
-    ); /* 红色渐变 */
-
-  color: white; /* 白色文字 */
-
-  font-size: 14px; /* 字体大小 */
-
-  font-weight: 700; /* 粗体 */
-
-  cursor: pointer; /* 小手 */
-
-  transition:
-    transform .25s ease,
-    box-shadow .25s ease,
-    opacity .25s ease; /* 动画 */
-}
-
-/* hover */
-.logout-btn:hover {
-
-  transform: translateY(-2px); /* 上浮 */
-
-  box-shadow:
-    0 14px 30px rgba(239,68,68,.35); /* 红色发光 */
-}
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 768px) {
-
-  .navbar {
-
-    padding: 18px 20px; /* 手机内边距 */
-
-    flex-wrap: wrap; /* 自动换行 */
-
-    gap: 18px; /* 间距 */
-  }
-
-  .logo-img {
-
-    width: 58px; /* 手机 logo 缩小 */
-
-    height: 58px;
-  }
-
-  .logo-title h2 {
-
-    font-size: 20px; /* 手机标题缩小 */
-  }
-
-  .nav-right {
-
-    width: 100%; /* 宽度铺满 */
-
-    justify-content: flex-start; /* 左对齐 */
-  }
-
-  .nav-links,
-  .auth-links {
-
-    flex-wrap: wrap; /* 自动换行 */
-  }
-}
-.user-box {
-  position: relative;
-}
-
-.avatar-menu-button {
-  width: 38px;
-  height: 38px;
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-  background: transparent;
-  cursor: pointer;
-}
 
 .avatar-menu {
   position: absolute;
-  top: 52px;
+  top: 66px;
   right: 0;
-  width: 260px;
-  padding: 14px;
+
+  width: 280px;
+  padding: 16px;
+
   border-radius: 18px;
+
   background: rgba(28, 30, 45, 0.98);
+
   border: 1px solid rgba(255, 255, 255, 0.1);
+
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
-  z-index: 999;
+
+  z-index: 10003 !important;
 }
 
 .avatar-menu-top {
   padding: 14px;
   margin-bottom: 10px;
+
   text-align: center;
+
   border-radius: 14px;
+
   background: rgba(255, 255, 255, 0.06);
 }
 
 .avatar-menu-img {
   width: 58px;
   height: 58px;
+
   margin-bottom: 8px;
+
   border-radius: 50%;
+
   object-fit: cover;
 }
 
 .avatar-menu-top strong {
   display: block;
+
   color: #ffffff;
+
   font-size: 15px;
 }
 
 .avatar-menu-top span {
   display: block;
+
   margin-top: 4px;
+
   color: #cfd2e6;
+
   font-size: 13px;
 }
 
 .avatar-menu-item {
   width: 100%;
+
   display: block;
-  padding: 12px 14px;
+
+  padding: 14px 16px;
+
   border: none;
   border-radius: 12px;
+
   background: transparent;
+
   color: #ffffff;
+
   text-align: left;
   text-decoration: none;
-  font-size: 14px;
+
+  font-size: 15px;
+
   cursor: pointer;
 }
 
@@ -445,96 +350,83 @@
 }
 
 /* =========================================================
-   NAVBAR SIZE OVERRIDE
-   导航栏放大 / 按钮放大 / 间距拉开
+   LOGOUT BUTTON
 ========================================================= */
 
-/* 整个导航栏变高，左右空间更大 */
-.navbar {
-  min-height: 96px;
-  padding: 22px 64px;
-}
+/* 退出按钮 */
+.logout-btn {
+  padding: 10px 16px;
 
-/* logo 和 SOUL 之间拉开 */
-.logo-title {
-  gap: 18px;
-}
+  border: none;
 
-/* logo 放大 */
-.logo-img {
-  width: 82px;
-  height: 82px;
-}
+  border-radius: 14px;
 
-/* SOUL 标题放大 */
-.logo-title h2 {
-  font-size: 32px;
-}
+  background:
+    linear-gradient(
+      135deg,
+      #ef4444,
+      #dc2626
+    );
 
-/* 中间导航按钮间隔拉开 */
-.nav-links {
-  gap: 42px;
-}
+  color: white;
 
-/* 右侧区域间隔拉开 */
-.nav-right {
-  gap: 40px;
-}
-
-/* 未登录时：设置 / 登录 间隔拉开 */
-.auth-links {
-  gap: 30px;
-}
-
-/* 导航按钮、登录、设置、用户名字体放大 */
-.nav-links a,
-.auth-links a,
-.profile-link {
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    opacity .25s ease;
 }
 
-/* 用户区域间隔拉开 */
+/* hover */
+.logout-btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 14px 30px rgba(239,68,68,.35);
+}
+
+/* =========================================================
+   DROPDOWN LAYER FIX
+   防止头像菜单被其他页面遮挡
+========================================================= */
+
+.nav-right,
+.logo-title,
+.auth-links,
+.nav-links,
 .user-box {
-  gap: 18px;
+  overflow: visible;
 }
 
-/* 头像按钮放大 */
-.avatar-menu-button {
-  width: 50px;
-  height: 50px;
-}
+/* =========================================================
+   MOBILE
+========================================================= */
 
-/* 导航栏头像放大 */
-.user-avatar {
-  width: 50px;
-  height: 50px;
-}
-
-/* 用户名字体放大 */
-.username,
-.username-link {
-  font-size: 17px;
-}
-
-/* 头像下拉菜单位置跟着头像下移 */
-.avatar-menu {
-  top: 66px;
-  width: 280px;
-  padding: 16px;
-}
-
-/* 下拉菜单按钮也稍微放大 */
-.avatar-menu-item {
-  padding: 14px 16px;
-  font-size: 15px;
-}
-
-/* 手机端不要过大，避免挤出屏幕 */
 @media (max-width: 768px) {
+
   .navbar {
+    display: flex !important;
+
     min-height: auto;
+
     padding: 18px 20px;
+
+    flex-wrap: wrap;
+
+    gap: 18px;
+
+    grid-template-columns: none;
+  }
+
+  .logo-title {
+    grid-column: auto;
+    justify-self: auto;
+
+    gap: 14px;
   }
 
   .logo-img {
@@ -546,12 +438,47 @@
     font-size: 22px;
   }
 
+  .nav-right {
+    display: flex !important;
+
+    width: 100%;
+
+    justify-content: flex-start;
+
+    gap: 24px;
+
+    flex-wrap: wrap;
+  }
+
   .nav-links {
+    grid-column: auto;
+    justify-self: auto;
+
+    position: static !important;
+
+    display: flex;
+
+    justify-content: flex-start;
+
+    flex-wrap: wrap;
+
     gap: 22px;
   }
 
   .auth-links {
+    grid-column: auto;
+    justify-self: auto;
+
     gap: 18px;
+
+    flex-wrap: wrap;
+  }
+
+  .user-box {
+    grid-column: auto;
+    justify-self: auto;
+
+    gap: 14px;
   }
 
   .nav-links a,
@@ -565,5 +492,55 @@
     width: 42px;
     height: 42px;
   }
+
+  .avatar-menu {
+    top: 56px;
+
+    right: auto;
+    left: 0;
+
+    width: 260px;
+  }
+}
+/* =========================================================
+   NAVBAR AND PAGE BLEND FIX
+   让导航栏和页面背景融合
+========================================================= */
+
+.navbar {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7, 9, 18, 0.86),
+      rgba(7, 9, 18, 0.58)
+    ) !important;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+
+  box-shadow: none !important;
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
 }
 
+/* 导航栏底部柔和过渡，不要突然断开 */
+.navbar::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: -48px;
+
+  height: 48px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7, 9, 18, 0.48),
+      rgba(7, 9, 18, 0)
+    );
+
+  pointer-events: none;
+}

@@ -1,0 +1,1152 @@
+/* =========================================================
+   SOUL LIGHT THEME OVERRIDE
+   只影响浅色模式，深色模式不动
+========================================================= */
+
+
+/* =========================================================
+   LIGHT THEME VARIABLES
+========================================================= */
+
+:root[data-theme="light"] {
+  --light-bg:
+    radial-gradient(circle at top left, rgba(145, 155, 230, 0.18), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(190, 170, 225, 0.16), transparent 34%),
+    linear-gradient(135deg, #f7f8ff 0%, #eef2fb 48%, #fbf9ff 100%);
+
+  --light-card: rgba(255, 255, 255, 0.78);
+  --light-card-strong: rgba(255, 255, 255, 0.92);
+  --light-card-soft: rgba(245, 247, 255, 0.72);
+
+  --light-text: #283044;
+  --light-sub-text: #687187;
+  --light-muted-text: #8790a6;
+
+  --light-border: rgba(128, 140, 170, 0.18);
+  --light-border-soft: rgba(128, 140, 170, 0.12);
+
+  --light-primary: #7378e8;
+  --light-primary-hover: #6268d8;
+  --light-purple: #8b73df;
+  --light-blue: #6f9ee8;
+  --light-cyan: #74b8d0;
+
+  --light-btn:
+    linear-gradient(135deg, #7d82ee, #8d73e8);
+
+  --light-btn-blue:
+    linear-gradient(135deg, #7d82ee, #7bb8d8);
+
+  --light-shadow:
+    0 18px 42px rgba(108, 116, 150, 0.15);
+
+  --light-shadow-soft:
+    0 10px 28px rgba(108, 116, 150, 0.10);
+
+  --theme-bg: var(--light-bg);
+  --theme-card: var(--light-card);
+  --theme-card-solid: #ffffff;
+  --theme-text: var(--light-text);
+  --theme-sub-text: var(--light-sub-text);
+  --theme-border: var(--light-border);
+  --theme-primary: var(--light-primary);
+  --theme-input-bg: rgba(255, 255, 255, 0.9);
+  --theme-input-text: var(--light-text);
+  --theme-input-border: rgba(128, 140, 170, 0.24);
+  --theme-shadow: var(--light-shadow);
+
+  --primary: #7378e8;
+  --secondary: #8b73df;
+  --blue: #6f9ee8;
+  --text-main: var(--light-text);
+  --text-secondary: var(--light-sub-text);
+  --glass-bg: var(--light-card);
+  --glass-border: var(--light-border);
+  --shadow-main: var(--light-shadow);
+}
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+:root[data-theme="light"] html,
+:root[data-theme="light"] body,
+:root[data-theme="light"] #root,
+:root[data-theme="light"] .container {
+  background: var(--light-bg) !important;
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] body::before {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(130, 140, 230, 0.10), transparent 30%),
+    radial-gradient(circle at 80% 70%, rgba(180, 150, 230, 0.10), transparent 32%) !important;
+}
+
+:root[data-theme="light"] h1,
+:root[data-theme="light"] h2,
+:root[data-theme="light"] h3,
+:root[data-theme="light"] h4,
+:root[data-theme="light"] p,
+:root[data-theme="light"] span,
+:root[data-theme="light"] strong,
+:root[data-theme="light"] label {
+  color: var(--light-text);
+}
+
+:root[data-theme="light"] input,
+:root[data-theme="light"] select,
+:root[data-theme="light"] textarea {
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: var(--light-text) !important;
+  border-color: rgba(128, 140, 170, 0.24) !important;
+}
+
+:root[data-theme="light"] input::placeholder,
+:root[data-theme="light"] textarea::placeholder {
+  color: var(--light-muted-text) !important;
+}
+
+:root[data-theme="light"] input:focus,
+:root[data-theme="light"] select:focus,
+:root[data-theme="light"] textarea:focus {
+  border-color: var(--light-primary) !important;
+  box-shadow: 0 0 0 4px rgba(115, 120, 232, 0.12) !important;
+}
+
+:root[data-theme="light"] select option {
+  background: #ffffff !important;
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .glass-card {
+  background: var(--light-card) !important;
+  border-color: var(--light-border) !important;
+  box-shadow: var(--light-shadow) !important;
+}
+
+:root[data-theme="light"] .primary-btn {
+  background: var(--light-btn) !important;
+  color: #ffffff !important;
+  box-shadow: 0 12px 28px rgba(115, 120, 232, 0.20) !important;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+:root[data-theme="light"] .navbar {
+  background: rgba(255, 255, 255, 0.72) !important;
+  border-bottom: 1px solid rgba(128, 140, 170, 0.16) !important;
+  box-shadow: 0 12px 32px rgba(108, 116, 150, 0.10) !important;
+  backdrop-filter: blur(20px);
+}
+
+:root[data-theme="light"] .logo-title h2 {
+  background: linear-gradient(90deg, #30364a, #7378e8, #6f9ee8) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+:root[data-theme="light"] .nav-links a,
+:root[data-theme="light"] .auth-links a,
+:root[data-theme="light"] .profile-link,
+:root[data-theme="light"] .username-link {
+  color: #384057 !important;
+}
+
+:root[data-theme="light"] .nav-links a:hover,
+:root[data-theme="light"] .auth-links a:hover,
+:root[data-theme="light"] .profile-link:hover {
+  color: var(--light-primary) !important;
+}
+
+:root[data-theme="light"] .nav-links a::after,
+:root[data-theme="light"] .auth-links a::after {
+  background: linear-gradient(90deg, #7378e8, #74b8d0) !important;
+}
+
+:root[data-theme="light"] .user-avatar {
+  border-color: rgba(128, 140, 170, 0.22) !important;
+  box-shadow: 0 8px 20px rgba(108, 116, 150, 0.12) !important;
+}
+
+:root[data-theme="light"] .avatar-menu {
+  background: rgba(255, 255, 255, 0.94) !important;
+  border-color: rgba(128, 140, 170, 0.18) !important;
+  box-shadow: 0 18px 44px rgba(108, 116, 150, 0.18) !important;
+}
+
+:root[data-theme="light"] .avatar-menu-top {
+  background: rgba(245, 247, 255, 0.92) !important;
+  border: 1px solid rgba(128, 140, 170, 0.12) !important;
+}
+
+:root[data-theme="light"] .avatar-menu-top strong {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .avatar-menu-top span {
+  color: var(--light-sub-text) !important;
+}
+
+:root[data-theme="light"] .avatar-menu-item {
+  background: transparent !important;
+  color: #384057 !important;
+  box-shadow: none !important;
+}
+
+:root[data-theme="light"] .avatar-menu-item:hover {
+  background: rgba(115, 120, 232, 0.10) !important;
+  color: var(--light-primary-hover) !important;
+}
+
+:root[data-theme="light"] .avatar-menu-logout {
+  color: #d65b62 !important;
+}
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+:root[data-theme="light"] .hero {
+  background:
+    radial-gradient(circle at top left, rgba(125, 130, 238, 0.16), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(155, 190, 220, 0.14), transparent 32%),
+    linear-gradient(135deg, #f8f9ff 0%, #eef2fb 50%, #fbf9ff 100%) !important;
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .hero::before {
+  background: radial-gradient(circle, rgba(140, 120, 230, 0.14), transparent 70%) !important;
+}
+
+:root[data-theme="light"] .hero::after {
+  background: radial-gradient(circle, rgba(120, 170, 220, 0.14), transparent 70%) !important;
+}
+
+:root[data-theme="light"] .hero h1 {
+  background: linear-gradient(90deg, #283044, #7378e8, #6f9ee8) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+:root[data-theme="light"] .hero p {
+  color: var(--light-sub-text) !important;
+}
+
+:root[data-theme="light"] .hero-btn {
+  background: var(--light-btn) !important;
+  color: #ffffff !important;
+  box-shadow: 0 14px 34px rgba(115, 120, 232, 0.22) !important;
+}
+
+:root[data-theme="light"] .section-title {
+  background: linear-gradient(90deg, #283044, #7378e8, #6f9ee8) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+:root[data-theme="light"] .skills-section {
+  background: linear-gradient(135deg, #f5f7ff, #eef2fb) !important;
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .skill-card {
+  background: rgba(255, 255, 255, 0.76) !important;
+  border-color: rgba(128, 140, 170, 0.16) !important;
+  box-shadow: var(--light-shadow-soft) !important;
+}
+
+:root[data-theme="light"] .skill-card h3 {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .skill-card p {
+  color: var(--light-sub-text) !important;
+}
+
+:root[data-theme="light"] .ai-section {
+  background:
+    radial-gradient(circle at center, rgba(125, 130, 238, 0.12), transparent 42%),
+    #f7f8ff !important;
+}
+
+:root[data-theme="light"] .ai-desc {
+  color: var(--light-sub-text) !important;
+}
+
+:root[data-theme="light"] .footer {
+  background: #eef2fb !important;
+  color: var(--light-muted-text) !important;
+  border-top-color: var(--light-border) !important;
+}
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+:root[data-theme="light"] .auth-page {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .auth-page::before {
+  background: radial-gradient(circle, rgba(125, 130, 238, 0.16), transparent 70%) !important;
+}
+
+:root[data-theme="light"] .auth-page h1 {
+  background: linear-gradient(90deg, #283044, #7378e8, #6f9ee8) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+:root[data-theme="light"] .auth-form {
+  background: var(--light-card) !important;
+  border-color: var(--light-border) !important;
+  box-shadow: var(--light-shadow) !important;
+}
+
+:root[data-theme="light"] .auth-form::before {
+  background: radial-gradient(circle, rgba(140, 120, 230, 0.18), transparent 65%) !important;
+}
+
+:root[data-theme="light"] .auth-form input {
+  background: rgba(255, 255, 255, 0.92) !important;
+  color: var(--light-text) !important;
+  border-color: rgba(128, 140, 170, 0.24) !important;
+}
+
+:root[data-theme="light"] .auth-buttons button:first-child {
+  background: var(--light-btn) !important;
+  color: #ffffff !important;
+  box-shadow: 0 12px 28px rgba(115, 120, 232, 0.20) !important;
+}
+
+:root[data-theme="light"] .switch-btn {
+  background: rgba(245, 247, 255, 0.86) !important;
+  color: var(--light-primary-hover) !important;
+  border: 1px solid var(--light-border) !important;
+}
+
+:root[data-theme="light"] .switch-btn:hover {
+  background: rgba(235, 239, 255, 0.96) !important;
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+:root[data-theme="light"] .profile-page {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .profile-page::before {
+  background: radial-gradient(circle, rgba(125, 130, 238, 0.14), transparent 70%) !important;
+}
+
+:root[data-theme="light"] .profile-page h1 {
+  background: linear-gradient(90deg, #283044, #7378e8, #6f9ee8) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+:root[data-theme="light"] .profile-card {
+  background: var(--light-card) !important;
+  border-color: var(--light-border) !important;
+  color: var(--light-text) !important;
+  box-shadow: var(--light-shadow) !important;
+}
+
+:root[data-theme="light"] .profile-card::before {
+  background: radial-gradient(circle, rgba(140, 120, 230, 0.18), transparent 65%) !important;
+}
+
+:root[data-theme="light"] .profile-card p,
+:root[data-theme="light"] .profile-card span,
+:root[data-theme="light"] .profile-card div,
+:root[data-theme="light"] .profile-card label,
+:root[data-theme="light"] .profile-card h2,
+:root[data-theme="light"] .profile-card h3 {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .profile-basic p,
+:root[data-theme="light"] .profile-basic .profile-username-small {
+  color: var(--light-sub-text) !important;
+}
+
+:root[data-theme="light"] .profile-avatar {
+  border-color: rgba(128, 140, 170, 0.22) !important;
+  box-shadow: 0 12px 28px rgba(108, 116, 150, 0.14) !important;
+}
+
+:root[data-theme="light"] .profile-row,
+:root[data-theme="light"] .profile-row-group {
+  border-color: rgba(128, 140, 170, 0.16) !important;
+}
+
+:root[data-theme="light"] .profile-label {
+  color: var(--light-sub-text) !important;
+}
+
+:root[data-theme="light"] .profile-value,
+:root[data-theme="light"] .profile-row span:last-child {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .profile-form input,
+:root[data-theme="light"] .profile-form select,
+:root[data-theme="light"] .profile-form textarea {
+  background: rgba(255, 255, 255, 0.92) !important;
+  color: var(--light-text) !important;
+  border-color: rgba(128, 140, 170, 0.24) !important;
+}
+
+:root[data-theme="light"] .profile-form input::placeholder,
+:root[data-theme="light"] .profile-form textarea::placeholder {
+  color: var(--light-muted-text) !important;
+}
+
+:root[data-theme="light"] .profile-form select option {
+  background: #ffffff !important;
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .profile-actions button:first-child {
+  background: var(--light-btn) !important;
+  color: #ffffff !important;
+  box-shadow: 0 12px 28px rgba(115, 120, 232, 0.20) !important;
+}
+
+:root[data-theme="light"] .profile-actions button:nth-child(2) {
+  background: rgba(245, 247, 255, 0.86) !important;
+  color: var(--light-primary-hover) !important;
+  border: 1px solid var(--light-border) !important;
+}
+
+
+/* =========================================================
+   MATCH
+========================================================= */
+
+:root[data-theme="light"] .match-page {
+  background:
+    radial-gradient(circle at top left, rgba(125, 130, 238, 0.16), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(155, 190, 220, 0.14), transparent 35%),
+    linear-gradient(135deg, #f8f9ff 0%, #eef2fb 48%, #fbf9ff 100%) !important;
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .match-page h1 {
+  background: linear-gradient(90deg, #283044, #7378e8, #6f9ee8) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+:root[data-theme="light"] .match-desc {
+  color: var(--light-sub-text) !important;
+}
+
+:root[data-theme="light"] .match-filter-box {
+  background: var(--light-card) !important;
+  border-color: var(--light-border) !important;
+  box-shadow: var(--light-shadow) !important;
+}
+
+:root[data-theme="light"] .filter-group label {
+  color: #4a5368 !important;
+}
+
+:root[data-theme="light"] .filter-group input,
+:root[data-theme="light"] .filter-group select {
+  background: rgba(255, 255, 255, 0.92) !important;
+  color: var(--light-text) !important;
+  border-color: rgba(128, 140, 170, 0.24) !important;
+  box-shadow: inset 0 0 0 1px rgba(128, 140, 170, 0.08) !important;
+}
+
+:root[data-theme="light"] .filter-group select {
+  background-image:
+    linear-gradient(45deg, transparent 50%, #687187 50%),
+    linear-gradient(135deg, #687187 50%, transparent 50%) !important;
+}
+
+:root[data-theme="light"] .filter-group select option {
+  background: #ffffff !important;
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .match-btn {
+  background: var(--light-btn) !important;
+  color: #ffffff !important;
+  box-shadow: 0 12px 28px rgba(115, 120, 232, 0.20) !important;
+}
+
+:root[data-theme="light"] .user-card {
+  background: var(--light-card) !important;
+  border-color: var(--light-border) !important;
+  box-shadow: 0 16px 38px rgba(108, 116, 150, 0.14) !important;
+}
+
+:root[data-theme="light"] .user-card::before {
+  background: radial-gradient(circle, rgba(140, 120, 230, 0.18), transparent 65%) !important;
+}
+
+:root[data-theme="light"] .user-card h3 {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .user-age {
+  color: var(--light-sub-text) !important;
+}
+
+:root[data-theme="light"] .user-avatar-card {
+  background: linear-gradient(135deg, rgba(125, 130, 238, 0.14), rgba(111, 158, 232, 0.14)) !important;
+  border-color: var(--light-border) !important;
+  color: var(--light-primary) !important;
+  box-shadow: var(--light-shadow-soft) !important;
+}
+
+:root[data-theme="light"] .skill-section {
+  border-top-color: rgba(128, 140, 170, 0.16) !important;
+}
+
+:root[data-theme="light"] .skill-title.can {
+  background: rgba(91, 141, 239, 0.12) !important;
+  color: #547fcf !important;
+  border-color: rgba(91, 141, 239, 0.20) !important;
+}
+
+:root[data-theme="light"] .skill-title.want {
+  background: rgba(96, 170, 135, 0.12) !important;
+  color: #4d9675 !important;
+  border-color: rgba(96, 170, 135, 0.20) !important;
+}
+
+:root[data-theme="light"] .tag {
+  background: rgba(245, 247, 255, 0.88) !important;
+  color: #4a5368 !important;
+  border-color: rgba(128, 140, 170, 0.16) !important;
+}
+
+:root[data-theme="light"] .select-user-btn,
+:root[data-theme="light"] .apply-friend-btn {
+  background: var(--light-btn) !important;
+  color: #ffffff !important;
+  box-shadow: 0 12px 28px rgba(115, 120, 232, 0.20) !important;
+}
+
+:root[data-theme="light"] .empty-text {
+  background: rgba(255, 255, 255, 0.62) !important;
+  color: var(--light-sub-text) !important;
+  border-color: rgba(128, 140, 170, 0.24) !important;
+}
+
+:root[data-theme="light"] .modal-mask {
+  background: rgba(45, 50, 70, 0.34) !important;
+}
+
+:root[data-theme="light"] .user-modal {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-color: var(--light-border) !important;
+  color: var(--light-text) !important;
+  box-shadow: 0 24px 64px rgba(108, 116, 150, 0.24) !important;
+}
+
+:root[data-theme="light"] .modal-close-btn {
+  background: rgba(245, 247, 255, 0.92) !important;
+  color: #4a5368 !important;
+}
+
+:root[data-theme="light"] .modal-close-btn:hover {
+  background: rgba(220, 90, 100, 0.88) !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="light"] .modal-avatar {
+  background: linear-gradient(135deg, rgba(125, 130, 238, 0.16), rgba(111, 158, 232, 0.14)) !important;
+  border-color: var(--light-border) !important;
+}
+
+:root[data-theme="light"] .user-modal h2,
+:root[data-theme="light"] .modal-value {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .modal-info {
+  background: var(--light-card-soft) !important;
+  border-color: var(--light-border-soft) !important;
+}
+
+:root[data-theme="light"] .modal-row {
+  background: rgba(255, 255, 255, 0.76) !important;
+  border-color: var(--light-border-soft) !important;
+}
+
+:root[data-theme="light"] .modal-label {
+  color: var(--light-sub-text) !important;
+}
+
+:root[data-theme="light"] .apply-result {
+  color: #4d9675 !important;
+}
+
+
+/* =========================================================
+   CHAT
+========================================================= */
+
+:root[data-theme="light"] .chat-page {
+  background:
+    radial-gradient(1000px 700px at 20% 0%, rgba(125, 130, 238, 0.16) 0%, rgba(246, 248, 255, 0.9) 54%, #f8f9ff 100%) !important;
+  border-color: var(--light-border) !important;
+  box-shadow: 0 20px 54px rgba(108, 116, 150, 0.18) !important;
+}
+
+:root[data-theme="light"] .chat-sidebar {
+  background: rgba(255, 255, 255, 0.58) !important;
+  border-right-color: var(--light-border-soft) !important;
+}
+
+:root[data-theme="light"] .chat-title {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .chat-search,
+:root[data-theme="light"] .chat-input {
+  background: rgba(255, 255, 255, 0.86) !important;
+  color: var(--light-text) !important;
+  border-color: rgba(128, 140, 170, 0.20) !important;
+}
+
+:root[data-theme="light"] .chat-user-card:hover {
+  background: rgba(125, 130, 238, 0.08) !important;
+}
+
+:root[data-theme="light"] .chat-user-card.active-chat {
+  background: rgba(125, 130, 238, 0.12) !important;
+}
+
+:root[data-theme="light"] .chat-user-card.active-chat::before {
+  background: linear-gradient(180deg, #7378e8, #74b8d0) !important;
+}
+
+:root[data-theme="light"] .chat-avatar,
+:root[data-theme="light"] .row-sent .message-avatar {
+  background: var(--light-btn-blue) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 18px rgba(115, 120, 232, 0.18) !important;
+}
+
+:root[data-theme="light"] .message-avatar {
+  background: rgba(125, 130, 238, 0.12) !important;
+  color: var(--light-primary-hover) !important;
+}
+
+:root[data-theme="light"] .chat-user-info h4,
+:root[data-theme="light"] .chat-header-info h3 {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .chat-user-info p {
+  color: var(--light-muted-text) !important;
+}
+
+:root[data-theme="light"] .chat-header {
+  background: rgba(255, 255, 255, 0.48) !important;
+  border-bottom-color: var(--light-border-soft) !important;
+}
+
+:root[data-theme="light"] .chat-header-info span {
+  color: #5b8def !important;
+}
+
+:root[data-theme="light"] .sent {
+  background: linear-gradient(135deg, #7378e8, #6f73e8) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 16px rgba(115, 120, 232, 0.18) !important;
+}
+
+:root[data-theme="light"] .received {
+  background: rgba(255, 255, 255, 0.76) !important;
+  color: var(--light-text) !important;
+  border-color: var(--light-border-soft) !important;
+}
+
+:root[data-theme="light"] .translated-message {
+  color: var(--light-sub-text) !important;
+  border-top-color: rgba(128, 140, 170, 0.16) !important;
+}
+
+:root[data-theme="light"] .status-unread {
+  color: #b68b21 !important;
+}
+
+:root[data-theme="light"] .status-read {
+  color: #9aa3b8 !important;
+}
+
+:root[data-theme="light"] .chat-time-bubble {
+  color: var(--light-muted-text) !important;
+  background: rgba(255, 255, 255, 0.64) !important;
+}
+
+:root[data-theme="light"] .ai-suggestion-box {
+  background: rgba(111, 191, 214, 0.10) !important;
+  border-color: rgba(111, 191, 214, 0.22) !important;
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .ai-suggest-title {
+  color: #4c9fb8 !important;
+}
+
+:root[data-theme="light"] .chat-input-area {
+  background: rgba(255, 255, 255, 0.52) !important;
+  border-top-color: var(--light-border-soft) !important;
+}
+
+:root[data-theme="light"] .plus-btn {
+  background: rgba(245, 247, 255, 0.86) !important;
+  color: var(--light-sub-text) !important;
+  border: 1px solid var(--light-border-soft) !important;
+}
+
+:root[data-theme="light"] .ai-btn {
+  background: rgba(111, 191, 214, 0.12) !important;
+  color: #4c9fb8 !important;
+}
+
+:root[data-theme="light"] .send-btn {
+  background: var(--light-btn-blue) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 20px rgba(115, 120, 232, 0.18) !important;
+}
+
+:root[data-theme="light"] .chat-messages::-webkit-scrollbar-thumb,
+:root[data-theme="light"] .chat-user-list::-webkit-scrollbar-thumb {
+  background: rgba(128, 140, 170, 0.22) !important;
+}
+
+
+/* =========================================================
+   BOARD
+========================================================= */
+
+:root[data-theme="light"] .board-page {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .board-header h1 {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .board-header p {
+  color: var(--light-sub-text) !important;
+}
+
+:root[data-theme="light"] .write-btn {
+  background: var(--light-btn-blue) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 24px rgba(115, 120, 232, 0.18) !important;
+}
+
+:root[data-theme="light"] .board-search {
+  background: rgba(255, 255, 255, 0.82) !important;
+  color: var(--light-text) !important;
+  border-color: rgba(128, 140, 170, 0.22) !important;
+}
+
+:root[data-theme="light"] .category-btn {
+  background: rgba(255, 255, 255, 0.72) !important;
+  color: var(--light-sub-text) !important;
+  border: 1px solid var(--light-border-soft) !important;
+}
+
+:root[data-theme="light"] .category-btn:hover {
+  background: rgba(235, 239, 255, 0.88) !important;
+}
+
+:root[data-theme="light"] .active-category {
+  background: var(--light-btn-blue) !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="light"] .post-card {
+  background: rgba(255, 255, 255, 0.76) !important;
+  border-color: var(--light-border-soft) !important;
+  box-shadow: var(--light-shadow-soft) !important;
+}
+
+:root[data-theme="light"] .post-card:hover {
+  background: rgba(255, 255, 255, 0.90) !important;
+  box-shadow: var(--light-shadow) !important;
+}
+
+:root[data-theme="light"] .post-category {
+  background: rgba(125, 130, 238, 0.12) !important;
+  color: var(--light-primary-hover) !important;
+}
+
+:root[data-theme="light"] .post-views,
+:root[data-theme="light"] .post-date,
+:root[data-theme="light"] .post-footer {
+  color: var(--light-muted-text) !important;
+}
+
+:root[data-theme="light"] .post-title,
+:root[data-theme="light"] .author-name {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .post-content {
+  color: var(--light-sub-text) !important;
+}
+
+:root[data-theme="light"] .post-avatar {
+  background: var(--light-btn-blue) !important;
+}
+
+:root[data-theme="light"] .modal-overlay {
+  background: rgba(45, 50, 70, 0.34) !important;
+}
+
+:root[data-theme="light"] .post-modal {
+  background: rgba(255, 255, 255, 0.96) !important;
+  color: var(--light-text) !important;
+  border-color: var(--light-border) !important;
+  box-shadow: 0 24px 64px rgba(108, 116, 150, 0.24) !important;
+}
+
+:root[data-theme="light"] .close-btn {
+  color: #4a5368 !important;
+}
+
+:root[data-theme="light"] .modal-info {
+  color: var(--light-muted-text) !important;
+}
+
+:root[data-theme="light"] .modal-content {
+  color: #4a5368 !important;
+}
+
+:root[data-theme="light"] .post-modal input,
+:root[data-theme="light"] .post-modal textarea,
+:root[data-theme="light"] .post-modal select {
+  background: rgba(255, 255, 255, 0.88) !important;
+  color: var(--light-text) !important;
+  border-color: rgba(128, 140, 170, 0.22) !important;
+}
+
+:root[data-theme="light"] .post-modal select option {
+  background: #ffffff !important;
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .delete-btn {
+  background: rgba(220, 90, 100, 0.10) !important;
+  color: #d65b62 !important;
+}
+
+:root[data-theme="light"] .delete-btn:hover {
+  background: rgba(220, 90, 100, 0.16) !important;
+}
+
+
+/* =========================================================
+   BOARD DETAIL
+========================================================= */
+
+:root[data-theme="light"] .board-detail-page {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .back-btn {
+  background: rgba(255, 255, 255, 0.76) !important;
+  color: #4a5368 !important;
+  border: 1px solid var(--light-border-soft) !important;
+}
+
+:root[data-theme="light"] .back-btn:hover {
+  background: rgba(235, 239, 255, 0.90) !important;
+}
+
+:root[data-theme="light"] .detail-card {
+  background: var(--light-card) !important;
+  border-color: var(--light-border-soft) !important;
+  box-shadow: var(--light-shadow) !important;
+}
+
+:root[data-theme="light"] .author-avatar {
+  background: var(--light-btn-blue) !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="light"] .detail-author h4 {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .detail-author span {
+  color: var(--light-muted-text) !important;
+}
+
+:root[data-theme="light"] .detail-title {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .detail-content {
+  color: #4a5368 !important;
+}
+
+:root[data-theme="light"] .comment-section {
+  background: var(--light-card-soft) !important;
+  border-color: var(--light-border-soft) !important;
+}
+
+:root[data-theme="light"] .comment-section h3 {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .comment-write textarea {
+  background: rgba(255, 255, 255, 0.88) !important;
+  color: var(--light-text) !important;
+  border-color: rgba(128, 140, 170, 0.22) !important;
+}
+
+:root[data-theme="light"] .comment-item {
+  border-top-color: rgba(128, 140, 170, 0.16) !important;
+}
+
+:root[data-theme="light"] .comment-item p {
+  color: var(--light-sub-text) !important;
+}
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+:root[data-theme="light"] .settings-page {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .settings-card {
+  background: var(--light-card) !important;
+  border-color: var(--light-border) !important;
+  box-shadow: var(--light-shadow) !important;
+}
+
+:root[data-theme="light"] .settings-card h1 {
+  color: var(--light-primary) !important;
+}
+
+:root[data-theme="light"] .settings-section {
+  background: var(--light-card-soft) !important;
+  border-color: var(--light-border-soft) !important;
+}
+
+:root[data-theme="light"] .settings-section h2 {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .settings-row {
+  color: var(--light-sub-text) !important;
+  border-bottom-color: rgba(128, 140, 170, 0.16) !important;
+}
+
+:root[data-theme="light"] .settings-row span {
+  color: var(--light-sub-text) !important;
+}
+
+:root[data-theme="light"] .settings-row strong {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .lang-select {
+  background: rgba(255, 255, 255, 0.88) !important;
+  color: var(--light-text) !important;
+  border-color: rgba(128, 140, 170, 0.22) !important;
+}
+
+:root[data-theme="light"] .theme-card {
+  background: rgba(255, 255, 255, 0.78) !important;
+  color: var(--light-text) !important;
+  border-color: var(--light-border) !important;
+  box-shadow: var(--light-shadow-soft) !important;
+}
+
+:root[data-theme="light"] .theme-card:hover {
+  border-color: rgba(115, 120, 232, 0.30) !important;
+  box-shadow: var(--light-shadow) !important;
+}
+
+:root[data-theme="light"] .theme-card.active {
+  border-color: var(--light-primary) !important;
+  box-shadow: 0 0 18px rgba(115, 120, 232, 0.20) !important;
+}
+
+:root[data-theme="light"] .theme-preview-dark {
+  background: linear-gradient(135deg, #202638, #33304b) !important;
+}
+
+:root[data-theme="light"] .theme-preview-light {
+  background: linear-gradient(135deg, #ffffff, #eef2fb) !important;
+  border: 1px solid rgba(128, 140, 170, 0.12) !important;
+}
+
+:root[data-theme="light"] .theme-preview-nav {
+  background: var(--light-btn-blue) !important;
+}
+
+:root[data-theme="light"] .theme-preview-card {
+  background: rgba(125, 130, 238, 0.18) !important;
+}
+
+:root[data-theme="light"] .theme-card p {
+  color: var(--light-text) !important;
+}
+
+:root[data-theme="light"] .theme-check {
+  color: var(--light-primary) !important;
+}
+
+
+/* =========================================================
+   MOBILE LIGHT FIX
+========================================================= */
+
+@media (max-width: 768px) {
+  :root[data-theme="light"] .navbar {
+    background: rgba(255, 255, 255, 0.76) !important;
+  }
+
+  :root[data-theme="light"] .profile-row-group .profile-row {
+    border-bottom-color: rgba(128, 140, 170, 0.16) !important;
+  }
+
+  :root[data-theme="light"] .match-filter-box,
+  :root[data-theme="light"] .auth-form,
+  :root[data-theme="light"] .profile-card,
+  :root[data-theme="light"] .settings-card {
+    box-shadow: 0 14px 32px rgba(108, 116, 150, 0.13) !important;
+  }
+}
+/* =========================================================
+   LIGHT THEME - MATCH SELECT ARROW FIX
+   修复匹配页下拉框箭头过大问题
+========================================================= */
+
+:root[data-theme="light"] .filter-group select {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+
+  background-image:
+    linear-gradient(45deg, transparent 50%, #687187 50%),
+    linear-gradient(135deg, #687187 50%, transparent 50%) !important;
+
+  background-position:
+    calc(100% - 20px) 23px,
+    calc(100% - 14px) 23px !important;
+
+  background-size:
+    6px 6px,
+    6px 6px !important;
+
+  background-repeat: no-repeat !important;
+
+  color: #283044 !important;
+  border-color: rgba(128, 140, 170, 0.24) !important;
+  padding-right: 42px !important;
+
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+}
+
+:root[data-theme="light"] .filter-group select:focus {
+  border-color: #7378e8 !important;
+  box-shadow:
+    0 0 0 4px rgba(115, 120, 232, 0.12),
+    inset 0 0 0 1px rgba(128, 140, 170, 0.08) !important;
+}
+
+:root[data-theme="light"] .filter-group select option {
+  background: #ffffff !important;
+  color: #283044 !important;
+}
+
+/* =========================================================
+   NAVBAR DROPDOWN LAYER FIX
+   修复头像菜单被其他页面 CSS 遮挡
+========================================================= */
+
+/* 导航栏本身提高层级 */
+.navbar {
+  position: relative;
+  z-index: 10000;
+  overflow: visible;
+}
+
+/* 右侧用户区域也提高层级 */
+.user-box {
+  position: relative;
+  z-index: 10001;
+  overflow: visible;
+}
+
+/* 头像按钮保持可点击 */
+.avatar-menu-button {
+  position: relative;
+  z-index: 10002;
+}
+
+/* 头像下拉菜单放到最上层 */
+.avatar-menu {
+  position: absolute;
+  z-index: 10003 !important;
+}
+
+/* 防止导航右侧区域裁剪菜单 */
+.nav-right {
+  overflow: visible;
+}
+
+/* 防止导航栏内部裁剪菜单 */
+.logo-title,
+.auth-links,
+.nav-links {
+  overflow: visible;
+}
+
+/* =========================================================
+   LIGHT THEME - NAVBAR AND HOME BLEND
+========================================================= */
+
+:root[data-theme="light"] .navbar {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(248, 249, 255, 0.86),
+      rgba(248, 249, 255, 0.62)
+    ) !important;
+
+  border-bottom: 1px solid rgba(128, 140, 170, 0.10) !important;
+
+  box-shadow: none !important;
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+:root[data-theme="light"] .navbar::after {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(248, 249, 255, 0.60),
+      rgba(248, 249, 255, 0)
+    ) !important;
+}
