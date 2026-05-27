@@ -171,16 +171,10 @@ function App() {
 
               </button>
 
-              {/* USERNAME */}
-              <NavLink
-                to="/profile"
-                className="profile-link username-link"
-                onClick={() =>
-                  setAvatarMenuOpen(false)
-                }
-              >
+             {/* USERNAME */}
+              <span className="profile-link username-link">
                 {user.name || user.username}
-              </NavLink>
+              </span>
 
               {/* AVATAR MENU */}
               {avatarMenuOpen && (
@@ -221,16 +215,6 @@ function App() {
                     }
                   >
                     👤 {text.profile || '个人资料'}
-                  </NavLink>
-
-                  <NavLink
-                    to="/settings"
-                    className="avatar-menu-item"
-                    onClick={() =>
-                      setAvatarMenuOpen(false)
-                    }
-                  >
-                    ⚙️ {text.settings || '设置'}
                   </NavLink>
 
                   <button

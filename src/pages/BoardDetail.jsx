@@ -16,10 +16,16 @@ function BoardDetail() {
   const currentUser =
     JSON.parse(localStorage.getItem("loginUser"))
 
-  // 로그인 사용자 이름 통합
+  // 로그인 아이디
   const currentUsername =
     currentUser?.username ||
+    ""
+
+  // 표시용 이름
+  const currentAuthor =
     currentUser?.name ||
+    currentUser?.nickname ||
+    currentUser?.username ||
     ""
 
   // =========================
@@ -62,7 +68,7 @@ function BoardDetail() {
   const handleDelete = () => {
 
     client.delete(
-      `/api/board/${id}?author=${currentUsername}`
+      `/api/board/${id}?username=${currentUsername}`
     )
 
       .then(() => {
@@ -70,10 +76,12 @@ function BoardDetail() {
       })
 
       .catch((err) => {
+
         alert(
           err.response?.data?.message ||
           "삭제 권한 없음"
         )
+
       })
   }
 
@@ -87,7 +95,8 @@ function BoardDetail() {
     client.post(
       `/api/comments/${id}`,
       {
-        author: currentUsername,
+        username: currentUsername,
+        author: currentAuthor,
         content: newComment
       }
     )
@@ -104,7 +113,17 @@ function BoardDetail() {
       })
 
       .catch((err) => {
-        console.log(err)
+
+        console.log("COMMENT ERROR:", err)
+
+        console.log("RESPONSE:", err.response)
+
+        console.log("DATA:", err.response?.data)
+
+        console.log("STATUS:", err.response?.status)
+
+        alert("댓글 작성 실패")
+
       })
   }
 
@@ -113,7 +132,9 @@ function BoardDetail() {
   // =========================
   const handleDeleteComment = (commentId) => {
 
-    client.delete(`/api/comments/${commentId}`)
+    client.delete(
+      `/api/comments/${commentId}?username=${currentUsername}`
+    )
 
       .then(() => {
 
@@ -200,7 +221,7 @@ function BoardDetail() {
         </div>
 
         {/* 삭제 버튼 */}
-        {currentUsername === post.author && (
+        {currentAuthor === post.author && (
 
           <button
             className="delete-btn"
@@ -269,7 +290,7 @@ function BoardDetail() {
               </div>
 
               {/* 댓글 삭제 */}
-              {currentUsername === comment.author && (
+              {currentUsername === comment.username && (
 
                 <button
                   className="delete-btn"

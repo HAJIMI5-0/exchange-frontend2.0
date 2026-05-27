@@ -57,6 +57,13 @@ function Login({ text, setUser }) {               // 登录组件，接收多语
             data.username ||
             username,
 
+          name:
+            profileData.name ||
+            data.name ||
+            profileData.username ||
+            data.username ||
+            username,
+
           avatar: avatarUrl
         }
 

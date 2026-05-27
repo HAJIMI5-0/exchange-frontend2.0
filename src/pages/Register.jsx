@@ -52,7 +52,7 @@ function Register({ text }) {                    // Register组件接收text
 
       const data = res.data                                 // axios 自动解析返回数据
 
-      if (data.success === true || res.status === 200) {    // 注册成功
+      if (data.success === true) {                          // 只有后端明确返回 success=true，才算注册成功
         navigate('/login')                                  // 注册成功跳转登录页
       } else {
         setResult(data.message || `${text.registerBtn}失败`)
