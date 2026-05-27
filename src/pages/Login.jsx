@@ -64,6 +64,11 @@ function Login({ text, setUser }) {               // 登录组件，接收多语
             data.username ||
             username,
 
+          email:
+            profileData.email ||
+            data.email ||
+            '',
+
           avatar: avatarUrl
         }
 

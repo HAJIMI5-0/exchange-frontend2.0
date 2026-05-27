@@ -1,4 +1,4 @@
-function Settings({ text, user, lang, setLang }) {
+function Settings({ text, user, lang, setLang, theme, setTheme }) {
   return (
     <section className="settings-page">
       <div className="settings-card">
@@ -49,9 +49,44 @@ function Settings({ text, user, lang, setLang }) {
             </select>
           </div>
 
-          <div className="settings-row">
+          <div className="settings-row theme-row">
             <span>{text.theme || "主题"}</span>
-            <strong>{text.darkMode || "深色模式"}</strong>
+
+            <div className="theme-card-group">
+              <button
+                type="button"
+                className={`theme-card ${theme === "dark" ? "active" : ""}`}
+                onClick={() => setTheme("dark")}
+              >
+                <div className="theme-preview theme-preview-dark">
+                  <div className="theme-preview-nav"></div>
+                  <div className="theme-preview-card"></div>
+                </div>
+
+                <p>{text.darkMode || "深色模式"}</p>
+
+                <div className="theme-check">
+                  {theme === "dark" ? "✓" : ""}
+                </div>
+              </button>
+
+              <button
+                type="button"
+                className={`theme-card ${theme === "light" ? "active" : ""}`}
+                onClick={() => setTheme("light")}
+              >
+                <div className="theme-preview theme-preview-light">
+                  <div className="theme-preview-nav"></div>
+                  <div className="theme-preview-card"></div>
+                </div>
+
+                <p>{text.lightMode || "浅色模式"}</p>
+
+                <div className="theme-check">
+                  {theme === "light" ? "✓" : ""}
+                </div>
+              </button>
+            </div>
           </div>
         </div>
 

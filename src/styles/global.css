@@ -198,3 +198,333 @@ textarea {
 .glass-input::placeholder {
   color: #9ca3af; /* placeholder 灰色 */
 }
+
+/* =========================
+   THEME SYSTEM
+   深色 / 浅色主题系统
+========================= */
+
+/* 深色模式 */
+:root[data-theme="dark"] {
+  --theme-bg:
+    radial-gradient(circle at top left, rgba(168, 85, 247, 0.25), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.18), transparent 32%),
+    linear-gradient(135deg, #09090f 0%, #11111b 45%, #07070c 100%);
+
+  --theme-card: rgba(255, 255, 255, 0.08);
+  --theme-card-solid: #11111b;
+  --theme-text: #ffffff;
+  --theme-sub-text: #cfcfe3;
+  --theme-border: rgba(255, 255, 255, 0.12);
+
+  --theme-primary: #a855f7;
+  --theme-primary-hover: #c084fc;
+  --theme-button-bg: linear-gradient(135deg, #a855f7, #6366f1, #2563eb);
+  --theme-button-text: #ffffff;
+
+  --theme-input-bg: rgba(20, 20, 32, 0.94);
+  --theme-input-text: #ffffff;
+  --theme-input-border: rgba(255, 255, 255, 0.12);
+
+  --theme-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+
+  --primary: #a855f7;
+  --secondary: #6366f1;
+  --blue: #2563eb;
+  --text-main: #ffffff;
+  --text-secondary: #cfcfe3;
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.10);
+  --shadow-main: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+/* 浅色模式 */
+:root[data-theme="light"] {
+  --theme-bg:
+    radial-gradient(circle at top left, rgba(99, 102, 241, 0.14), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(168, 85, 247, 0.12), transparent 32%),
+    linear-gradient(135deg, #f7f8ff 0%, #eef2ff 45%, #ffffff 100%);
+
+  --theme-card: rgba(255, 255, 255, 0.88);
+  --theme-card-solid: #ffffff;
+  --theme-text: #172033;
+  --theme-sub-text: #5f6783;
+  --theme-border: rgba(82, 96, 140, 0.18);
+
+  --theme-primary: #5b63ff;
+  --theme-primary-hover: #4650e8;
+  --theme-button-bg: linear-gradient(135deg, #5b63ff, #7c5cff);
+  --theme-button-text: #ffffff;
+
+  --theme-input-bg: #ffffff;
+  --theme-input-text: #172033;
+  --theme-input-border: rgba(82, 96, 140, 0.25);
+
+  --theme-shadow: 0 18px 45px rgba(95, 105, 160, 0.18);
+
+  --primary: #5b63ff;
+  --secondary: #7c5cff;
+  --blue: #2563eb;
+  --text-main: #172033;
+  --text-secondary: #5f6783;
+  --glass-bg: rgba(255, 255, 255, 0.88);
+  --glass-border: rgba(82, 96, 140, 0.18);
+  --shadow-main: 0 18px 45px rgba(95, 105, 160, 0.18);
+}
+
+/* 页面整体 */
+html,
+body,
+#root,
+.container {
+  min-height: 100vh;
+  background: var(--theme-bg) !important;
+  color: var(--theme-text) !important;
+}
+
+/* 浅色模式背景光效 */
+:root[data-theme="light"] body::before {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.10), transparent 28%),
+    radial-gradient(circle at 80% 70%, rgba(168, 85, 247, 0.10), transparent 30%);
+}
+
+/* 深色模式背景光效 */
+:root[data-theme="dark"] body::before {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(168, 85, 247, 0.14), transparent 28%),
+    radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.12), transparent 30%);
+}
+
+/* 主要卡片和模块 */
+.navbar,
+.settings-card,
+.settings-section,
+.auth-form,
+.profile-card,
+.match-filter,
+.match-result,
+.chat-box,
+.board-card,
+.board-detail-card,
+.avatar-menu,
+.user-modal,
+.modal-content,
+.glass-card {
+  background: var(--theme-card) !important;
+  color: var(--theme-text) !important;
+  border-color: var(--theme-border) !important;
+  box-shadow: var(--theme-shadow) !important;
+}
+
+/* 文字 */
+h1,
+h2,
+h3,
+h4,
+p,
+span,
+strong,
+label {
+  color: var(--theme-text);
+}
+
+/* 副文字 */
+.settings-row span,
+.profile-row span,
+.match-card p,
+.board-item p,
+.empty-text,
+.chat-message-time,
+.avatar-menu-top span {
+  color: var(--theme-sub-text) !important;
+}
+
+/* 导航链接 */
+.nav-links a,
+.auth-links a,
+.profile-link,
+.settings-outside-link,
+.username-link {
+  color: var(--theme-text) !important;
+}
+
+.nav-links a:hover,
+.auth-links a:hover,
+.profile-link:hover {
+  color: var(--theme-primary) !important;
+}
+
+.nav-links a.active {
+  color: var(--theme-primary) !important;
+}
+
+/* 普通按钮 */
+button,
+.primary-btn,
+.auth-buttons button,
+.profile-actions button,
+.match-filter button,
+.match-card button,
+.board-actions button,
+.chat-send-button {
+  background: var(--theme-button-bg) !important;
+  color: var(--theme-button-text) !important;
+  border: none !important;
+  box-shadow: 0 10px 24px rgba(91, 99, 255, 0.25);
+}
+
+button:hover,
+.primary-btn:hover,
+.auth-buttons button:hover,
+.profile-actions button:hover,
+.match-filter button:hover,
+.match-card button:hover,
+.board-actions button:hover,
+.chat-send-button:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+/* 头像按钮不要套蓝色背景 */
+.avatar-menu-button {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* 次级按钮 */
+.switch-btn,
+.cancel-btn {
+  background: transparent !important;
+  color: var(--theme-primary) !important;
+  border: 1px solid var(--theme-border) !important;
+  box-shadow: none !important;
+}
+
+.switch-btn:hover,
+.cancel-btn:hover {
+  background: rgba(91, 99, 255, 0.08) !important;
+}
+
+/* 输入框 / 下拉框 */
+input,
+select,
+textarea,
+.lang-select,
+.glass-input {
+  background: var(--theme-input-bg) !important;
+  color: var(--theme-input-text) !important;
+  border: 1px solid var(--theme-input-border) !important;
+}
+
+input::placeholder,
+textarea::placeholder,
+.glass-input::placeholder {
+  color: var(--theme-sub-text) !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+.glass-input:focus {
+  outline: none !important;
+  border-color: var(--theme-primary) !important;
+  box-shadow: 0 0 0 4px rgba(91, 99, 255, 0.12) !important;
+}
+
+select option {
+  background: var(--theme-card-solid);
+  color: var(--theme-text);
+}
+
+/* 边框行 */
+.settings-row,
+.profile-row,
+.match-card,
+.board-item,
+.chat-message,
+.avatar-menu-item {
+  border-color: var(--theme-border) !important;
+}
+
+/* 匹配卡片 */
+.match-card,
+.user-card {
+  background: var(--theme-card) !important;
+  color: var(--theme-text) !important;
+  border: 1px solid var(--theme-border) !important;
+  box-shadow: var(--theme-shadow) !important;
+}
+
+/* 技能标签 */
+.skill-tag,
+.want-tag {
+  background: rgba(91, 99, 255, 0.10) !important;
+  color: var(--theme-primary) !important;
+  border: 1px solid rgba(91, 99, 255, 0.18) !important;
+}
+
+/* 头像菜单 */
+.avatar-menu-top strong {
+  color: var(--theme-text) !important;
+}
+
+.avatar-menu-item {
+  background: transparent !important;
+  color: var(--theme-text) !important;
+  box-shadow: none !important;
+}
+
+.avatar-menu-item:hover {
+  background: rgba(91, 99, 255, 0.10) !important;
+  color: var(--theme-primary) !important;
+}
+
+.avatar-menu-logout {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #ff5d6c, #ff8a5c) !important;
+}
+
+/* 设置页主题卡片 */
+.theme-card {
+  background: var(--theme-card) !important;
+  color: var(--theme-text) !important;
+  border: 1px solid var(--theme-border) !important;
+  box-shadow: none !important;
+}
+
+.theme-card.active {
+  border-color: var(--theme-primary) !important;
+  box-shadow: 0 0 18px rgba(91, 99, 255, 0.28) !important;
+}
+
+.theme-check {
+  color: var(--theme-primary) !important;
+}
+
+/* 浅色模式单独优化 */
+:root[data-theme="light"] .navbar {
+  background: rgba(255, 255, 255, 0.82) !important;
+  border: 1px solid rgba(82, 96, 140, 0.16) !important;
+}
+
+:root[data-theme="light"] .logo-title h2 {
+  color: #172033 !important;
+}
+
+:root[data-theme="light"] .empty-text {
+  color: #6a718f !important;
+}
+
+:root[data-theme="light"] .switch-btn {
+  background: #f3f5ff !important;
+  color: #5b63ff !important;
+}
+
+:root[data-theme="light"] .avatar-menu {
+  background: #ffffff !important;
+}
+
+:root[data-theme="light"] .theme-preview-light {
+  border: 1px solid rgba(82, 96, 140, 0.12);
+}

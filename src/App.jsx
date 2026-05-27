@@ -51,6 +51,11 @@ function App() {
 
   const [avatarMenuOpen, setAvatarMenuOpen] = useState(false)
 
+  // 当前主题：dark 深色 / light 浅色
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'dark'
+  })
+
   const text =
     messages[lang] || messages.zh
 
@@ -58,6 +63,12 @@ function App() {
   useEffect(() => {
     localStorage.setItem('lang', lang)
   }, [lang])
+
+  // 主题保存 + 给页面加 data-theme 属性
+  useEffect(() => {
+    localStorage.setItem('theme', theme)
+    document.documentElement.setAttribute('data-theme', theme)
+  }, [theme])
 
   // 点击头像菜单以外的区域，关闭头像菜单
   useEffect(() => {
@@ -171,7 +182,7 @@ function App() {
 
               </button>
 
-             {/* USERNAME */}
+              {/* USERNAME */}
               <span className="profile-link username-link">
                 {user.name || user.username}
               </span>
@@ -333,6 +344,8 @@ function App() {
               user={user}
               lang={lang}
               setLang={setLang}
+              theme={theme}
+              setTheme={setTheme}
             />
           }
         />
