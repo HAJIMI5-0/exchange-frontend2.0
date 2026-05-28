@@ -140,3 +140,36 @@
   font-weight: 900;
   line-height: 24px;
 }
+.settings-card {
+  position: relative;
+}
+
+.settings-close-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+
+  width: 36px;
+  height: 36px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.12);
+  color: inherit;
+
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.2s ease;
+}
+
+.settings-close-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: scale(1.08);
+}

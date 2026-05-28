@@ -1,7 +1,21 @@
+import { useNavigate } from "react-router-dom"
+
 function Settings({ text, user, lang, setLang, theme, setTheme }) {
+  const navigate = useNavigate()
+
   return (
     <section className="settings-page">
       <div className="settings-card">
+
+        {/* 关闭按钮 */}
+        <button
+          type="button"
+          className="settings-close-btn"
+          onClick={() => navigate(-1)}
+        >
+          ×
+        </button>
+
         <h1>{text.settingsPage || "设置页面"}</h1>
 
         <div className="settings-section">

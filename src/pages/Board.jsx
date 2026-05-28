@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import client from '../api/client'
 
 function Board() {
+
   const navigate = useNavigate()
 
   const categories = [
@@ -14,95 +15,142 @@ function Board() {
 
   const [posts, setPosts] = useState([])
 
-  const [selectedCategory, setSelectedCategory] = useState('전체')
+  const [selectedCategory, setSelectedCategory] =
+    useState('전체')
+
   const [search, setSearch] = useState('')
 
-  const [showWriteModal, setShowWriteModal] = useState(false)
+  const [showWriteModal, setShowWriteModal] =
+    useState(false)
 
-  const currentUser = JSON.parse(
-    localStorage.getItem('loginUser') || 'null'
-  )
+  const currentUser =
+    JSON.parse(localStorage.getItem('loginUser') || 'null')
 
+  const currentUsername =
+    currentUser?.username || ''
+
+  // =========================
+  // 新建帖子
+  // =========================
   const [newPost, setNewPost] = useState({
     category: '자유게시판',
     title: '',
-    author: currentUser?.username || '',
-    content: '',
-    date: new Date().toISOString().split('T')[0]
+    content: ''
   })
 
-  // 게시글 목록 가져오기
+  // =========================
+  // 获取帖子列表
+  // =========================
   useEffect(() => {
+
     client.get('/api/board')
       .then((res) => {
-        setPosts(Array.isArray(res.data) ? res.data : [])
+
+        setPosts(
+          Array.isArray(res.data)
+            ? res.data
+            : []
+        )
       })
       .catch((err) => {
+
         console.log(err)
+
         setPosts([])
       })
+
   }, [])
 
-  // 카테고리 + 검색 필터
+  // =========================
+  // 分类 + 搜索过滤
+  // =========================
   const filteredPosts = posts.filter((post) => {
+
     const categoryMatch =
       selectedCategory === '전체' ||
       post.category === selectedCategory
 
     const searchMatch =
-      post.title?.toLowerCase().includes(
-        search.toLowerCase()
-      )
+      post.title
+        ?.toLowerCase()
+        .includes(search.toLowerCase())
 
     return categoryMatch && searchMatch
   })
 
-  // 게시글 작성
+  // =========================
+  // 发帖
+  // =========================
   const handleWrite = () => {
-    if (!newPost.title.trim() || !newPost.content.trim()) {
-      alert('제목과 내용을 입력하세요.')
+
+    if (!currentUsername) {
+
+      alert('로그인 필요')
+
       return
     }
 
-    client.post('/api/board', newPost)
-      .then((res) => {
-        const data = res.data
+    if (
+      !newPost.title.trim() ||
+      !newPost.content.trim()
+    ) {
 
-        setPosts([data, ...posts])
+      alert('제목과 내용을 입력하세요.')
+
+      return
+    }
+
+    client.post('/api/board', {
+      ...newPost,
+      username: currentUsername
+    })
+      .then((res) => {
+
+        setPosts(prev => [
+          res.data,
+          ...prev
+        ])
 
         setShowWriteModal(false)
 
         setNewPost({
           category: '자유게시판',
           title: '',
-          author: currentUser?.username || '',
-          content: '',
-          date: new Date().toISOString().split('T')[0]
+          content: ''
         })
       })
       .catch((err) => {
+
         console.log(err)
+
         alert('게시글 작성 실패')
       })
   }
 
   return (
+
     <div className="board-page">
 
       {/* HEADER */}
       <div className="board-header">
 
         <div>
-          <h1>커뮤니티 게시판</h1>
+
+          <h1>
+            커뮤니티 게시판
+          </h1>
 
           <p>
             다른 사용자들과 지식을 공유하고 소통해보세요.
           </p>
+
         </div>
 
         <button
           className="write-btn"
-          onClick={() => setShowWriteModal(true)}
+          onClick={() =>
+            setShowWriteModal(true)
+          }
         >
           글쓰기
         </button>
@@ -117,7 +165,9 @@ function Board() {
           placeholder="게시글 검색..."
           className="board-search"
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) =>
+            setSearch(e.target.value)
+          }
         />
 
       </div>
@@ -126,6 +176,7 @@ function Board() {
       <div className="board-categories">
 
         {categories.map((category) => (
+
           <button
             key={category}
             className={`category-btn ${
@@ -133,10 +184,13 @@ function Board() {
                 ? 'active-category'
                 : ''
             }`}
-            onClick={() => setSelectedCategory(category)}
+            onClick={() =>
+              setSelectedCategory(category)
+            }
           >
             {category}
           </button>
+
         ))}
 
       </div>
@@ -145,44 +199,68 @@ function Board() {
       <div className="board-post-list">
 
         {filteredPosts.map((post) => (
+
           <div
             key={post.id}
             className="post-card"
-            onClick={() => navigate(`/board/${post.id}`)}
+            onClick={() =>
+              navigate(`/board/${post.id}`)
+            }
           >
 
-            {/* TOP */}
             <div className="post-top">
+
               <span className="post-category">
                 {post.category}
               </span>
+
             </div>
 
-            {/* TITLE */}
             <h3 className="post-title">
               {post.title}
             </h3>
 
-            {/* CONTENT */}
             <p className="post-content">
+
               {post.content?.length > 140
                 ? post.content.slice(0, 140) + '...'
                 : post.content}
+
             </p>
 
-            {/* FOOTER */}
             <div className="post-footer">
 
               <div className="post-author">
 
+                {/* AVATAR */}
                 <div className="post-avatar">
-                  {post.author?.charAt(0)}
+
+                  {post.avatar ? (
+
+                    <img
+                      src={post.avatar}
+                      alt=""
+                      className="board-avatar-img"
+                    />
+
+                  ) : (
+
+                    (
+                      post.name ||
+                      post.username
+                    )?.charAt(0)
+
+                  )}
+
                 </div>
 
                 <div className="author-info">
 
+                  {/* NAME */}
                   <span className="author-name">
-                    {post.author}
+
+                    {post.name || post.username}
+
                   </span>
 
                   <span className="post-date">
@@ -196,20 +274,26 @@ function Board() {
             </div>
 
           </div>
+
         ))}
 
       </div>
 
       {/* WRITE MODAL */}
       {showWriteModal && (
+
         <div
           className="modal-overlay"
-          onClick={() => setShowWriteModal(false)}
+          onClick={() =>
+            setShowWriteModal(false)
+          }
         >
 
           <div
             className="post-modal"
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) =>
+              e.stopPropagation()
+            }
           >
 
             <div className="modal-top">
@@ -220,7 +304,9 @@ function Board() {
 
               <button
                 className="close-btn"
-                onClick={() => setShowWriteModal(false)}
+                onClick={() =>
+                  setShowWriteModal(false)
+                }
               >
                 ✕
               </button>
@@ -237,9 +323,19 @@ function Board() {
                 })
               }
             >
-              <option>자유게시판</option>
-              <option>질문게시판</option>
-              <option>자료공유</option>
+
+              <option>
+                자유게시판
+              </option>
+
+              <option>
+                질문게시판
+              </option>
+
+              <option>
+                자료공유
+              </option>
+
             </select>
 
             {/* TITLE */}
@@ -267,7 +363,7 @@ function Board() {
               }
             />
 
-            {/* WRITE BUTTON */}
+            {/* BUTTON */}
             <button
               className="write-btn"
               onClick={handleWrite}
@@ -278,6 +374,7 @@ function Board() {
           </div>
 
         </div>
+
       )}
 
     </div>

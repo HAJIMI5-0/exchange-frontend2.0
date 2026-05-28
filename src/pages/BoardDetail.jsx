@@ -8,20 +8,17 @@ function BoardDetail() {
   const navigate = useNavigate()
 
   const [post, setPost] = useState(null)
-
   const [comments, setComments] = useState([])
-
   const [newComment, setNewComment] = useState("")
 
   const currentUser =
-    JSON.parse(localStorage.getItem("loginUser"))
+    JSON.parse(localStorage.getItem("loginUser") || "null")
 
-  // 로그인 아이디
+  // 登录账号
   const currentUsername =
-    currentUser?.username ||
-    ""
+    currentUser?.username || ""
 
-  // 표시용 이름
+  // 显示名称
   const currentAuthor =
     currentUser?.name ||
     currentUser?.nickname ||
@@ -34,11 +31,9 @@ function BoardDetail() {
   useEffect(() => {
 
     client.get(`/api/board/${id}`)
-
       .then((res) => {
         setPost(res.data)
       })
-
       .catch((err) => {
         console.log(err)
       })
@@ -51,11 +46,13 @@ function BoardDetail() {
   useEffect(() => {
 
     client.get(`/api/comments/${id}`)
-
       .then((res) => {
-        setComments(res.data)
+        setComments(
+          Array.isArray(res.data)
+            ? res.data
+            : []
+        )
       })
-
       .catch((err) => {
         console.log(err)
       })
@@ -67,21 +64,25 @@ function BoardDetail() {
   // =========================
   const handleDelete = () => {
 
+    if (!currentUsername) {
+
+      alert("로그인 필요")
+
+      return
+    }
+
     client.delete(
       `/api/board/${id}?username=${currentUsername}`
     )
-
       .then(() => {
         navigate("/board")
       })
-
       .catch((err) => {
 
         alert(
           err.response?.data?.message ||
           "삭제 권한 없음"
         )
-
       })
   }
 
@@ -92,6 +93,13 @@ function BoardDetail() {
 
     if (!newComment.trim()) return
 
+    if (!currentUsername) {
+
+      alert("로그인 필요")
+
+      return
+    }
+
     client.post(
       `/api/comments/${id}`,
       {
@@ -100,30 +108,20 @@ function BoardDetail() {
         content: newComment
       }
     )
-
       .then((res) => {
 
-        setComments([
-          ...comments,
+        setComments(prev => [
+          ...prev,
           res.data
         ])
 
         setNewComment("")
-
       })
-
       .catch((err) => {
 
         console.log("COMMENT ERROR:", err)
 
-        console.log("RESPONSE:", err.response)
-
-        console.log("DATA:", err.response?.data)
-
-        console.log("STATUS:", err.response?.status)
-
         alert("댓글 작성 실패")
-
       })
   }
 
@@ -132,10 +130,16 @@ function BoardDetail() {
   // =========================
   const handleDeleteComment = (commentId) => {
 
+    if (!currentUsername) {
+
+      alert("로그인 필요")
+
+      return
+    }
+
     client.delete(
       `/api/comments/${commentId}?username=${currentUsername}`
     )
-
       .then(() => {
 
         setComments(
@@ -144,9 +148,7 @@ function BoardDetail() {
               comment.id !== commentId
           )
         )
-
       })
-
       .catch((err) => {
         console.log(err)
       })
@@ -168,7 +170,7 @@ function BoardDetail() {
 
     <div className="board-detail-page">
 
-      {/* 뒤로가기 */}
+      {/* BACK */}
       <button
         className="back-btn"
         onClick={() => navigate("/board")}
@@ -176,23 +178,40 @@ function BoardDetail() {
         ← 목록으로
       </button>
 
-      {/* 게시글 카드 */}
+      {/* POST */}
       <div className="detail-card">
 
-        {/* 상단 */}
         <div className="detail-top">
 
-          {/* 작성자 */}
           <div className="detail-author">
 
+            {/* AVATAR */}
             <div className="author-avatar">
-              {post.author?.charAt(0)}
+
+              {post.avatar ? (
+
+                <img
+                  src={post.avatar}
+                  alt=""
+                  className="board-avatar-img"
+                />
+
+              ) : (
+
+                (
+                  post.name ||
+                  post.username
+                )?.charAt(0)
+
+              )}
+
             </div>
 
             <div>
 
+              {/* NAME */}
               <h4>
-                {post.author}
+                {post.name || post.username}
               </h4>
 
               <span>
@@ -203,25 +222,25 @@ function BoardDetail() {
 
           </div>
 
-          {/* 카테고리 */}
           <span className="post-category">
             {post.category}
           </span>
 
         </div>
 
-        {/* 제목 */}
         <h1 className="detail-title">
           {post.title}
         </h1>
 
-        {/* 내용 */}
         <div className="detail-content">
           {post.content}
         </div>
 
-        {/* 삭제 버튼 */}
-        {currentAuthor === post.author && (
+        {/* DELETE */}
+        {(
+          currentUsername === post.username ||
+          currentUser?.role === "ADMIN"
+        ) && (
 
           <button
             className="delete-btn"
@@ -234,12 +253,12 @@ function BoardDetail() {
 
       </div>
 
-      {/* 댓글 */}
+      {/* COMMENT */}
       <div className="comment-section">
 
         <h3>댓글</h3>
 
-        {/* 댓글 작성 */}
+        {/* WRITE */}
         <div className="comment-write">
 
           <textarea
@@ -259,7 +278,7 @@ function BoardDetail() {
 
         </div>
 
-        {/* 댓글 목록 */}
+        {/* LIST */}
         <div className="comment-list">
 
           {comments.map((comment) => (
@@ -269,18 +288,33 @@ function BoardDetail() {
               className="comment-item"
             >
 
-              {/* 댓글 프로필 */}
+              {/* COMMENT AVATAR */}
               <div className="author-avatar small-avatar">
 
-                {comment.author?.charAt(0)}
+                {comment.avatar ? (
+
+                  <img
+                    src={comment.avatar}
+                    alt=""
+                    className="board-avatar-img"
+                  />
+
+                ) : (
+
+                  (
+                    comment.name ||
+                    comment.username
+                  )?.charAt(0)
+
+                )}
 
               </div>
 
-              {/* 댓글 내용 */}
               <div style={{ flex: 1 }}>
 
+                {/* COMMENT NAME */}
                 <strong>
-                  {comment.author}
+                  {comment.name || comment.username}
                 </strong>
 
                 <p>
@@ -289,8 +323,11 @@ function BoardDetail() {
 
               </div>
 
-              {/* 댓글 삭제 */}
-              {currentUsername === comment.username && (
+              {/* DELETE */}
+              {(
+                currentUsername === comment.username ||
+                currentUser?.role === "ADMIN"
+              ) && (
 
                 <button
                   className="delete-btn"
