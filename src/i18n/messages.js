@@ -9,6 +9,7 @@ const messages = {
     board: '告示板',
     settings: '设置',
     profile: '个人资料',
+    quiz: 'AI测试',
 
     title: '技能交换平台',
     desc: '通过技能交换学习新知识',
@@ -101,7 +102,24 @@ const messages = {
     chatRoomCreated: '聊天室已创建',
     createChatFailed: '创建聊天室失败',
     createChatApiError: '创建聊天室失败，请检查后端聊天室接口',
-    user: '用户'
+    user: '用户',
+
+    close: '关闭',
+    viewProfile: '查看用户详情',
+    userNotFilled: '用户未填写',
+    noRating: '暂无评分',
+    userRating: '用户评分',
+    ratingCountText: '人评价',
+    onlineTime: '在线时间段',
+    awards: '获得的奖项',
+    matchHistory: '匹配历史记录',
+    noMatchHistory: '暂无匹配历史记录',
+    matchHistoryLoadFailed: '匹配历史记录加载失败',
+    noUserId: '暂时无法获取匹配历史：用户ID不存在',
+    unknownUser: '未知用户',
+    unknownTime: '时间未知',
+    levelUnknown: '未评级',
+    noIntro: '这个用户暂时没有填写个人介绍'
   },
 
   en: {
@@ -114,6 +132,7 @@ const messages = {
     board: 'Board',
     settings: 'Settings',
     profile: 'Profile',
+    quiz: 'AI Quiz',
 
     title: 'Skill Exchange Platform',
     desc: 'Learn new skills through exchange',
@@ -206,7 +225,24 @@ const messages = {
     chatRoomCreated: 'Chat room created',
     createChatFailed: 'Failed to create chat room',
     createChatApiError: 'Failed to create chat room. Please check the backend chat API',
-    user: 'User'
+    user: 'User',
+
+    close: 'Close',
+    viewProfile: 'View user profile',
+    userNotFilled: 'Not provided',
+    noRating: 'No rating yet',
+    userRating: 'User Rating',
+    ratingCountText: ' reviews',
+    onlineTime: 'Available Time',
+    awards: 'Awards',
+    matchHistory: 'Match History',
+    noMatchHistory: 'No match history yet',
+    matchHistoryLoadFailed: 'Failed to load match history',
+    noUserId: 'Unable to load match history: user ID is missing',
+    unknownUser: 'Unknown user',
+    unknownTime: 'Unknown time',
+    levelUnknown: 'Unrated',
+    noIntro: 'This user has not added an introduction yet'
   },
 
   ko: {
@@ -219,6 +255,7 @@ const messages = {
     board: '게시판',
     settings: '설정',
     profile: '개인정보',
+    quiz: 'AI 테스트',
 
     title: '기술 교환 플랫폼',
     desc: '기술 교환을 통해 배우기',
@@ -311,7 +348,24 @@ const messages = {
     chatRoomCreated: '채팅방이 생성되었습니다',
     createChatFailed: '채팅방 생성 실패',
     createChatApiError: '채팅방 생성 실패, 백엔드 채팅 API를 확인해주세요',
-    user: '사용자'
+    user: '사용자',
+
+    close: '닫기',
+    viewProfile: '사용자 상세 보기',
+    userNotFilled: '사용자가 입력하지 않았습니다',
+    noRating: '아직 평점 없음',
+    userRating: '사용자 평점',
+    ratingCountText: '명 평가',
+    onlineTime: '접속 가능 시간대',
+    awards: '수상 내역',
+    matchHistory: '매칭 기록',
+    noMatchHistory: '아직 매칭 기록이 없습니다',
+    matchHistoryLoadFailed: '매칭 기록을 불러오지 못했습니다',
+    noUserId: '매칭 기록을 불러올 수 없습니다: 사용자 ID가 없습니다',
+    unknownUser: '알 수 없는 사용자',
+    unknownTime: '알 수 없는 시간',
+    levelUnknown: '미평가',
+    noIntro: '이 사용자는 아직 자기소개를 작성하지 않았습니다'
   },
 
   ja: {
@@ -324,6 +378,7 @@ const messages = {
     board: '掲示板',
     settings: '設定',
     profile: 'プロフィール',
+    quiz: 'AIテスト',
 
     title: 'スキル交換プラットフォーム',
     desc: 'スキル交換で学ぶ',
@@ -416,7 +471,24 @@ const messages = {
     chatRoomCreated: 'チャットルームが作成されました',
     createChatFailed: 'チャットルームの作成に失敗しました',
     createChatApiError: 'チャットルームの作成に失敗しました。バックエンドAPIを確認してください',
-    user: 'ユーザー'
+    user: 'ユーザー',
+
+    close: '閉じる',
+    viewProfile: 'ユーザー詳細を見る',
+    userNotFilled: 'ユーザー未入力',
+    noRating: 'まだ評価がありません',
+    userRating: 'ユーザー評価',
+    ratingCountText: '件の評価',
+    onlineTime: 'オンライン時間帯',
+    awards: '受賞歴',
+    matchHistory: 'マッチング履歴',
+    noMatchHistory: 'マッチング履歴はまだありません',
+    matchHistoryLoadFailed: 'マッチング履歴の読み込みに失敗しました',
+    noUserId: 'マッチング履歴を取得できません：ユーザーIDがありません',
+    unknownUser: '不明なユーザー',
+    unknownTime: '不明な時間',
+    levelUnknown: '未評価',
+    noIntro: 'このユーザーはまだ自己紹介を入力していません'
   },
 
   fr: {
@@ -429,6 +501,7 @@ const messages = {
     board: 'Tableau',
     settings: 'Paramètres',
     profile: 'Profil',
+    quiz: 'Test IA',
 
     title: 'Plateforme d’échange de compétences',
     desc: 'Apprendre par échange',
@@ -521,7 +594,24 @@ const messages = {
     chatRoomCreated: 'Salon de discussion créé',
     createChatFailed: 'Échec de la création du salon de discussion',
     createChatApiError: 'Échec de la création du salon. Veuillez vérifier l’API backend',
-    user: 'Utilisateur'
+    user: 'Utilisateur',
+
+    close: 'Fermer',
+    viewProfile: 'Voir le profil',
+    userNotFilled: 'Non renseigné',
+    noRating: 'Aucune note',
+    userRating: 'Note utilisateur',
+    ratingCountText: ' avis',
+    onlineTime: 'Créneau disponible',
+    awards: 'Récompenses',
+    matchHistory: 'Historique des correspondances',
+    noMatchHistory: 'Aucun historique de correspondance',
+    matchHistoryLoadFailed: 'Échec du chargement de l’historique',
+    noUserId: 'Impossible de charger l’historique : ID utilisateur manquant',
+    unknownUser: 'Utilisateur inconnu',
+    unknownTime: 'Heure inconnue',
+    levelUnknown: 'Non évalué',
+    noIntro: 'Cet utilisateur n’a pas encore ajouté de présentation'
   },
 
   de: {
@@ -534,6 +624,7 @@ const messages = {
     board: 'Forum',
     settings: 'Einstellungen',
     profile: 'Profil',
+    quiz: 'KI-Test',
 
     title: 'Fähigkeitsaustausch Plattform',
     desc: 'Lernen durch Austausch',
@@ -626,7 +717,24 @@ const messages = {
     chatRoomCreated: 'Chatraum wurde erstellt',
     createChatFailed: 'Chatraum konnte nicht erstellt werden',
     createChatApiError: 'Chatraum konnte nicht erstellt werden. Bitte prüfen Sie die Backend-Chat-API',
-    user: 'Benutzer'
+    user: 'Benutzer',
+
+    close: 'Schließen',
+    viewProfile: 'Benutzerprofil ansehen',
+    userNotFilled: 'Nicht angegeben',
+    noRating: 'Noch keine Bewertung',
+    userRating: 'Benutzerbewertung',
+    ratingCountText: ' Bewertungen',
+    onlineTime: 'Verfügbare Zeit',
+    awards: 'Auszeichnungen',
+    matchHistory: 'Match-Verlauf',
+    noMatchHistory: 'Noch kein Match-Verlauf',
+    matchHistoryLoadFailed: 'Match-Verlauf konnte nicht geladen werden',
+    noUserId: 'Match-Verlauf kann nicht geladen werden: Benutzer-ID fehlt',
+    unknownUser: 'Unbekannter Benutzer',
+    unknownTime: 'Unbekannte Zeit',
+    levelUnknown: 'Nicht bewertet',
+    noIntro: 'Dieser Benutzer hat noch keine Vorstellung hinzugefügt'
   },
 
   es: {
@@ -639,6 +747,7 @@ const messages = {
     board: 'Tablón',
     settings: 'Configuración',
     profile: 'Perfil',
+    quiz: 'Prueba IA',
 
     title: 'Plataforma de intercambio de habilidades',
     desc: 'Aprender intercambiando',
@@ -731,7 +840,24 @@ const messages = {
     chatRoomCreated: 'Sala de chat creada',
     createChatFailed: 'Error al crear la sala de chat',
     createChatApiError: 'Error al crear la sala de chat. Verifique la API del backend',
-    user: 'Usuario'
+    user: 'Usuario',
+
+    close: 'Cerrar',
+    viewProfile: 'Ver perfil de usuario',
+    userNotFilled: 'No proporcionado',
+    noRating: 'Sin valoración',
+    userRating: 'Valoración del usuario',
+    ratingCountText: ' valoraciones',
+    onlineTime: 'Horario disponible',
+    awards: 'Premios',
+    matchHistory: 'Historial de emparejamientos',
+    noMatchHistory: 'Aún no hay historial de emparejamientos',
+    matchHistoryLoadFailed: 'No se pudo cargar el historial',
+    noUserId: 'No se puede cargar el historial: falta el ID de usuario',
+    unknownUser: 'Usuario desconocido',
+    unknownTime: 'Hora desconocida',
+    levelUnknown: 'Sin calificar',
+    noIntro: 'Este usuario aún no ha añadido una presentación'
   },
 
   ar: {
@@ -744,6 +870,7 @@ const messages = {
     board: 'لوحة',
     settings: 'الإعدادات',
     profile: 'الملف الشخصي',
+    quiz: 'اختبار الذكاء الاصطناعي',
 
     title: 'منصة تبادل المهارات',
     desc: 'تعلم من خلال التبادل',
@@ -836,7 +963,24 @@ const messages = {
     chatRoomCreated: 'تم إنشاء غرفة الدردشة',
     createChatFailed: 'فشل إنشاء غرفة الدردشة',
     createChatApiError: 'فشل إنشاء غرفة الدردشة، يرجى التحقق من واجهة دردشة الخلفية',
-    user: 'مستخدم'
+    user: 'مستخدم',
+
+    close: 'إغلاق',
+    viewProfile: 'عرض ملف المستخدم',
+    userNotFilled: 'لم يتم الإدخال',
+    noRating: 'لا توجد تقييمات بعد',
+    userRating: 'تقييم المستخدم',
+    ratingCountText: ' تقييمات',
+    onlineTime: 'وقت التواجد',
+    awards: 'الجوائز',
+    matchHistory: 'سجل المطابقات',
+    noMatchHistory: 'لا يوجد سجل مطابقات بعد',
+    matchHistoryLoadFailed: 'فشل تحميل سجل المطابقات',
+    noUserId: 'لا يمكن تحميل سجل المطابقات: معرف المستخدم غير موجود',
+    unknownUser: 'مستخدم غير معروف',
+    unknownTime: 'وقت غير معروف',
+    levelUnknown: 'غير مقيّم',
+    noIntro: 'لم يضف هذا المستخدم نبذة تعريفية بعد'
   }
 }
 

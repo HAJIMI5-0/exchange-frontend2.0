@@ -8,6 +8,7 @@ import useTranslatedUsers from '../components/match/useTranslatedUsers'
 
 import {
   fetchMatchUsers,
+  fetchMatchProfile,
   createDirectChatRoom
 } from '../api/matchApi'
 
@@ -27,6 +28,10 @@ function Match({ text, lang = 'zh' }) {
   const [selectedUser, setSelectedUser] = useState(null)
   const [chatResult, setChatResult] = useState('')
 
+  const [matchHistory, setMatchHistory] = useState([])
+  const [matchHistoryLoading, setMatchHistoryLoading] = useState(false)
+  const [matchHistoryError, setMatchHistoryError] = useState('')
+
   const translatedUsers = useTranslatedUsers(users, lang)
 
   const displayUsers = translatedUsers.length > 0 ? translatedUsers : users
@@ -36,6 +41,9 @@ function Match({ text, lang = 'zh' }) {
     setError('')
     setUsers([])
     setChatResult('')
+    setSelectedUser(null)
+    setMatchHistory([])
+    setMatchHistoryError('')
 
     try {
       const data = await fetchMatchUsers({
@@ -57,19 +65,78 @@ function Match({ text, lang = 'zh' }) {
     }
   }
 
-  const handleSelectUser = (user) => {
-    console.log('当前选择的用户:', user)
+  // 点击头像：打开用户详情卡片，并请求详情接口
+  const handleAvatarClick = async (user) => {
+    console.log('当前查看的用户:', user)
 
     setSelectedUser(user)
     setChatResult('')
+    setMatchHistory([])
+    setMatchHistoryError('')
+
+    const userId = user.id
+
+    if (!userId) {
+      setMatchHistoryError(text.noUserId || '暂时无法获取匹配历史：用户ID不存在')
+      return
+    }
+
+    setMatchHistoryLoading(true)
+
+    try {
+      const profile = await fetchMatchProfile(userId)
+
+      const mergedUser = {
+        ...user,
+        ...profile,
+
+        // 兼容后端详情接口字段
+        skills: profile.skillOffer || user.skills,
+        wants: profile.skillWant || user.wants,
+        skillOffer: profile.skillOffer || user.skillOffer,
+        skillWant: profile.skillWant || user.skillWant,
+
+        // 评分字段
+        averageRating: profile.averageRating ?? user.averageRating,
+        ratingCount: profile.ratingCount ?? user.ratingCount,
+
+        // 保留翻译后的字段，避免点击头像后翻译字段丢失
+        translatedSkills: user.translatedSkills,
+        translatedWants: user.translatedWants,
+        translatedNationality: user.translatedNationality
+      }
+
+      const histories =
+        profile.histories ||
+        profile.history ||
+        profile.matchHistory ||
+        profile.matchHistories ||
+        []
+
+      setSelectedUser(mergedUser)
+      setMatchHistory(histories)
+    } catch (err) {
+      console.error(err)
+      setMatchHistoryError(text.matchHistoryLoadFailed || '匹配历史记录加载失败')
+    } finally {
+      setMatchHistoryLoading(false)
+    }
   }
 
   const handleCloseModal = () => {
     setSelectedUser(null)
     setChatResult('')
+    setMatchHistory([])
+    setMatchHistoryError('')
+    setMatchHistoryLoading(false)
   }
 
-  const handleStartChat = async () => {
+  // 点击选择TA：直接创建聊天室 / 匹配成功 / 跳转聊天
+  const handleSelectUser = async (user) => {
+    console.log('当前选择的用户:', user)
+
+    setChatResult('')
+
     const savedLoginUser = localStorage.getItem('loginUser')
     const loginUser = savedLoginUser ? JSON.parse(savedLoginUser) : null
 
@@ -78,12 +145,12 @@ function Match({ text, lang = 'zh' }) {
       return
     }
 
-    if (!selectedUser || !selectedUser.username) {
+    if (!user || !user.username) {
       setChatResult(text.noReceiverAccount || '暂时无法创建聊天室：匹配接口没有返回对方账号')
       return
     }
 
-    if (loginUser.username === selectedUser.username) {
+    if (loginUser.username === user.username) {
       setChatResult(text.cannotChatSelf || '不能和自己创建聊天室')
       return
     }
@@ -91,7 +158,7 @@ function Match({ text, lang = 'zh' }) {
     try {
       const result = await createDirectChatRoom({
         senderUsername: loginUser.username,
-        receiverUsername: selectedUser.username
+        receiverUsername: user.username
       })
 
       const data = result.data
@@ -108,13 +175,13 @@ function Match({ text, lang = 'zh' }) {
           navigate(`/chat?roomId=${roomId}`, {
             state: {
               roomId,
-              chatUser: selectedUser
+              chatUser: user
             }
           })
         } else {
           navigate('/chat', {
             state: {
-              chatUser: selectedUser
+              chatUser: user
             }
           })
         }
@@ -145,6 +212,12 @@ function Match({ text, lang = 'zh' }) {
         onMatch={handleMatch}
       />
 
+      {chatResult && !selectedUser && (
+        <p className="match-chat-result">
+          {chatResult}
+        </p>
+      )}
+
       <div className="match-result">
         {loading && (
           <p className="empty-text">
@@ -170,6 +243,7 @@ function Match({ text, lang = 'zh' }) {
               user={user}
               lang={lang}
               onSelect={handleSelectUser}
+              onAvatarClick={handleAvatarClick}
             />
           ))
         )}
@@ -178,10 +252,13 @@ function Match({ text, lang = 'zh' }) {
       {selectedUser && (
         <MatchUserModal
           text={text}
+          lang={lang}
           selectedUser={selectedUser}
           chatResult={chatResult}
+          matchHistory={matchHistory}
+          matchHistoryLoading={matchHistoryLoading}
+          matchHistoryError={matchHistoryError}
           onClose={handleCloseModal}
-          onStartChat={handleStartChat}
         />
       )}
     </div>

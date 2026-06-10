@@ -80,8 +80,8 @@ function Profile({ text, user, setUser, lang = 'zh' }) {          // 个人资�
           nationality: data.nationality || '',                    // 国籍
           teachSkill: data.teachSkill || '',                      // 擅长技能
           learnSkill: data.learnSkill || '',                      // 想学技能
-          teachLevel: data.teachLevel || data.skillOfferLevel || '', // 擅长技能等级，兼容后端不同字段名
-          learnLevel: data.learnLevel || data.skillWantLevel || '',  // 想学习的等级，兼容后端不同字段名
+          teachLevel: data.teachLevel || data.skillOfferLevel || data.skill_offer_level || '', // 擅长技能等级，兼容后端不同字段名
+          learnLevel: data.learnLevel || data.skillWantLevel || data.skillWentLevel || data.skill_want_level || data.skill_went_level || '', // 想学习的等级，兼容后端不同字段名
           timeSlot: data.timeSlot || '',                          // 学习时间段
           projectAwards: data.projectAwards || ''                 // 项目 / 奖项
         }
@@ -202,7 +202,9 @@ function Profile({ text, user, setUser, lang = 'zh' }) {          // 个人资�
     try {
       const saveProfile = {                                       // 创建要保存到后端的个人资料对象
         ...profile,                                               // 使用当前 profile 中的数据
-        username: user.username                                   // 确保保存的是当前登录用户的 username
+        username: user.username,                                  // 确保保存的是当前登录用户的 username
+        skillOfferLevel: profile.teachLevel,                      // 后端接收的擅长技能等级字段
+        skillWentLevel: profile.learnLevel                        // 后端接收的想学习等级字段
       }
 
       const data = await updateProfileApi(saveProfile)            // 调用后端接口保存个人资料，并接收后端返回的数据
@@ -221,8 +223,8 @@ function Profile({ text, user, setUser, lang = 'zh' }) {          // 个人资�
         nationality: data.nationality ?? saveProfile.nationality, // 优先使用后端返回 nationality
         teachSkill: data.teachSkill ?? saveProfile.teachSkill,    // 优先使用后端返回 teachSkill
         learnSkill: data.learnSkill ?? saveProfile.learnSkill,    // 优先使用后端返回 learnSkill
-        teachLevel: data.teachLevel ?? data.skillOfferLevel ?? saveProfile.teachLevel, // 优先使用后端返回擅长技能等级
-        learnLevel: data.learnLevel ?? data.skillWantLevel ?? saveProfile.learnLevel,  // 优先使用后端返回想学习等级
+        teachLevel: data.teachLevel ?? data.skillOfferLevel ?? data.skill_offer_level ?? saveProfile.teachLevel, // 优先使用后端返回擅长技能等级
+        learnLevel: data.learnLevel ?? data.skillWantLevel ?? data.skillWentLevel ?? data.skill_want_level ?? data.skill_went_level ?? saveProfile.learnLevel, // 优先使用后端返回想学习等级
         timeSlot: data.timeSlot ?? saveProfile.timeSlot,          // 优先使用后端返回 timeSlot
         projectAwards: data.projectAwards ?? saveProfile.projectAwards // 优先使用后端返回 projectAwards
       }

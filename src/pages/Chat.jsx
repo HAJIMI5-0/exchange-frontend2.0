@@ -1,445 +1,654 @@
-import { useEffect, useMemo, useRef, useState } from 'react' // 从 React 导入需要使用的 Hook，包括副作用、缓存、DOM引用、状态管理
-import client from '../api/client' // 引入统一 axios 请求客户端
+import { useEffect, useMemo, useRef, useState } from 'react'
+import client from '../api/client'
 
-const AI_PREFIX = '🤖 AI 학습 도움' // 定义 AI 消息前缀，用来区分普通聊天消息和 AI 自动生成消息
-const TIME_GAP = 300000 // 定义消息时间分组间隔，单位毫秒，这里是 5 分钟
+const AI_PREFIX = '🤖'
+const TIME_GAP = 300000
 
-function Chat({ text }) { // 定义聊天组件，接收父组件传来的 text 多语言文本对象
-  const currentUser = useMemo(() => { // 使用 useMemo 缓存当前登录用户信息，避免重复解析 localStorage
-    try { // 尝试读取本地缓存
-      return JSON.parse(localStorage.getItem('loginUser') || '{}') // 从 localStorage 获取 loginUser，没有则返回空对象字符串再解析
-    } catch { // 如果 JSON 解析失败
-      return {} // 返回空对象避免程序报错
+function Chat({ text }) {
+  const currentUser = useMemo(() => {
+    try {
+      return JSON.parse(
+        localStorage.getItem('loginUser') || '{}'
+      )
+    } catch {
+      return {}
     }
-  }, []) // 空依赖数组，只在组件首次渲染时执行一次
-
-  const currentUsername = currentUser?.username || '' // 获取当前用户名，如果不存在则使用空字符串
-  const currentLang = localStorage.getItem('lang') || 'ko' // 获取当前选择的语言，如果没有则默认韩语
-
-  const [rooms, setRooms] = useState([]) // 保存聊天室列表数据
-  const [selectedRoom, setSelectedRoom] = useState(null) // 保存当前选中的聊天室
-  const [messages, setMessages] = useState([]) // 保存当前聊天室的消息列表
-  const [newMessage, setNewMessage] = useState('') // 保存输入框中正在输入的新消息
-  const [isAiLoading, setIsAiLoading] = useState(false) // 标记 AI 是否正在生成回复
-  const [translatedMessages, setTranslatedMessages] = useState({}) // 保存已经翻译过的消息，key 为消息 id
-  const [aiError, setAiError] = useState('') // 保存 AI 错误提示文本
-
-  const messagesEndRef = useRef(null) // 创建 DOM 引用，用于滚动到底部定位最后一条消息
-
-  const scrollToBottom = () => // 定义滚动到底部函数
-    requestAnimationFrame(() => // 等浏览器下一帧渲染完成后执行
+  }, [])
+  const currentUsername = currentUser?.username || ''
+  const currentLang = localStorage.getItem('lang') || 'ko'
+  const [rooms, setRooms] = useState([])
+  const [selectedRoom, setSelectedRoom] = useState(null)
+  const [messages, setMessages] = useState([])
+  const [newMessage, setNewMessage] = useState('')
+  const [isAiLoading, setIsAiLoading] = useState(false)
+  const [
+    translatedMessages,
+    setTranslatedMessages
+  ] = useState({})
+  const [aiError, setAiError] = useState('')
+  // 新增
+  const [myRating, setMyRating] = useState(0)
+  const messagesEndRef = useRef(null)
+  const scrollToBottom = () =>
+    requestAnimationFrame(() =>
       messagesEndRef.current?.scrollIntoView({
         behavior: 'smooth'
       })
     )
-
-  const detectLanguage = (text) => { // 定义简单语言检测函数，根据字符判断文本属于哪种语言
+  const detectLanguage = (text) => {
     if (!text) return 'en'
-    if (/[\uac00-\ud7af]/.test(text)) return 'ko'
-    if (/[\u4e00-\u9fff]/.test(text)) return 'zh'
-    if (/[\u3040-\u30ff]/.test(text)) return 'ja'
-    if (/[\u0600-\u06FF]/.test(text)) return 'ar'
+    if (/[\uac00-\ud7af]/.test(text))
+      return 'ko'
+    if (/[\u4e00-\u9fff]/.test(text))
+      return 'zh'
+    if (/[\u3040-\u30ff]/.test(text))
+      return 'ja'
+    if (/[\u0600-\u06FF]/.test(text))
+      return 'ar'
     return 'en'
   }
-
-  const translateText = async (content) => { // 定义翻译函数，将文本翻译成当前用户选择的语言
-    if (!content || detectLanguage(content) === currentLang) return null
-
+  const translateText = async (
+    content
+  ) => {
+    if (
+      !content ||
+      detectLanguage(content) === currentLang
+    ) {return null}
     try {
-      const res = await client.post('/api/translate', {
-        text: content,
-        targetLang: currentLang
-      })
-
+      const res = await client.post(
+        '/api/translate',
+        {text: content, targetLang: currentLang}
+      )
       const data = res.data
-
       if (typeof data === 'string') {
-        return data.trim() && data !== content
+        return data.trim() &&
+          data !== content
           ? data
           : null
       }
-
       const translated =
         data.translatedText ||
         data.text ||
         data.result ||
         data.data ||
         null
-
       return translated &&
         translated.trim() &&
         translated !== content
         ? translated
         : null
-
-    } catch {
-      return null
-    }
+    } catch {return null}
   }
-
-  const formatWeChatTime = (timeStr) => { // 定义时间格式化函数，模仿微信聊天时间显示格式
+  const formatWeChatTime = (
+    timeStr
+  ) => {
     if (!timeStr) return ''
-
     try {
-      const date = new Date(timeStr)
-
-      if (isNaN(date.getTime())) return ''
-
+      const date =
+        new Date(timeStr)
+      if (isNaN(date.getTime()))
+        return ''
       const now = new Date()
-      let hours = date.getHours()
-      const minutes = String(date.getMinutes()).padStart(2, '0')
-      const ampm = hours >= 12 ? '오후' : '오전'
-
+      let hours =
+        date.getHours()
+      const minutes =
+        String(
+          date.getMinutes()
+        ).padStart(2, '0')
+      const ampm =
+        hours >= 12
+          ? '오후'
+          : '오전'
       hours = hours % 12 || 12
-
-      const time = `${ampm} ${hours}:${minutes}`
-
-      if (date.toDateString() === now.toDateString()) {
-        return `오늘 ${time}`
-      }
-
-      const yesterday = new Date(now)
+      const time =
+        `${ampm} ${hours}:${minutes}`
+      if (
+        date.toDateString() ===
+        now.toDateString()
+      ) {return `오늘 ${time}`}
+      const yesterday =
+        new Date(now)
       yesterday.setDate(now.getDate() - 1)
-
-      if (date.toDateString() === yesterday.toDateString()) {
-        return `어제 ${time}`
-      }
-
-      if (date.getFullYear() === now.getFullYear()) {
-        return `${date.getMonth() + 1}월 ${date.getDate()}일 ${time}`
-      }
-
+      if (
+        date.toDateString() ===
+        yesterday.toDateString()
+      ) {return `어제 ${time}`}
+      if (
+        date.getFullYear() ===
+        now.getFullYear()
+      ) {return `${date.getMonth() + 1}월 ${date.getDate()}일 ${time}`}
       return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${time}`
-    } catch {
-      return ''
-    }
+    } catch {return ''}
   }
-
-  const fetchRooms = async () => { // 定义获取聊天室列表函数
+  const fetchRooms = async () => {
     try {
-      const res = await client.get('/api/chat/rooms', {
-        params: {
-          username: currentUsername
-        }
-      })
-
+      const res =
+        await client.get(
+          '/api/chat/rooms',
+          {
+            params: {
+              username:
+                currentUsername
+            }
+          }
+        )
       const data = res.data
-
       if (!Array.isArray(data)) {
         setRooms([])
         return
       }
-
       setRooms(data)
-
-      if (!selectedRoom && data.length) {
-        setSelectedRoom(data[0])
-        scrollToBottom()
-        return
-      }
-
       if (
-        selectedRoom &&
-        !data.find(room => room.roomId === selectedRoom.roomId) &&
+        !selectedRoom &&
         data.length
       ) {
         setSelectedRoom(data[0])
         scrollToBottom()
+        return
       }
-
-    } catch {
-      setRooms([])
-    }
+    } catch {setRooms([])}
   }
-
-  const fetchMessages = async (scroll = false) => { // 定义获取聊天消息函数
+  const fetchMessages = async (scroll = false) => {
     if (!selectedRoom) return
-
     try {
-      const res = await client.get('/api/chat/messages', {
-        params: {
-          me: currentUsername,
-          partner: selectedRoom.partnerUsername
-        }
-      })
-
+      const res =
+        await client.get(
+          '/api/chat/messages',
+          {
+            params: {
+              me:
+                currentUsername,
+              partner:
+                selectedRoom.partnerUsername
+            }
+          }
+        )
       const data = res.data
-
-      if (!Array.isArray(data)) return
-
-      setMessages(prev => {
-        if (
-          prev.length === data.length &&
-          prev[prev.length - 1]?.id === data[data.length - 1]?.id
-        ) {
-          return prev
-        }
-
-        return data
-      })
-
+      if (
+        !Array.isArray(data)
+      ) return
+      setMessages(data)
       if (scroll) {
         scrollToBottom()
       }
-
     } catch {}
   }
-
-  const autoTranslateMessages = async () => { // 定义自动翻译消息函数
+  // 新增评分读取
+  const fetchMyRating = async () => {
+    if (!selectedRoom) return
+    try {
+      const res =
+        await client.get(
+          '/api/chat/rating',
+          {
+            params: {
+              roomId:
+                selectedRoom.roomId,
+              username:
+                currentUsername
+            }
+          }
+        )
+      setMyRating(
+        res.data.rating || 0
+      )
+    } catch {setMyRating(0)}
+  }
+  // 新增评分提交
+  const handleRating = async (score) => {
+    try {
+      await client.post(
+        '/api/chat/rating',
+        {
+          roomId:
+            selectedRoom.roomId,
+          username:
+            currentUsername,
+          score
+        }
+      )
+      setMyRating(score)
+      fetchRooms()
+    } catch (e) {
+      console.error(e)
+    }
+  }
+  const autoTranslateMessages = async () => {
     const cache = {}
-
     for (const msg of messages) {
-      if (msg.content?.startsWith(AI_PREFIX)) continue
-
-      if (translatedMessages[msg.id]) {
-        cache[msg.id] = translatedMessages[msg.id]
+      if (
+        msg.content?.startsWith(
+          AI_PREFIX
+        )
+      ) continue
+      if (
+        translatedMessages[msg.id]
+      ) {
+        cache[msg.id] =
+          translatedMessages[msg.id]
         continue
       }
-
-      const translated = await translateText(msg.content)
-
+      const translated =
+        await translateText(
+          msg.content
+        )
       if (translated) {
         cache[msg.id] = translated
       }
     }
-
-    setTranslatedMessages(cache)
+    setTranslatedMessages(
+      cache
+    )
   }
-    const handleSendMessage = async () => { // 定义发送普通聊天消息函数
-    if (!newMessage.trim() || !selectedRoom) return // 如果输入为空或没有选中聊天室则不发送
-
+  const handleSendMessage = async () => {
+    if (
+      !newMessage.trim() ||
+      !selectedRoom
+    ) return
     try {
-      const res = await client.post('/api/chat/send', {
-        senderUsername: currentUsername, // 当前发送者用户名
-        receiverUsername: selectedRoom.partnerUsername, // 当前聊天对象用户名
-        content: newMessage // 输入框里的消息内容
-      })
-
+      const res =
+        await client.post(
+          '/api/chat/send',
+          {
+            senderUsername:
+              currentUsername,
+            receiverUsername:
+              selectedRoom.partnerUsername,
+            content:
+              newMessage
+          }
+        )
       const data = res.data
-
       if (!data.success) {
         alert(data.message)
         return
       }
-
-      setNewMessage('') // 清空输入框内容
-      setAiError('') // 清空 AI 错误提示
-      fetchMessages(true) // 重新获取消息
-      fetchRooms() // 更新聊天室列表
-
-    } catch (err) {
-      console.error('发送消息失败:', err)
-    }
-  }
-
-  const handleAiSuggest = async () => { // 定义 AI 辅助回复函数
-    if (!selectedRoom) return
-
-    setIsAiLoading(true) // AI loading 开启
-    setAiError('') // 清空旧错误
-
-    try {
-      const context = messages
-        .slice(-8) // 只保留最近 8 条消息
-        .map(msg => `${msg.senderUsername}: ${msg.content}`)
-        .join('\n')
-
-      const question =
-        newMessage.trim() ||
-        messages[messages.length - 1]?.content ||
-        '최근 채팅 내용에서 이해하기 어려운 지식 포인트를 설명해주세요.'
-
-      const res = await client.post('/api/chat/ai-help', {
-        message: question,
-        partner: selectedRoom.partnerUsername,
-        context
-      })
-
-      const data = res.data
-
-      if (!data.success) {
-        setAiError('AI 학습 도움 생성에 실패했습니다.')
-        return
-      }
-
-      const translated = await translateText(data.answer)
-
-      const aiMessage = `${AI_PREFIX}\n${
-        translated
-          ? `${data.answer}\n🌐 ${translated}`
-          : data.answer
-      }`
-
-      const sendRes = await client.post('/api/chat/send', {
-        senderUsername: currentUsername,
-        receiverUsername: selectedRoom.partnerUsername,
-        content: aiMessage
-      })
-
-      const sendData = sendRes.data
-
-      if (!sendData.success) {
-        setAiError('AI 메시지 저장에 실패했습니다.')
-        return
-      }
-
       setNewMessage('')
+      setAiError('')
       fetchMessages(true)
       fetchRooms()
-      scrollToBottom()
-
     } catch (err) {
-      console.error('AI 요청失败:', err)
-      setAiError('AI 서버 연결에 실패했습니다.')
-    } finally {
-      setIsAiLoading(false)
+      console.error(
+        '发送消息失败:',
+        err
+      )
     }
   }
-
-  useEffect(() => { // 当前用户变化时加载聊天室
-    if (currentUsername) {
+  const handleAiSuggest = async () => {
+    if (!selectedRoom)
+      return
+    setIsAiLoading(true)
+    setAiError('')
+    try {
+      const context =messages
+        .slice(-8)
+        .map(msg => msg.content)
+        .join('\n')
+        .slice(0, 300)
+      const question =
+        newMessage.trim()
+        ||
+        messages[messages.length - 1]?.content
+        ||
+        '최근 채팅 내용에서 이해하기 어려운 지식 포인트를 설명해주세요.'
+      const res = await client.post(
+        '/api/chat/ai-help',
+        {
+          message:
+            question,
+          partner:
+            selectedRoom.partnerUsername,
+          context,
+          targetLang:
+            currentLang
+        }
+      )
+      const data =res.data
+        if (
+          !data.success
+        ) {
+          setAiError('AI 학습 도움 생성에 실패했습니다.')
+          return
+        }
+        const aiMessage =
+          `${AI_PREFIX}\n${data.answer}`
+        const sendRes =
+          await client.post(
+            '/api/chat/send',
+            {
+              senderUsername:
+                currentUsername,
+              receiverUsername:
+                selectedRoom.partnerUsername,
+              content:
+                aiMessage
+            }
+          )
+        const sendData =
+          sendRes.data
+        if (
+          !sendData.success
+        ) {
+          setAiError('AI 메시지 저장에 실패했습니다.')
+          return
+        }
+        setNewMessage('')
+        fetchMessages(true)
+        fetchRooms()
+        scrollToBottom()
+      } catch (err) {
+        console.error(
+          'AI 요청失败:',
+          err
+        )
+        setAiError(
+          'AI 서버 연결에 실패했습니다.'
+        )
+      } finally {
+        setIsAiLoading(
+          false
+        )
+      }
+    }
+  useEffect(() => {
+    if (
+      currentUsername
+    ) {
       fetchRooms()
     }
   }, [currentUsername])
-
-  useEffect(() => { // 当前聊天室变化时加载消息并轮询
-    if (!selectedRoom || !currentUsername) return
-
-    fetchMessages(true)
-
-    const interval = setInterval(
-      () => fetchMessages(false),
-      2000
-    )
-
-    return () => clearInterval(interval)
-  }, [selectedRoom, currentUsername])
-
-  useEffect(() => { // 自动翻译消息
-    if (!messages.length) {
-      setTranslatedMessages({})
+  useEffect(() => {
+    if (
+      !selectedRoom ||
+      !currentUsername
+    ) {
       return
     }
-
+    fetchMessages(true)
+    // 新增
+    fetchMyRating()
+    const interval =
+      setInterval(
+        () =>
+          fetchMessages(
+            false
+          ),
+        2000
+      )
+    return () =>
+      clearInterval(
+        interval
+      )
+  }, [
+    selectedRoom,
+    currentUsername
+  ])
+  useEffect(() => {
+    if (
+      !messages.length
+    ) {
+      setTranslatedMessages(
+        {}
+      )
+      return
+    }
     autoTranslateMessages()
-  }, [messages, currentLang])
-
-  if (!currentUsername) { // 未登录状态
+  }, [
+    messages,
+    currentLang
+  ])
+  if (
+    !currentUsername
+  ) {
     return (
-      <div style={{ color: 'white', padding: '40px' }}>
+      <div
+        style={{
+          color:
+            'white',
+          padding:
+            '40px'
+        }}
+      >
         먼저 로그인해 주세요.
       </div>
     )
   }
-
-  if (!rooms.length) { // 没有聊天室
+  if (
+    !rooms.length
+  ) {
     return (
-      <div style={{ color: 'white', padding: '40px' }}>
+      <div
+        style={{
+          color:
+            'white',
+          padding:
+            '40px'
+        }}
+      >
         매칭된 채팅방이 없습니다.
       </div>
     )
   }
-
   return (
     <div className="chat-page">
       <div className="chat-sidebar">
         <div className="chat-sidebar-top">
-          <h2 className="chat-title">{text.chat}</h2>
-
+          <h2 className="chat-title">
+            {text.chat}
+          </h2>
           <input
             type="text"
             placeholder="채팅 검색..."
             className="chat-search"
           />
         </div>
-
         <div className="chat-user-list">
-          {rooms.map(room => (
+          {rooms.map(
+            room => (
             <div
-              key={room.roomId}
+              key={
+                room.roomId
+              }
               className={`chat-user-card ${
-                selectedRoom?.roomId === room.roomId
+                selectedRoom?.roomId ===
+                room.roomId
                   ? 'active-chat'
                   : ''
               }`}
               onClick={() => {
-                setSelectedRoom(room)
+                setSelectedRoom(
+                  room
+                )
                 setAiError('')
                 scrollToBottom()
               }}
             >
               <div className="chat-avatar">
-                {room.partnerName?.charAt(0)}
+                {room.partnerAvatar ? (
+                  <img
+                    src={room.partnerAvatar}
+                    alt={room.partnerName}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      borderRadius: '50%'
+                    }}
+                  />
+                ) : (
+                  room.partnerName?.charAt(0)
+                )}
               </div>
-
               <div className="chat-user-info">
-                <h4>{room.partnerName}</h4>
-                <p>{room.lastMessage || '새로운 대화를 시작하세요'}</p>
+                <h4>
+                  {room.partnerName}
+                  <span
+                    style={{
+                      marginLeft:
+                        '8px',
+                      color:
+                        '#f5b50a',
+                      fontSize:
+                        '13px'
+                    }}
+                  >
+                    ⭐ {
+                      room.averageRating || 0
+                    }
+                  </span>
+                </h4>
+                <p>
+                  {
+                    room.lastMessage ||
+                    '새로운 대화를 시작하세요'
+                  }
+                </p>
               </div>
             </div>
           ))}
         </div>
       </div>
-
-      <div className="chat-main">
+            <div className="chat-main">
         <div className="chat-header">
           <div className="chat-header-info">
-            <h3>{selectedRoom?.partnerName}</h3>
-            <span>온라인</span>
+            <h3>
+              {selectedRoom?.partnerName}
+              <span
+                style={{
+                  marginLeft: '10px',
+                  color: '#f5b50a',
+                  fontSize: '15px'
+                }}
+              >
+                ⭐ {
+                  selectedRoom?.averageRating || 0
+                }
+              </span>
+            </h3>
+            {/* 当前用户评分 */}
+            <div>
+              {[1,2,3,4,5].map(star => (
+                <span
+                  style={{
+                    display: 'flex',
+                    gap: '6px',
+                    marginTop: '8px',
+                    padding: '8px 10px',
+                    borderRadius: '14px',
+                    background: 'rgba(255,255,255,0.03)',
+                    border: '1px solid rgba(255,255,255,0.05)',
+                    backdropFilter: 'blur(12px)',
+                    alignItems: 'center'
+                  }}
+                  key={star}
+                  onClick={() => handleRating(star)}
+                  style={{
+                    cursor: 'pointer',
+                    fontSize: '22px',
+                    transition: 'all 0.2s ease',
+                    transform: star <= myRating ? 'scale(1.08)' : 'scale(1)',
+                    filter: star <= myRating
+                      ? 'drop-shadow(0 0 4px rgba(255,215,0,0.6))'
+                      : 'none',
+                    opacity: star <= myRating ? 1 : 0.45,
+                    userSelect: 'none'
+                  }}
+                >
+                  {star <= myRating ? '⭐' : '☆'}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
-
         <div className="chat-messages">
-                    {messages.map((msg, index) => {
-            const isMe = msg.senderUsername === currentUsername // 判断是否自己发送
-            const isAi = msg.content?.startsWith(AI_PREFIX) // 判断是否 AI 消息
-
-            let showTimeBubble = index === 0
-            let hideAvatar = false
-
+          {messages.map((msg, index) => {
+            const isMe =
+              msg.senderUsername ===
+              currentUsername
+            const isAi =
+              msg.content?.startsWith(
+                AI_PREFIX
+              )
+            let showTimeBubble =
+              index === 0
+            let hideAvatar =
+              false
             if (index > 0) {
-              const prev = messages[index - 1]
-              const nowTime = new Date(msg.createdAt || msg.time)
-              const prevTime = new Date(prev.createdAt || prev.time)
-
-              if (!isNaN(nowTime) && !isNaN(prevTime)) {
-                showTimeBubble = nowTime - prevTime > TIME_GAP
+              const prev =
+                messages[index - 1]
+              const nowTime =
+                new Date(
+                  msg.createdAt ||
+                  msg.time
+                )
+              const prevTime =
+                new Date(
+                  prev.createdAt ||
+                  prev.time
+                )
+              if (
+                !isNaN(nowTime) &&
+                !isNaN(prevTime)
+              ) {
+                showTimeBubble =
+                  nowTime -
+                  prevTime >
+                  TIME_GAP
               }
             }
-
-            if (index < messages.length - 1) {
-              const next = messages[index + 1]
-              const nowTime = new Date(msg.createdAt || msg.time)
-              const nextTime = new Date(next.createdAt || next.time)
-
+            if (
+              index <
+              messages.length - 1
+            ) {
+              const next =
+                messages[index + 1]
+              const nowTime =
+                new Date(
+                  msg.createdAt ||
+                  msg.time
+                )
+              const nextTime =
+                new Date(
+                  next.createdAt ||
+                  next.time
+                )
               if (
-                next.senderUsername === msg.senderUsername &&
-                nextTime - nowTime <= TIME_GAP &&
-                !next.content?.startsWith(AI_PREFIX)
+                next.senderUsername ===
+                msg.senderUsername &&
+                nextTime - nowTime <=
+                TIME_GAP &&
+                !next.content?.startsWith(
+                  AI_PREFIX
+                )
               ) {
                 hideAvatar = true
               }
             }
-
             return (
               <div
-                key={msg.id || index}
-                style={{ display: 'contents' }}
+                key={
+                  msg.id || index
+                }
+                style={{
+                  display:
+                    'contents'
+                }}
               >
                 {showTimeBubble && (
+
                   <div className="chat-time-bubble">
+
                     {formatWeChatTime(
-                      msg.createdAt || msg.time
+                      msg.createdAt ||
+                      msg.time
                     )}
                   </div>
                 )}
-
                 {isAi ? (
                   <div className="ai-suggestion-box">
                     <div className="ai-suggest-title">
                       {AI_PREFIX}
                     </div>
-
                     <div className="ai-suggest-content">
                       {msg.content.replace(
                         `${AI_PREFIX}\n`,
@@ -461,11 +670,24 @@ function Chat({ text }) { // 定义聊天组件，接收父组件传来的 text 
                   >
                     {!isMe && (
                       <div className="message-avatar">
-                        {!hideAvatar &&
-                          selectedRoom?.partnerName?.charAt(0)}
-                      </div>
+                      {!hideAvatar && (
+                        selectedRoom?.partnerAvatar ? (
+                          <img
+                            src={selectedRoom.partnerAvatar}
+                            alt={selectedRoom.partnerName}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                              borderRadius: '50%'
+                            }}
+                          />
+                        ) : (
+                          selectedRoom?.partnerName?.charAt(0)
+                        )
+                      )}
+                    </div>
                     )}
-
                     <div
                       className={`message ${
                         isMe
@@ -476,21 +698,22 @@ function Chat({ text }) { // 定义聊天组件，接收父组件传来的 text 
                       <div className="message-text">
                         {msg.content}
                       </div>
-
                       {translatedMessages[msg.id] && (
                         <div className="translated-message">
-                          {translatedMessages[msg.id]}
+                          {
+                            translatedMessages[msg.id]
+                          }
                         </div>
                       )}
                     </div>
-
                     {isMe && (
                       <>
                         <div className="message-avatar">
                           {!hideAvatar &&
-                            currentUsername?.charAt(0)}
+                            currentUsername?.charAt(
+                              0
+                            )}
                         </div>
-
                         <span
                           className={`msg-status ${
                             msg.isRead
@@ -498,7 +721,9 @@ function Chat({ text }) { // 定义聊天组件，接收父组件传来的 text 
                               : 'status-unread'
                           }`}
                         >
-                          {msg.isRead ? '읽음' : '1'}
+                          {msg.isRead
+                            ? '읽음'
+                            : '1'}
                         </span>
                       </>
                     )}
@@ -507,11 +732,11 @@ function Chat({ text }) { // 定义聊天组件，接收父组件传来的 text 
               </div>
             )
           })}
-
           {isAiLoading && (
             <div className="message-row row-received">
-              <div className="message-avatar">✨</div>
-
+              <div className="message-avatar">
+                ✨
+              </div>
               <div className="message received ai-typing-bubble">
                 <div className="typing-dots">
                   <span></span>
@@ -521,33 +746,30 @@ function Chat({ text }) { // 定义聊天组件，接收父组件传来的 text 
               </div>
             </div>
           )}
-
           {aiError && (
             <div className="ai-suggestion-box">
               <div className="ai-suggest-title">
                 {AI_PREFIX}
               </div>
-
               <div className="ai-suggest-content">
                 {aiError}
               </div>
             </div>
           )}
-
           <div ref={messagesEndRef} />
         </div>
-
         <div className="chat-input-area">
           <button className="plus-btn">
             +
           </button>
-
           <input
             type="text"
             className="chat-input"
             value={newMessage}
             onChange={(e) =>
-              setNewMessage(e.target.value)
+              setNewMessage(
+                e.target.value
+              )
             }
             onKeyDown={(e) =>
               e.key === 'Enter' &&
@@ -555,26 +777,32 @@ function Chat({ text }) { // 定义聊天组件，接收父组件传来的 text 
             }
             placeholder="메시지를 입력하세요..."
           />
-
           <button
             className="ai-btn"
-            onClick={handleAiSuggest}
-            disabled={isAiLoading}
+            onClick={
+              handleAiSuggest
+            }
+            disabled={
+              isAiLoading
+            }
           >
-            {isAiLoading ? '...' : '✨ AI'}
+            {
+              isAiLoading
+                ? '...'
+                : '✨ AI'
+            }
           </button>
-
           <button
             className="send-btn"
-            onClick={handleSendMessage}
+            onClick={
+              handleSendMessage
+            }
           >
             보내기
           </button>
         </div>
-
       </div>
     </div>
   )
 }
-
 export default Chat

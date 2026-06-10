@@ -11,6 +11,7 @@ import './styles/board.css'
 import './styles/boardDetail.css'
 import './styles/responsive.css'
 import './styles/settings.css'
+import './styles/quiz.css'
 
 import './styles/navbar.css'
 import './styles/theme.css'
@@ -31,6 +32,10 @@ import Profile from './pages/Profile'
 import Board from './pages/Board'
 import BoardDetail from './pages/BoardDetail'
 import Settings from './pages/Settings'
+import Quiz from './pages/Quiz'
+import QuizTest from './pages/QuizTest'
+import QuizResult from './pages/QuizResult'
+
 
 // 다국어
 import messages from './i18n/messages'
@@ -132,6 +137,10 @@ function App() {
 
             <NavLink to="/match">
               {text.match}
+            </NavLink>
+
+            <NavLink to="/quiz">
+              {text.quiz || 'AI测试'}
             </NavLink>
 
             <NavLink to="/chat">
@@ -288,6 +297,35 @@ function App() {
             />
           }
         />
+
+        <Route
+          path="/quiz"
+          element={
+            <Quiz
+              text={text}
+              user={user}
+              lang={lang}
+            />
+          }
+        />
+
+        <Route
+          path="/quiz/test"
+          element={
+            <QuizTest
+              lang={lang}
+          />
+        }
+       />
+
+        <Route
+         path="/quiz/result"
+         element={
+           <QuizResult
+             lang={lang}
+         />
+      }
+      />
 
         <Route
           path="/chat"

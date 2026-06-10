@@ -1,0 +1,488 @@
+/* =========================================================
+   QUIZ PAGE
+   Open Layout Version
+   不使用卡片套卡片排版
+========================================================= */
+
+.quiz-page {
+  min-height: calc(100vh - 80px);
+  padding: 120px 8% 90px;
+  color: #ffffff;
+}
+
+/* =========================
+   HERO 标题区域
+========================= */
+
+.quiz-hero {
+  max-width: 1050px;
+  margin: 0 auto 58px;
+  text-align: center;
+}
+
+.quiz-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+  padding: 8px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(168, 85, 247, 0.5);
+  color: #e9d5ff;
+  font-size: 14px;
+  font-weight: 800;
+  background: rgba(168, 85, 247, 0.12);
+}
+
+.quiz-hero h1 {
+  margin-bottom: 18px;
+  color: #ffffff;
+  font-size: 56px;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.quiz-hero p {
+  max-width: 760px;
+  margin: 0 auto;
+  color: #d7d7e8;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.9;
+}
+
+/* =========================
+   主体开放式布局
+========================= */
+
+.quiz-main-grid {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 46px;
+}
+
+/* 去掉外层卡片感 */
+.quiz-panel {
+  padding: 0 0 42px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.quiz-rules-panel {
+  grid-column: auto;
+  border-bottom: none;
+}
+
+/* =========================
+   分区标题
+========================= */
+
+.quiz-section-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.quiz-section-title span {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #a855f7, #3b82f6);
+  box-shadow: 0 12px 26px rgba(99, 102, 241, 0.35);
+}
+
+.quiz-section-title h2 {
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: 900;
+}
+
+/* =========================
+   技能选择：按钮组，不做卡片
+========================= */
+
+.quiz-skill-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.quiz-skill-card {
+  min-width: 150px;
+  height: 58px;
+  padding: 0 26px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 900;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.07);
+  transition: 0.24s ease;
+}
+
+.quiz-skill-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(168, 85, 247, 0.65);
+  background: rgba(168, 85, 247, 0.16);
+}
+
+.quiz-skill-card.active {
+  border-color: transparent;
+  background: linear-gradient(135deg, #a855f7, #3b82f6);
+  box-shadow: 0 16px 36px rgba(99, 102, 241, 0.34);
+}
+
+/* =========================
+   测试用途：开放式左右选择
+========================= */
+
+.quiz-type-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+}
+
+.quiz-type-card {
+  position: relative;
+  min-height: 118px;
+  padding: 0 0 0 24px;
+  text-align: left;
+  border: none;
+  border-left: 4px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0;
+  color: #ffffff;
+  cursor: pointer;
+  background: transparent;
+  box-shadow: none;
+  transition: 0.24s ease;
+}
+
+.quiz-type-card:hover {
+  transform: translateX(4px);
+  border-left-color: rgba(168, 85, 247, 0.75);
+}
+
+.quiz-type-card.active {
+  border-left-color: #a855f7;
+}
+
+.quiz-type-card.active::after {
+  content: 'Selected';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 6px 14px;
+  border-radius: 999px;
+  color: #e9d5ff;
+  font-size: 12px;
+  font-weight: 900;
+  background: rgba(168, 85, 247, 0.16);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+}
+
+.quiz-type-card strong {
+  display: block;
+  margin-bottom: 12px;
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.quiz-type-card p {
+  max-width: 360px;
+  color: #d5d5e6;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+/* =========================
+   测试规则：普通列表，不套卡片
+========================= */
+
+.quiz-rule-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 34px;
+  margin-bottom: 34px;
+  list-style: none;
+}
+
+.quiz-rule-list li {
+  position: relative;
+  padding: 0 0 0 30px;
+  color: #deddf0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.7;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+.quiz-rule-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #c4b5fd;
+  font-weight: 900;
+}
+
+/* =========================
+   等级说明：4等级横向条
+========================= */
+
+.quiz-level-box {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.quiz-level-box div {
+  padding: 22px 18px;
+  text-align: center;
+  background: transparent;
+  border-radius: 0;
+}
+
+.quiz-level-box div + div {
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.quiz-level-box strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.quiz-level-box span {
+  color: #d7d7ea;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* =========================
+   开始按钮
+========================= */
+
+.quiz-start-area {
+  max-width: 1120px;
+  margin: 48px auto 0;
+  display: flex;
+  justify-content: center;
+}
+
+.quiz-primary-btn {
+  min-width: 220px;
+  padding: 17px 38px;
+  border: none;
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+  background: linear-gradient(135deg, #a855f7, #3b82f6);
+  box-shadow: 0 18px 44px rgba(99, 102, 241, 0.4);
+  transition: 0.24s ease;
+}
+
+.quiz-primary-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 24px 58px rgba(99, 102, 241, 0.52);
+}
+
+.quiz-message {
+  max-width: 760px;
+  margin: 24px auto 0;
+  color: #d8b4fe;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+/* =========================
+   LIGHT MODE
+========================= */
+
+[data-theme='light'] .quiz-page {
+  color: #1f2937;
+}
+
+[data-theme='light'] .quiz-hero h1,
+[data-theme='light'] .quiz-section-title h2,
+[data-theme='light'] .quiz-type-card strong,
+[data-theme='light'] .quiz-level-box strong {
+  color: #111827;
+}
+
+[data-theme='light'] .quiz-hero p,
+[data-theme='light'] .quiz-type-card p,
+[data-theme='light'] .quiz-rule-list li,
+[data-theme='light'] .quiz-level-box span {
+  color: #4b5563;
+}
+
+[data-theme='light'] .quiz-panel {
+  border-bottom-color: rgba(148, 163, 184, 0.24);
+}
+
+[data-theme='light'] .quiz-skill-card {
+  color: #1f2937;
+  border-color: rgba(148, 163, 184, 0.28);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+[data-theme='light'] .quiz-skill-card.active {
+  color: #ffffff;
+  background: linear-gradient(135deg, #a855f7, #3b82f6);
+}
+
+[data-theme='light'] .quiz-type-card {
+  color: #1f2937;
+  border-left-color: rgba(148, 163, 184, 0.35);
+}
+
+[data-theme='light'] .quiz-type-card.active {
+  border-left-color: #8b5cf6;
+}
+
+[data-theme='light'] .quiz-level-box {
+  border-color: rgba(148, 163, 184, 0.24);
+  background: rgba(255, 255, 255, 0.62);
+}
+
+[data-theme='light'] .quiz-level-box div + div {
+  border-left-color: rgba(148, 163, 184, 0.22);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+  .quiz-page {
+    padding: 105px 20px 70px;
+  }
+
+  .quiz-hero h1 {
+    font-size: 40px;
+  }
+
+  .quiz-type-grid,
+  .quiz-rule-list,
+  .quiz-level-box {
+    grid-template-columns: 1fr;
+  }
+
+  .quiz-level-box div + div {
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  [data-theme='light'] .quiz-level-box div + div {
+    border-left: none;
+    border-top-color: rgba(148, 163, 184, 0.22);
+  }
+}
+
+@media (max-width: 520px) {
+  .quiz-page {
+    padding: 95px 18px 60px;
+  }
+
+  .quiz-hero h1 {
+    font-size: 34px;
+  }
+
+  .quiz-hero p {
+    font-size: 15px;
+  }
+
+  .quiz-skill-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .quiz-skill-card {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .quiz-primary-btn {
+    width: 100%;
+  }
+}
+/* =========================
+   技能输入框
+========================= */
+
+.quiz-skill-input-area {
+  max-width: 720px;
+}
+
+.quiz-skill-input {
+  width: 100%;
+  height: 62px;
+  padding: 0 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  outline: none;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.07);
+  transition: 0.24s ease;
+}
+
+.quiz-skill-input::placeholder {
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.quiz-skill-input:focus {
+  border-color: rgba(168, 85, 247, 0.85);
+  background: rgba(168, 85, 247, 0.12);
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.12);
+}
+
+.quiz-skill-hint {
+  margin-top: 14px;
+  color: #d5d5e6;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+[data-theme='light'] .quiz-skill-input {
+  color: #1f2937;
+  border-color: rgba(148, 163, 184, 0.3);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+[data-theme='light'] .quiz-skill-input::placeholder {
+  color: rgba(75, 85, 99, 0.55);
+}
+
+[data-theme='light'] .quiz-skill-hint {
+  color: #4b5563;
+}

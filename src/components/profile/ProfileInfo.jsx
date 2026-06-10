@@ -28,6 +28,16 @@ function ProfileInfo({
     return level || ''
   }
 
+  const teachLevelValue =
+  profile.skillOfferLevel ||
+  profile.skill_offer_level ||
+  profile.teachLevel
+
+  const learnLevelValue =
+  profile.skillWantLevel ||
+  profile.skill_want_level ||
+  profile.learnLevel
+
   return (
     <>
       <div className="profile-info">
@@ -122,9 +132,9 @@ function ProfileInfo({
               {translatedInfo.teachSkill || profile.teachSkill || '-'}
             </span>
 
-            {profile.teachLevel && (
+            {teachLevelValue && (
               <span className="profile-level-tag">
-                {getLevelText(profile.teachLevel)}
+                {getLevelText(teachLevelValue)}
               </span>
             )}
           </span>
@@ -140,9 +150,9 @@ function ProfileInfo({
               {translatedInfo.learnSkill || profile.learnSkill || '-'}
             </span>
 
-            {profile.learnLevel && (
+            {learnLevelValue && (
               <span className="profile-level-tag learn-level-tag">
-                {getLevelText(profile.learnLevel)}
+                {getLevelText(learnLevelValue)}
               </span>
             )}
           </span>

@@ -114,7 +114,7 @@ function Settings({ text, user, lang, setLang, theme, setTheme }) {
 
           <div className="settings-row">
             <span>{text.version || "版本"}</span>
-            <strong>1.1.0</strong>
+            <strong>1.2.0</strong>
           </div>
         </div>
       </div>

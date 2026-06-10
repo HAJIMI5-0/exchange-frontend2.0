@@ -495,3 +495,20 @@
   .chat-sidebar { width: 280px; min-width: 280px; }
   .message { max-width: 85%; }
 }
+
+.message-wrapper {
+  position: relative;
+}
+
+.chat-rating {
+  position: absolute;
+  bottom: -22px;
+  right: 10px;
+  display: flex;
+  gap: 4px;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(10px);
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
