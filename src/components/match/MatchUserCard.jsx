@@ -27,6 +27,7 @@ function MatchUserCard({ text, user, onSelect }) {
       '未评级'
     )
   }
+  
 
   return (
     <div className="user-card">

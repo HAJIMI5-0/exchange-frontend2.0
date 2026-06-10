@@ -1150,3 +1150,69 @@
       rgba(248, 249, 255, 0)
     ) !important;
 }
+
+/* =========================================================
+   LIGHT THEME - MATCH CARD SKILL TITLE SYNC
+   同步用户卡片：去掉“我会 / 想学”的标签效果，去掉多余分割线
+========================================================= */
+
+/* 去掉技能区域顶部多余分割线，只保留标题左右横线 */
+:root[data-theme="light"] .user-card .skill-section {
+  padding-top: 0 !important;
+  margin-top: 14px !important;
+  margin-bottom: 16px !important;
+  border-top: none !important;
+}
+
+/* 标题横线区域 */
+:root[data-theme="light"] .user-card .skill-title-line {
+  margin: 0 0 12px !important;
+}
+
+/* 浅色模式下标题左右横线 */
+:root[data-theme="light"] .user-card .skill-title-line::before,
+:root[data-theme="light"] .user-card .skill-title-line::after {
+  background: rgba(128, 140, 170, 0.24) !important;
+}
+
+/* “我会 / 想学”改成普通浅灰文字 */
+:root[data-theme="light"] .user-card .skill-title,
+:root[data-theme="light"] .user-card .skill-title.can,
+:root[data-theme="light"] .user-card .skill-title.want {
+  padding: 0 10px !important;
+
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+
+  color: #a0a7b5 !important;
+
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  white-space: nowrap !important;
+
+  box-shadow: none !important;
+}
+
+/* 浅色模式技能卡片 */
+:root[data-theme="light"] .user-card .skill-pill {
+  background: rgba(255, 255, 255, 0.82) !important;
+  border-color: rgba(128, 140, 170, 0.18) !important;
+  box-shadow: none !important;
+}
+
+/* 技能名称 */
+:root[data-theme="light"] .user-card .skill-name {
+  color: #334155 !important;
+}
+
+/* 技能等级 */
+:root[data-theme="light"] .user-card .skill-level {
+  background: rgba(124, 111, 246, 0.10) !important;
+  color: #6d5dfc !important;
+}
+
+/* 个人介绍文字 */
+:root[data-theme="light"] .user-card .user-intro {
+  color: rgba(71, 85, 105, 0.78) !important;
+}

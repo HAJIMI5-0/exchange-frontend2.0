@@ -69,7 +69,13 @@ function Login({ text, setUser }) {               // 登录组件，接收多语
             data.email ||
             '',
 
-          avatar: avatarUrl
+          avatar: avatarUrl,
+
+          // ⭐ 管理员权限
+          role:
+            profileData.role ||
+            data.role ||
+            'USER'
         }
 
         localStorage.setItem(

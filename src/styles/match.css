@@ -1066,3 +1066,35 @@
   font-weight: 900;
   white-space: nowrap;
 }
+/* =========================================================
+   REDUCE USER CARD SEPARATOR LINES
+   只保留“我会 / 想学”标题左右两条线，去掉技能区顶部多余分割线
+========================================================= */
+.user-card .skill-section {
+  padding-top: 0;
+  margin-top: 14px;
+  margin-bottom: 16px;
+  border-top: none;
+}
+
+.user-card .skill-title-line {
+  margin: 0 0 12px;
+}
+
+.user-card .skill-title {
+  padding: 0 10px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: #a0a7b5;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.user-card .skill-title.can,
+.user-card .skill-title.want {
+  background: transparent;
+  border: none;
+  color: #a0a7b5;
+}

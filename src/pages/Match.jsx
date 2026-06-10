@@ -168,6 +168,7 @@ function Match({ text, lang = 'zh' }) {
               key={user.id || user.username || user.name}
               text={text}
               user={user}
+              lang={lang}
               onSelect={handleSelectUser}
             />
           ))

@@ -199,19 +199,6 @@ textarea {
   color: #9ca3af; /* placeholder 灰色 */
 }
 /* =========================================================
-   SCROLLBAR WIDTH FIX
-   防止不同页面有无滚动条导致导航栏位置跳动
-========================================================= */
-
-html {
-  scrollbar-gutter: stable;
-  overflow-y: scroll;
-}
-
-body {
-  min-height: 100vh;
-}
-/* =========================================================
    HIDE PAGE SCROLLBAR
    隐藏右侧滚动条，但保留页面滚动
 ========================================================= */
@@ -235,4 +222,43 @@ body::-webkit-scrollbar {
   width: 0;
   height: 0;
   display: none;
+}
+
+/* =========================================================
+   ALL PAGE NAVBAR BLEND FIX
+   让所有页面都和导航栏自然融合
+========================================================= */
+
+/* 所有主页面往上顶到导航栏下面 */
+.hero,
+.match-page,
+.profile-page,
+.chat-page,
+.board-page,
+.board-detail-page,
+.settings-page,
+.auth-page {
+  margin-top: -96px;
+  padding-top: 176px !important;
+  min-height: 100vh;
+}
+
+/* 聊天页如果布局被压得太多，可以单独微调 */
+.chat-page {
+  min-height: calc(100vh - 0px);
+}
+
+/* 手机端不要顶太多，避免内容挤压 */
+@media (max-width: 768px) {
+  .hero,
+  .match-page,
+  .profile-page,
+  .chat-page,
+  .board-page,
+  .board-detail-page,
+  .settings-page,
+  .auth-page {
+    margin-top: -80px;
+    padding-top: 130px !important;
+  }
 }
