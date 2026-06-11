@@ -448,7 +448,7 @@ const loginUser = JSON.parse(localStorage.getItem('loginUser'))
             )
           }
         >
-          {t.prevQuestion || '上一题'}
+          ←
         </button>
 
         {currentIndex ===
@@ -482,7 +482,7 @@ const loginUser = JSON.parse(localStorage.getItem('loginUser'))
               )
             }
           >
-            {t.nextQuestion || '下一题'}
+            →
           </button>
 
         )}
